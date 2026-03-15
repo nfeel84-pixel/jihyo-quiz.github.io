@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>15일차: 나눗셈 문장제 마스터</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root { --main: #0984e3; --bg: #f0f8ff; --card: #fff; --error: #d63031; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 3px solid var(--main); padding-bottom: 15px; margin-bottom: 20px; }
+        .badge { background: var(--main); color: white; padding: 5px 15px; border-radius: 20px; font-family: 'Jua'; }
+        .title { font-family: 'Jua'; font-size: 28px; margin: 10px 0; word-break: keep-all; }
+        
+        /* 🔥 개념 설명 구역 강화 🔥 */
+        .concept-card { background: #e3f2fd; border: 2px solid var(--main); border-radius: 15px; padding: 20px; margin-bottom: 25px; }
+        .concept-title { font-family: 'Jua'; color: var(--main); margin: 0 0 10px 0; font-size: 22px; border-bottom: 2px dashed #74b9ff; padding-bottom: 10px; }
+        .concept-desc { font-size: 16px; line-height: 1.6; margin-bottom: 15px; word-break: keep-all; }
+        .example-box { background: white; border-radius: 10px; padding: 15px; border-left: 5px solid var(--main); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .example-q { font-weight: bold; font-size: 16px; color: #2d3436; margin-bottom: 10px; }
+        .step { display: flex; align-items: flex-start; margin-bottom: 10px; gap: 10px; font-size: 15px; line-height: 1.4; }
+        .step-num { background: var(--main); color: white; padding: 2px 8px; border-radius: 8px; font-size: 13px; font-family: 'Jua'; flex-shrink: 0; }
+        
+        .prob-grid { display: grid; gap: 15px; }
+        .prob-card { border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; background: #fafbfc; position: relative; }
+        .prob-card.correct { border-color: #00b894; background: #e6fffa; }
+        .prob-card.wrong { border-color: var(--error); background: #fff0f0; }
+        .q-num { font-family: 'Jua'; color: white; background: var(--main); padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 10px; }
+        .q-text { font-size: 16px; font-weight: bold; margin-bottom: 15px; line-height: 1.4; word-break: keep-all; }
+        
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .opt-btn { border: 2px solid #cbd5e1; background: white; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.1s; display: flex; gap: 10px; }
+        .opt-btn.selected { background: var(--main); color: white; border-color: var(--main); }
+        .explanation { display: none; margin-top: 15px; padding: 12px; background: white; border-left: 5px solid var(--error); border-radius: 5px; font-size: 14px; color: var(--error); line-height: 1.5; }
+        
+        .submit-btn { background: var(--main); color: white; border: none; padding: 15px 30px; font-family: 'Jua'; font-size: 24px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 30px; box-shadow: 0 5px 0 #005f9e; }
+        .submit-btn:active { transform: translateY(5px); box-shadow: none; }
+        #result-modal { display: none; text-align: center; margin-top: 20px; font-family: 'Jua'; font-size: 30px; color: var(--error); padding: 20px; background: #fff; border: 4px solid var(--main); border-radius: 15px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <span class="badge">디지털 교과서 15일차</span>
+        <h1 class="title">나눗셈 문장제 마스터!</h1>
+        <div style="font-size:14px;">학생명: <strong>서 지 효</strong></div>
+    </div>
+
+    <div class="concept-card">
+        <h3 class="concept-title">💡 핵심 원리: 문장 속 숨은 기호 찾기!</h3>
+        <div class="concept-desc">
+            "지효야, 글이 길다고 겁먹지 마! 문장제 문제는 숨바꼭질이랑 같아.<br>
+            글 속에 <strong>'똑같이 나누어 준다'</strong>, <strong>'몇 묶음일까?'</strong>라는 마법의 단어가 보이면, 거기에 <strong>나눗셈 기호(÷)</strong>가 숨어있는 거야!"
+        </div>
+        
+        <div class="example-box">
+            <div class="example-q">🕵️‍♀️ [아빠와 함께 푸는 예제]<br>"과자 24개를 4명에게 똑같이 나누어 줍니다. 한 명이 몇 개씩 먹을까요?"</div>
+            
+            <div class="step">
+                <span class="step-num">1단계</span>
+                <div>마법의 단어 찾기! 👉 '똑같이 나누어'를 찾았어! 나눗셈(÷)을 써야지.</div>
+            </div>
+            <div class="step">
+                <span class="step-num">2단계</span>
+                <div>식 세우기 👉 전체 개수(24)를 앞에 쓰고, 나누는 수(4)를 뒤에 써. <br><span style="color:#0984e3; font-weight:bold; font-size:18px;">24 ÷ 4 = ?</span></div>
+            </div>
+            <div class="step">
+                <span class="step-num">3단계</span>
+                <div>구구단 출동! 👉 나누는 수인 <strong>4단</strong>을 외워보자.<br>
+                사 일은 사... 사 오 이십... <span style="color:#d63031; font-weight:bold;">사 육에 이십사! (4 × 6 = 24)</span><br>
+                맞았어! 몫은 <strong>6</strong>, 한 명이 <strong>6개씩</strong> 먹을 수 있어!</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-area" class="prob-grid"></div>
+
+    <button class="submit-btn" onclick="gradeQuiz()">💯 다 풀었어요!</button>
+    <div id="result-modal"></div>
+</div>
+
+<script>
+    const quizData = [
+        { type: "복습", q: "36 ÷ 4 의 몫을 구하기 위해 외워야 할 구구단은?", opts: ["3단", "4단", "9단"], ans: 2, exp: "나누는 수인 뒤쪽 숫자, 4단을 외워야 합니다. 사 구 삼십육! (4 × 9 = 36)" },
+        { type: "복습", q: "빈칸에 알맞은 수를 고르세요. [ 8 × 5 = 40 ] ➡ [ 40 ÷ 8 = ? ]", opts: ["5", "8", "40"], ans: 1, exp: "곱셈과 나눗셈은 단짝! 40을 8로 나누면 5가 됩니다." },
+        { type: "문제 1", q: "지효가 딸기 21개를 3개의 접시에 똑같이 나누어 담으려고 합니다. 한 접시에 몇 개씩 담아야 할까요?", opts: ["6개", "7개", "8개"], ans: 2, exp: "21 ÷ 3 = ? (삼 칠에 이십일! 3 × 7 = 21 이므로 7개입니다.)" },
+        { type: "문제 2", q: "연필 32자루를 한 명당 8자루씩 나누어 주려고 합니다. 몇 명에게 줄 수 있을까요?", opts: ["3명", "4명", "5명"], ans: 2, exp: "32 ÷ 8 = ? (팔 사 삼십이! 8 × 4 = 32 이므로 4명입니다.)" },
+        { type: "문제 3", q: "색종이 45장을 5명의 친구들이 똑같이 나누어 가졌습니다. 한 사람이 몇 장씩 가졌을까요?", opts: ["8장", "9장", "10장"], ans: 2, exp: "45 ÷ 5 = ? (오 구 사십오! 5 × 9 = 45 이므로 9장입니다.)" },
+        { type: "문제 4", q: "사탕 48개를 한 봉지에 6개씩 담으면 모두 몇 봉지가 될까요?", opts: ["7봉지", "8봉지", "9봉지"], ans: 2, exp: "48 ÷ 6 = ? (육 팔에 사십팔! 6 × 8 = 48 이므로 8봉지입니다.)" },
+        { type: "문제 5", q: "[함정] 쿠키 15개를 3접시에 똑같이 나누어 담았습니다. 이 상황을 바르게 나타낸 나눗셈식은?", opts: ["15 ÷ 5 = 3", "15 ÷ 3 = 5", "3 × 5 = 15"], ans: 2, exp: "15개를 3접시로 나누었으므로 전체 개수(15)가 앞에 오는 15 ÷ 3 = 5 가 정확한 식입니다." },
+        { type: "문제 6", q: "지효네 반 학생은 24명입니다. 4명씩 한 모둠을 만들려면 모두 몇 모둠이 될까요?", opts: ["5모둠", "6모둠", "7모둠"], ans: 2, exp: "24 ÷ 4 = 6 이므로 6모둠입니다." },
+        { type: "문제 7", q: "길이가 27cm인 리본을 9cm씩 똑같이 자르려고 합니다. 몇 도막이 될까요?", opts: ["3도막", "4도막", "5도막"], ans: 1, exp: "27 ÷ 9 = 3 (구 삼 이십칠! 9 × 3 = 27 이므로 3도막입니다.)" },
+        { type: "문제 8", q: "어떤 수를 7로 나누었더니 몫이 5가 되었습니다. 어떤 수는 얼마일까요? (? ÷ 7 = 5)", opts: ["12", "35", "42"], ans: 2, exp: "나눗셈을 거꾸로 하면 곱셈이 됩니다! 7 × 5 = 35 입니다." }
+    ];
+
+    let userAns = {};
+    const quizArea = document.getElementById('quiz-area');
+    const circleNums = ['①', '②', '③']; 
+
+    quizData.forEach((q, i) => {
+        let html = `
+        <div class="prob-card" id="q${i}">
+            <span class="q-num" style="background:${q.type === '복습' ? '#e17055' : 'var(--main)'}">${q.type}</span>
+            <div class="q-text">${q.q}</div>
+            <div class="options">`;
+        q.opts.forEach((opt, j) => {
+            html += `<div class="opt-btn" onclick="sel(${i}, ${j+1})"><span>${circleNums[j]}</span><span>${opt}</span></div>`;
+        });
+        html += `</div><div class="explanation">✅ ${q.exp}</div></div>`;
+        quizArea.innerHTML += html;
+    });
+
+    function sel(qIdx, opt) {
+        const box = document.getElementById('q'+qIdx);
+        const btns = box.querySelectorAll('.opt-btn');
+        btns.forEach(b => b.classList.remove('selected'));
+        btns[opt-1].classList.add('selected');
+        userAns[qIdx] = opt;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        if(Object.keys(userAns).length < quizData.length) {
+            alert("아직 안 푼 문제가 있어요! 천천히 다 풀어보세요."); return;
+        }
+        quizData.forEach((q, i) => {
+            const box = document.getElementById('q'+i);
+            const explain = box.querySelector('.explanation');
+            box.classList.remove('correct', 'wrong');
+            explain.style.display = 'none';
+
+            if(userAns[i] === q.ans) {
+                score++; box.classList.add('correct');
+            } else {
+                box.classList.add('wrong'); explain.style.display = 'block';
+                box.querySelectorAll('.opt-btn')[q.ans-1].style.border = "3px solid var(--error)";
+            }
+        });
+        const res = document.getElementById('result-modal');
+        let finalScore = Math.round((score/quizData.length)*100);
+        res.innerHTML = `지효의 점수는: <span style="font-size:50px;">${finalScore}점</span>!<br>` + 
+                        (finalScore === 100 ? "🎉 완벽한 나눗셈 천재!" : "👍 훌륭해요! 틀린 문제 해설을 아빠와 읽어봐요!");
+        res.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>

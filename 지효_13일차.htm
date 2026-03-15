@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>[디지털교과서] 13일차: 나눗셈의 기초</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        :root { --main: #0984e3; --bg: #f0f8ff; --text: #2d3436; --card: #ffffff; --success: #00b894; --error: #d63031; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg); margin: 0; padding: 10px; color: var(--text); -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 100%; margin: 0 auto; background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); box-sizing: border-box; }
+        
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 3px solid var(--main); padding-bottom: 15px; }
+        .badge { background: var(--main); color: white; padding: 5px 15px; border-radius: 20px; font-family: 'Jua'; font-size: 16px; }
+        .title { font-family: 'Jua'; font-size: 28px; color: #2d3436; margin: 10px 0; word-break: keep-all; }
+        
+        /* 복습 영역 */
+        .review-section { background: #ffeaa7; border: 2px solid #fdcb6e; border-radius: 15px; padding: 15px; margin-bottom: 30px; position: relative; }
+        .review-badge { position: absolute; top: -12px; left: 15px; background: #e17055; color: white; font-family: 'Jua'; padding: 3px 10px; border-radius: 8px; font-size: 15px; }
+
+        /* 단계별 헤더 & 개념 */
+        .step-header { font-family: 'Jua'; background: var(--main); color: white; padding: 8px 15px; border-radius: 10px; font-size: 20px; margin: 30px 0 10px 0; display: inline-block; }
+        .concept-card { display: flex; flex-direction: column; gap: 10px; background: #e3f2fd; border: 2px solid var(--main); border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+        .concept-text h3 { font-family: 'Jua'; color: var(--main); margin: 0 0 5px 0; font-size: 18px; }
+        .concept-text p { margin: 0; line-height: 1.5; font-size: 15px; word-break: keep-all; }
+        
+        /* 문제 그리드 */
+        .prob-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .prob-card { border: 2px solid #e2e8f0; border-radius: 12px; padding: 15px; background: #fafbfc; position: relative; display: flex; flex-direction: column; }
+        .prob-card.correct-card { border-color: var(--success); background: #e6fffa; }
+        .prob-card.wrong-card { border-color: var(--error); background: #fff0f0; }
+        
+        .q-num { font-family: 'Jua'; font-size: 16px; color: white; background: var(--main); display: inline-block; padding: 3px 10px; border-radius: 10px; margin-bottom: 10px; align-self: flex-start; }
+        .q-text { font-size: 16px; font-weight: bold; margin-bottom: 15px; line-height: 1.4; word-break: keep-all; }
+        
+        .options { display: flex; flex-direction: column; gap: 8px; }
+        .opt-btn { border: 2px solid #cbd5e1; background: white; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; font-weight: bold; transition: background 0.1s; }
+        .opt-btn.selected { background: var(--main); color: white; border-color: var(--main); }
+
+        .explanation { display: none; margin-top: 15px; padding: 12px; background: white; border-left: 5px solid var(--error); border-radius: 8px; font-size: 14px; color: var(--error); line-height: 1.5; }
+
+        .action-area { text-align: center; margin-top: 40px; }
+        .submit-btn { background: var(--main); color: white; border: none; padding: 15px 30px; font-family: 'Jua'; font-size: 24px; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 0 #005f9e; width: 90%; max-width: 400px; }
+        .submit-btn:active { transform: translateY(5px); box-shadow: none; }
+
+        .result-modal { display: none; margin-top: 30px; text-align: center; background: #fff; border: 4px solid var(--main); padding: 20px; border-radius: 20px; }
+        .score-text { font-family: 'Jua'; font-size: 45px; color: var(--error); margin: 10px 0; }
+        
+        /* 텍스트 드래그 방지 */
+        .no-select { user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+<div class="container no-select">
+    <div class="header">
+        <span class="badge">디지털 교과서 13일차</span>
+        <h1 class="title">똑같이 나누어 볼까? (나눗셈)</h1>
+        <div style="font-size:14px; color:#555;">학생명: <strong>서 지 효</strong></div>
+    </div>
+
+    <div class="review-section">
+        <div class="review-badge">🔙 워밍업 복습</div>
+        <div class="q-text" style="margin-top:10px;">"나눗셈을 배우기 전에 <strong>구구단</strong>과 <strong>도형</strong>을 복습해 볼까?"</div>
+        
+        <div class="prob-grid">
+            <div class="prob-card" id="r1" data-ans="2">
+                <span class="q-num" style="background:#e17055;">복습 1</span>
+                <div class="q-text">오른쪽(▶)을 보던 도형을 시계 방향으로 180도(반 바퀴) 돌리면?</div>
+                <div class="options">
+                    <div class="opt-btn" onclick="sel('r1',1)">① 위(▲)</div>
+                    <div class="opt-btn" onclick="sel('r1',2)">② 왼쪽(◀)</div>
+                </div>
+                <div class="explanation">💡 <strong>해설:</strong> 180도는 완전히 반대를 보는 거예요! 오른쪽의 반대는 왼쪽!</div>
+            </div>
+            <div class="prob-card" id="r2" data-ans="3">
+                <span class="q-num" style="background:#e17055;">복습 2</span>
+                <div class="q-text">구구단 4단을 외워보자! <span style="color:blue;">4 × 6 = ?</span></div>
+                <div class="options">
+                    <div class="opt-btn" onclick="sel('r2',1)">① 18</div>
+                    <div class="opt-btn" onclick="sel('r2',2)">② 20</div>
+                    <div class="opt-btn" onclick="sel('r2',3)">③ 24</div>
+                </div>
+                <div class="explanation">💡 <strong>해설:</strong> 사 육에 이십사! 나눗셈은 구구단을 잘 알면 아주 쉬워져요.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="step-header">Step 1. 똑같이 나누어 주기</div>
+    <div class="concept-card">
+        <div class="concept-text">
+            <h3>💡 개념: 싸우지 않게 똑같이!</h3>
+            <p>"딸기 <strong>8개</strong>를 지효와 지수 <strong>2명</strong>이 똑같이 나누어 먹으려면?<br>
+            한 개씩 번갈아 나누어 주면, 한 명이 <strong>4개씩</strong> 먹을 수 있어!"</p>
+            <div style="font-size:24px; text-align:center; margin-top:10px;">🍓🍓🍓🍓 | 🍓🍓🍓🍓</div>
+        </div>
+    </div>
+
+    <div class="prob-grid">
+        <div class="prob-card" id="q1" data-ans="1">
+            <span class="q-num">1</span>
+            <div class="q-text">사탕 6개를 2명이 똑같이 나누어 가지려고 합니다. 한 명당 몇 개씩 가질 수 있을까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q1',1)">① 3개</div>
+                <div class="opt-btn" onclick="sel('q1',2)">② 4개</div>
+                <div class="opt-btn" onclick="sel('q1',3)">③ 2개</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 6개를 두 접시에 하나씩 번갈아 담으면 한 접시에 3개씩 들어갑니다.</div>
+        </div>
+        <div class="prob-card" id="q2" data-ans="2">
+            <div class="q-num">2</div>
+            <div class="q-text">쿠키 10개를 5접시에 똑같이 나누어 담으려고 합니다. 한 접시에 몇 개씩 담아야 할까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q2',1)">① 1개</div>
+                <div class="opt-btn" onclick="sel('q2',2)">② 2개</div>
+                <div class="opt-btn" onclick="sel('q2',3)">③ 5개</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 10개를 5곳으로 나누면 2개씩 담을 수 있습니다.</div>
+        </div>
+        <div class="prob-card" id="q3" data-ans="3">
+            <div class="q-num">3</div>
+            <div class="q-text">색종이 12장을 3명에게 똑같이 나누어 줍니다. 한 명이 몇 장을 받을까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q3',1)">① 2장</div>
+                <div class="opt-btn" onclick="sel('q3',2)">② 3장</div>
+                <div class="opt-btn" onclick="sel('q3',3)">③ 4장</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 12장을 3등분 하면 4장씩 받습니다. (3명 x 4장 = 12장)</div>
+        </div>
+        <div class="prob-card" id="q4" data-ans="1">
+            <div class="q-num">4</div>
+            <div class="q-text">공책 15권을 5명에게 똑같이 나누어 주려면 한 명에게 몇 권씩 주어야 할까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q4',1)">① 3권</div>
+                <div class="opt-btn" onclick="sel('q4',2)">② 4권</div>
+                <div class="opt-btn" onclick="sel('q4',3)">③ 5권</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 15개를 5명에게 나누어 주면 3권씩 받게 됩니다.</div>
+        </div>
+        <div class="prob-card" id="q5" data-ans="2">
+            <div class="q-num">5</div>
+            <div class="q-text">[함정] 구슬 9개를 3명에게 똑같이 나누어 주었습니다. 아빠가 한 명에게 4개씩 주었다면 맞게 나눈 것일까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q5',1)">① 맞게 나누었다</div>
+                <div class="opt-btn" onclick="sel('q5',2)">② 틀리게 나누었다</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 4개씩 3명에게 주면 12개가 필요해요. 9개라면 3개씩 주어야 똑같이 나눈 것입니다.</div>
+        </div>
+    </div>
+
+    <div class="step-header" style="background:#00b894;">Step 2. 똑같이 묶어 내기</div>
+    <div class="concept-card" style="border-color:#00b894; background:#e6fffa;">
+        <div class="concept-text">
+            <h3 style="color:#00b894;">💡 개념: 바구니에 몇 개씩 담을까?</h3>
+            <p>"딸기 <strong>8개</strong>를 한 바구니에 <strong>2개씩</strong> 담으면?<br>
+            2개씩 4번 덜어낼 수 있으니까, <strong>4바구니</strong>가 필요해!"</p>
+            <div style="font-size:20px; text-align:center; margin-top:10px;">[🍓🍓] [🍓🍓] [🍓🍓] [🍓🍓]</div>
+        </div>
+    </div>
+
+    <div class="prob-grid">
+        <div class="prob-card" id="q6" data-ans="2">
+            <span class="q-num" style="background:#00b894;">6</span>
+            <div class="q-text">장난감 자동차 10대를 한 상자에 5대씩 담으려고 합니다. 상자는 몇 개 필요할까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q6',1)">① 1개</div>
+                <div class="opt-btn" onclick="sel('q6',2)">② 2개</div>
+                <div class="opt-btn" onclick="sel('q6',3)">③ 5개</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 10에서 5를 2번 빼면 0이 됩니다. (5대씩 2묶음)</div>
+        </div>
+        <div class="prob-card" id="q7" data-ans="3">
+            <span class="q-num" style="background:#00b894;">7</span>
+            <div class="q-text">사과 12개를 한 봉지에 3개씩 담으려고 합니다. 몇 봉지가 될까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q7',1)">① 2봉지</div>
+                <div class="opt-btn" onclick="sel('q7',2)">② 3봉지</div>
+                <div class="opt-btn" onclick="sel('q7',3)">③ 4봉지</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 12개 안에 3개가 몇 번 들어가는지 생각해보세요. (3, 6, 9, 12 -> 4번!)</div>
+        </div>
+        <div class="prob-card" id="q8" data-ans="1">
+            <span class="q-num" style="background:#00b894;">8</span>
+            <div class="q-text">연필 20자루를 한 명에게 4자루씩 나누어 주려고 합니다. 몇 명에게 줄 수 있을까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q8',1)">① 5명</div>
+                <div class="opt-btn" onclick="sel('q8',2)">② 4명</div>
+                <div class="opt-btn" onclick="sel('q8',3)">③ 6명</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 20에서 4씩 덜어내면 5번 덜어낼 수 있어요. 즉 5명에게 줍니다.</div>
+        </div>
+        <div class="prob-card" id="q9" data-ans="2">
+            <span class="q-num" style="background:#00b894;">9</span>
+            <div class="q-text">계란 14개를 한 판에 7개씩 담으려면 계란 판은 몇 개 필요할까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q9',1)">① 1개</div>
+                <div class="opt-btn" onclick="sel('q9',2)">② 2개</div>
+                <div class="opt-btn" onclick="sel('q9',3)">③ 3개</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 14개는 7개씩 2묶음입니다.</div>
+        </div>
+        <div class="prob-card" id="q10" data-ans="3">
+            <span class="q-num" style="background:#00b894;">10</span>
+            <div class="q-text">16에서 4를 몇 번 빼면 0이 될까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q10',1)">① 2번</div>
+                <div class="opt-btn" onclick="sel('q10',2)">② 3번</div>
+                <div class="opt-btn" onclick="sel('q10',3)">③ 4번</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 16 - 4 - 4 - 4 - 4 = 0. 즉, 4번 뺄 수 있습니다.</div>
+        </div>
+    </div>
+
+    <div class="step-header" style="background:#e84393;">Step 3. 나눗셈식과 "몫"</div>
+    <div class="concept-card" style="border-color:#e84393; background:#fff0f6;">
+        <div class="concept-text">
+            <h3 style="color:#e84393;">💡 개념: 새로운 기호 <strong>$\div$</strong></h3>
+            <p>8을 2로 나누면 4가 된다는 것을 식으로 쓰면<br>
+            <span style="font-size:24px; font-weight:bold; color:#e84393;">8 $\div$ 2 = 4</span><br>
+            여기서 답인 '4'를 나눗셈의 <strong>'몫'</strong>이라고 불러요!</p>
+        </div>
+    </div>
+
+    <div class="prob-grid">
+        <div class="prob-card" id="q11" data-ans="1">
+            <span class="q-num" style="background:#e84393;">11</span>
+            <div class="q-text">"10을 2로 나누면 5와 같습니다."를 바른 식으로 나타낸 것은?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q11',1)">① 10 $\div$ 2 = 5</div>
+                <div class="opt-btn" onclick="sel('q11',2)">② 10 - 2 = 5</div>
+                <div class="opt-btn" onclick="sel('q11',3)">③ 2 $\div$ 10 = 5</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> '~을 ~로 나눈다'는 나누어지는 수가 앞에, 나누는 수가 뒤에 옵니다. 10 $\div$ 2 = 5 입니다.</div>
+        </div>
+        <div class="prob-card" id="q12" data-ans="3">
+            <span class="q-num" style="background:#e84393;">12</span>
+            <div class="q-text">다음 나눗셈식 <span style="color:blue;">12 $\div$ 3 = 4</span> 에서 나눗셈의 <strong>'몫'</strong>은 얼마인가요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q12',1)">① 12</div>
+                <div class="opt-btn" onclick="sel('q12',2)">② 3</div>
+                <div class="opt-btn" onclick="sel('q12',3)">③ 4</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 나눗셈을 계산해서 나온 결과(정답)를 '몫'이라고 부릅니다. 여기서 몫은 4입니다.</div>
+        </div>
+        <div class="prob-card" id="q13" data-ans="2">
+            <span class="q-num" style="background:#e84393;">13</span>
+            <div class="q-text">"15개를 5명에게 똑같이 나누면 한 명당 3개씩 받는다." 이 상황에 맞는 나눗셈식은?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q13',1)">① 15 $\div$ 3 = 5</div>
+                <div class="opt-btn" onclick="sel('q13',2)">② 15 $\div$ 5 = 3</div>
+                <div class="opt-btn" onclick="sel('q13',3)">③ 5 $\div$ 3 = 15</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 15를 5로 나누었으므로 15 $\div$ 5 = 3 입니다.</div>
+        </div>
+        <div class="prob-card" id="q14" data-ans="2">
+            <span class="q-num" style="background:#e84393;">14</span>
+            <div class="q-text">나눗셈식 <span style="color:blue;">18 $\div$ 6 = 3</span> 을 바르게 읽은 것은 무엇일까요?</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q14',1)">① 18 빼기 6은 3과 같습니다.</div>
+                <div class="opt-btn" onclick="sel('q14',2)">② 18 나누기 6은 3과 같습니다.</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 기호 $\div$는 '나누기'라고 읽습니다.</div>
+        </div>
+        <div class="prob-card" id="q15" data-ans="1">
+            <span class="q-num" style="background:#e84393;">15</span>
+            <div class="q-text">빈칸에 알맞은 수를 고르세요. [ 20 $\div$ 4 = <strong>( ? )</strong> ] (힌트: 20개를 4명에게 나누어주면?)</div>
+            <div class="options">
+                <div class="opt-btn" onclick="sel('q15',1)">① 5</div>
+                <div class="opt-btn" onclick="sel('q15',2)">② 6</div>
+                <div class="opt-btn" onclick="sel('q15',3)">③ 4</div>
+            </div>
+            <div class="explanation">💡 <strong>해설:</strong> 20개를 4곳으로 똑같이 나누면 5개씩 들어갑니다.</div>
+        </div>
+    </div>
+
+    <div class="action-area">
+        <button class="submit-btn" onclick="gradeQuiz()">💯 13일차 채점하기!</button>
+    </div>
+
+    <div id="result-modal" class="result-modal">
+        <h2 style="margin-top:0;">지효의 점수는?</h2>
+        <div class="score-text" id="score-text"></div>
+        <p id="sub-msg" style="font-size:18px; line-height:1.6; word-break:keep-all;"></p>
+    </div>
+</div>
+
+<script>
+    let userAns = {};
+
+    function sel(qId, opt) {
+        const box = document.getElementById(qId);
+        const btns = box.querySelectorAll('.opt-btn');
+        btns.forEach(b => b.classList.remove('selected'));
+        btns[opt-1].classList.add('selected');
+        userAns[qId] = opt;
+    }
+
+    function gradeQuiz() {
+        const qList = ['r1', 'r2', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15'];
+        let score = 0;
+        let unsolved = false;
+
+        qList.forEach(id => { if(!userAns[id]) unsolved = true; });
+
+        if(unsolved) {
+            alert("아직 안 푼 문제가 있어요! 꼼꼼히 확인해봐요.");
+            return;
+        }
+
+        qList.forEach(id => {
+            const box = document.getElementById(id);
+            const correct = parseInt(box.getAttribute('data-ans'));
+            const user = userAns[id];
+            const explain = box.querySelector('.explanation');
+
+            box.classList.remove('correct-card', 'wrong-card');
+            explain.style.display = 'none';
+
+            if(user === correct) {
+                if(!id.startsWith('r')) score++; // 복습문제 제외 본문제 15개 기준
+                box.classList.add('correct-card');
+            } else {
+                box.classList.add('wrong-card');
+                explain.style.display = 'block';
+                box.querySelectorAll('.opt-btn')[correct-1].style.border = "3px solid #d63031";
+            }
+        });
+
+        let finalScore = Math.round((score / 15) * 100);
+
+        const modal = document.getElementById('result-modal');
+        const scoreText = document.getElementById('score-text');
+        const subMsg = document.getElementById('sub-msg');
+
+        modal.style.display = 'block';
+        scoreText.innerText = finalScore + "점!";
+
+        if(finalScore === 100) {
+            subMsg.innerHTML = "🎉 짝짝짝! 나눗셈의 천재가 나타났다!<br>아빠한테 하이파이브!";
+        } else if (finalScore >= 80) {
+            subMsg.innerHTML = "👍 아주 잘했어요!<br>빨간색으로 표시된 문제의 <strong>아빠 해설</strong>을 확인해봐요.";
+        } else {
+            subMsg.innerHTML = "💪 괜찮아요! 나눗셈은 처음이라 헷갈릴 수 있어요.<br>아빠랑 차근차근 다시 읽어볼까요?";
+        }
+
+        setTimeout(() => { modal.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
+    }
+</script>
+
+</body>
+</html>
