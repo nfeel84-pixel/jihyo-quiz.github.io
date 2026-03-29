@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 3일차 - 1차 컴파일</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0f4f8; color: #2d3748; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        
+        h1 { text-align: center; color: #1a365d; font-weight: 900; border-bottom: 4px solid #48bb78; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        /* 개념 설명 섹션 */
+        .concept-box { background: #f0fdf4; padding: 30px; border-radius: 15px; border: 2px solid #86efac; margin-bottom: 40px; }
+        .concept-title { font-size: 1.5em; font-weight: 900; color: #166534; margin-bottom: 15px; }
+        
+        .train-visual { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-wrap: wrap; }
+        .car { font-size: 1.8em; font-weight: 900; text-align: center; padding: 15px 25px; border-radius: 12px; border: 3px solid; box-shadow: 0 4px 0 rgba(0,0,0,0.1); position: relative; }
+        .car-head { color: #2b6cb0; background: #ebf8ff; border-color: #63b3ed; }
+        .car-battery { color: #c53030; background: #fff5f5; border-color: #fc8181; }
+        .car-tail { color: #805ad5; background: #faf5ff; border-color: #b794f4; }
+        .sign { font-size: 2em; font-weight: bold; color: #a0aec0; }
+        .result-car { font-size: 2.5em; font-weight: 900; color: #fff; background: #48bb78; border-color: #2f855a; }
+        
+        .car-label { font-size: 0.4em; display: block; color: #4a5568; margin-top: 5px; }
+
+        /* 단어 학습 섹션 */
+        .alphabet-section { margin-bottom: 35px; background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .alphabet-title { font-size: 1.6em; font-weight: 900; color: #fff; background: #4a5568; padding: 8px 20px; border-radius: 8px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-card:hover { transform: translateY(-5px); border-color: #48bb78; box-shadow: 0 8px 15px rgba(72, 187, 120, 0.15); }
+        
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #2d3748; letter-spacing: 2px; }
+        .kr-sound { font-size: 1.1em; color: #4a5568; font-weight: bold; background: #edf2f7; padding: 5px 12px; border-radius: 8px; }
+        
+        /* 조립 공식 박스 스타일 */
+        .formula-box { background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 5px solid #48bb78; font-size: 1.05em; color: #2d3748; margin-bottom: 15px; flex-grow: 1; line-height: 1.8; }
+        .formula-title { font-size: 0.85em; font-weight: bold; color: #38a169; margin-bottom: 8px; text-transform: uppercase; }
+        .f-head { color: #3182ce; font-weight: bold; }
+        .f-bat { color: #e53e3e; font-weight: bold; }
+        .f-tail { color: #805ad5; font-weight: bold; }
+        
+        .speak-btn { width: 100%; padding: 12px; background: #48bb78; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.2s; }
+        .speak-btn:hover { background: #38a169; }
+
+        /* 퀴즈 섹션 */
+        .quiz-section { background: #ebf8ff; padding: 35px; border-radius: 15px; border: 2px solid #90cdf4; margin-top: 50px; }
+        .quiz-header { font-size: 1.6em; font-weight: 900; color: #2b6cb0; text-align: center; margin-bottom: 25px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #bee3f8; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        .question-text { font-weight: bold; color: #2c5282; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; background: #f7fafc; cursor: pointer; font-weight: bold; outline: none; }
+        select:focus { border-color: #4299e1; }
+        
+        .submit-btn { display: block; width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #3182ce; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+        .submit-btn:hover { background: #2b6cb0; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; min-height: 40px; }
+        .correct { color: #3182ce; }
+        .incorrect { color: #e53e3e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 3일차: 1차 컴파일! 3칸 기차 조립 완료하기</h1>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 꼬리칸을 달면 단어가 완성된다!</div>
+        <p>지효야, 1일차의 <b>머리칸(첫 자음)</b>과 2일차의 <b>배터리(모음)</b> 뒤에 <b>꼬리칸(끝 자음)</b>을 하나 더 붙이면 드디어 완벽한 단어 기차가 만들어져. <br>
+        영어 기차는 왼쪽에서 오른쪽으로 쭉~ 이어지지만, 빨리 읽으면 이 <b>꼬리칸 소리가 마치 한글의 '받침'처럼 쏙!</b> 들어가게 돼.</p>
+        
+        <div class="train-visual">
+            <div class="car car-head">P<br>(ㅍ)<span class="car-label">머리칸</span></div>
+            <div class="sign">+</div>
+            <div class="car car-battery">E<br>(에)<span class="car-label">배터리</span></div>
+            <div class="sign">+</div>
+            <div class="car car-tail">N<br>(ㄴ)<span class="car-label">꼬리칸(받침)</span></div>
+            <div class="sign">=</div>
+            <div class="car result-car">펜!<br>🖊️</div>
+        </div>
+
+        <p>알고리즘 실행 규칙: <br>
+        1. 앞에서부터 순서대로 <span class="f-head">머리칸</span> + <span class="f-bat">배터리</span> + <span class="f-tail">꼬리칸</span> 소리를 확인한다.<br>
+        2. 소리를 빠르게 이어 붙인다. (꼬리칸을 한글 받침처럼 생각하면 아주 쉬워!)</p>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ A 배터리 기차 (애)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Bat</span><span class="kr-sound">뱃 (방망이/박쥐)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">B(ㅂ)</span> + <span class="f-bat">a(애)</span> + <span class="f-tail">t(ㅌ/받침ㅅ)</span> <br>➔ ㅂ+애+ㅅ = 뱃!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Bat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Map</span><span class="kr-sound">맵 (지도)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">M(ㅁ)</span> + <span class="f-bat">a(애)</span> + <span class="f-tail">p(ㅍ/받침ㅂ)</span> <br>➔ ㅁ+애+ㅂ = 맵!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Map')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Tap</span><span class="kr-sound">탭 (톡톡 치다)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">T(ㅌ)</span> + <span class="f-bat">a(애)</span> + <span class="f-tail">p(ㅍ/받침ㅂ)</span> <br>➔ ㅌ+애+ㅂ = 탭!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Tap')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ E 배터리 기차 (에)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pen</span><span class="kr-sound">펜</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">P(ㅍ)</span> + <span class="f-bat">e(에)</span> + <span class="f-tail">n(ㄴ)</span> <br>➔ ㅍ+에+ㄴ = 펜!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Pen')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Bed</span><span class="kr-sound">베드 (침대)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">B(ㅂ)</span> + <span class="f-bat">e(에)</span> + <span class="f-tail">d(ㄷ)</span> <br>➔ ㅂ+에+ㄷ = 베드! (끝소리 d는 살짝 '드'로 읽어줘요)
+                </div>
+                <button class="speak-btn" onclick="speakWord('Bed')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pet</span><span class="kr-sound">펫 (반려동물)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">P(ㅍ)</span> + <span class="f-bat">e(에)</span> + <span class="f-tail">t(ㅌ/받침ㅅ)</span> <br>➔ ㅍ+에+ㅅ = 펫!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Pet')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ I 배터리 기차 (이)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pig</span><span class="kr-sound">피그 (돼지)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">P(ㅍ)</span> + <span class="f-bat">i(이)</span> + <span class="f-tail">g(ㄱ)</span> <br>➔ ㅍ+이+ㄱ = 피그!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Pig')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Dip</span><span class="kr-sound">딥 (살짝 담그다)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">D(ㄷ)</span> + <span class="f-bat">i(이)</span> + <span class="f-tail">p(ㅍ/받침ㅂ)</span> <br>➔ ㄷ+이+ㅂ = 딥!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Dip')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Sit</span><span class="kr-sound">싯 (앉다)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">S(ㅅ)</span> + <span class="f-bat">i(이)</span> + <span class="f-tail">t(ㅌ/받침ㅅ)</span> <br>➔ ㅅ+이+ㅅ = 싯!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Sit')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ O 배터리 기차 (아/오)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Dog</span><span class="kr-sound">도그 (개)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">D(ㄷ)</span> + <span class="f-bat">o(오)</span> + <span class="f-tail">g(ㄱ)</span> <br>➔ ㄷ+오+ㄱ = 도그!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Dog')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pot</span><span class="kr-sound">팟 (냄비)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">P(ㅍ)</span> + <span class="f-bat">o(아)</span> + <span class="f-tail">t(ㅌ/받침ㅅ)</span> <br>➔ ㅍ+아+ㅅ = 팟!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Pot')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Top</span><span class="kr-sound">탑 (팽이)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">T(ㅌ)</span> + <span class="f-bat">o(아)</span> + <span class="f-tail">p(ㅍ/받침ㅂ)</span> <br>➔ ㅌ+아+ㅂ = 탑!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Top')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ U 배터리 기차 (어)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Sun</span><span class="kr-sound">썬 (태양)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">S(ㅅ)</span> + <span class="f-bat">u(어)</span> + <span class="f-tail">n(ㄴ)</span> <br>➔ ㅅ+어+ㄴ = 썬!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Sun')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Mud</span><span class="kr-sound">머드 (진흙)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">M(ㅁ)</span> + <span class="f-bat">u(어)</span> + <span class="f-tail">d(ㄷ)</span> <br>➔ ㅁ+어+ㄷ = 머드!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Mud')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Tub</span><span class="kr-sound">터브 (욕조)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 기차 조립 공식</div>
+                    <span class="f-head">T(ㅌ)</span> + <span class="f-bat">u(어)</span> + <span class="f-tail">b(ㅂ)</span> <br>➔ ㅌ+어+ㅂ = 터브!
+                </div>
+                <button class="speak-btn" onclick="speakWord('Tub')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <div class="quiz-header">🕵️‍♀️ 시스템 1차 컴파일 퀴즈 (총 10문제)</div>
+        <div class="quiz-grid">
+            
+            <div class="question-box">
+                <span class="question-text">1. M(ㅁ) + a(애) + <b>[ ? ]</b> = <b>Map(맵)</b>. 꼬리칸에 올 알파벳은?</span>
+                <select id="q1"><option value="">선택</option><option value="t">t</option><option value="p">p</option><option value="d">d</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">2. S(ㅅ) + u(어) + <b>[ ? ]</b> = <b>Sun(썬)</b>. 꼬리칸에 올 알파벳은?</span>
+                <select id="q2"><option value="">선택</option><option value="n">n</option><option value="g">g</option><option value="b">b</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">3. B(ㅂ) + e(에) + <b>[ ? ]</b> = <b>Bed(베드)</b>. 꼬리칸에 올 알파벳은?</span>
+                <select id="q3"><option value="">선택</option><option value="t">t</option><option value="n">n</option><option value="d">d</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fffaf0;">
+                <span class="question-text">4. <b>P + i + g</b> 기차를 순서대로 빠르게 이으면 무슨 단어가 될까?</span>
+                <select id="q4"><option value="">선택</option><option value="팟">팟</option><option value="피그">피그</option><option value="펜">펜</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffaf0;">
+                <span class="question-text">5. <b>T + o + p</b> 기차를 순서대로 빠르게 이으면 무슨 단어가 될까?</span>
+                <select id="q5"><option value="">선택</option><option value="탭">탭</option><option value="탑">탑</option><option value="텐">텐</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffaf0;">
+                <span class="question-text">6. <b>M + u + d</b> 기차를 순서대로 빠르게 이으면 무슨 단어가 될까?</span>
+                <select id="q6"><option value="">선택</option><option value="맵">맵</option><option value="머드">머드</option><option value="매드">매드</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffaf0;">
+                <span class="question-text">7. <b>B + a + t</b> 기차를 순서대로 빠르게 이으면 무슨 단어가 될까?</span>
+                <select id="q7"><option value="">선택</option><option value="뱃">뱃</option><option value="버그">버그</option><option value="베드">베드</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">8. [오류 🚨] <b>D + i + p = 답?</b> 올바르게 고치면 무슨 소리가 날까?</span>
+                <select id="q8"><option value="">선택</option><option value="딥">딥</option><option value="독">독</option><option value="도그">도그</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">9. [오류 🚨] <b>P + e + n = 판?</b> 올바르게 고치면 무슨 소리가 날까?</span>
+                <select id="q9"><option value="">선택</option><option value="핀">핀</option><option value="펜">펜</option><option value="폰">폰</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">10. [오류 🚨] 영어 단어를 읽을 때 꼬리칸(마지막 자음)은 한글의 무엇과 비슷한 역할을 할까?</span>
+                <select id="q10"><option value="">선택</option><option value="초성">초성</option><option value="받침">받침</option></select>
+            </div>
+
+        </div>
+
+        <button class="submit-btn" onclick="checkAllAnswers()">📝 컴파일 실행 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    // 원어민 음성 출력 함수
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.85; 
+            utterance.pitch = 1.1; 
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("음성 기능을 지원하지 않는 브라우저입니다. 크롬이나 엣지를 사용해주세요.");
+        }
+    }
+
+    // 10문제 자동 채점 로직
+    function checkAllAnswers() {
+        const answers = {
+            q1: 'p', q2: 'n', q3: 'd',
+            q4: '피그', q5: '탑', q6: '머드', q7: '뱃',
+            q8: '딥', q9: '펜', q10: '받침'
+        };
+
+        let score = 0;
+        let isAllAnswered = true;
+
+        for (let key in answers) {
+            const selectElement = document.getElementById(key);
+            const userAnswer = selectElement.value;
+            
+            if (userAnswer === "") {
+                isAllAnswered = false;
+                selectElement.style.borderColor = "#e53e3e"; 
+            } else {
+                selectElement.style.borderColor = "#cbd5e0"; 
+                if (userAnswer === answers[key]) {
+                    score++;
+                }
+            }
+        }
+
+        const resultBox = document.getElementById('result-display');
+
+        if (!isAllAnswered) {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = "앗! 아직 풀지 않은 컴파일 퀴즈가 있어요. 모두 완료해주세요!";
+            return;
+        }
+
+        if (score === 10) {
+            resultBox.className = "correct";
+            resultBox.innerHTML = "🎉 100점! 지효의 1차 컴파일(3칸 기차) 완벽 성공! 🚀";
+        } else {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = `앗, 10문제 중 ${score}문제를 맞혔어! 잘못 조립된 기차가 있는지 다시 확인해볼까? 🚂`;
+        }
+    }
+</script>
+
+</body>
+</html>

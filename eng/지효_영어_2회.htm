@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 2일차 - 마법의 배터리</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f7f6; color: #2d3748; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        
+        h1 { text-align: center; color: #2c3e50; font-weight: 900; border-bottom: 4px solid #f39c12; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        /* 개념 설명 섹션 */
+        .concept-box { background: #fff8e1; padding: 30px; border-radius: 15px; border: 2px solid #ffe082; margin-bottom: 40px; position: relative; overflow: hidden; }
+        .concept-title { font-size: 1.5em; font-weight: 900; color: #d35400; margin-bottom: 15px; }
+        .battery-visual { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 25px 0; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .car { font-size: 2em; font-weight: bold; color: #7f8c8d; background: #ecf0f1; padding: 10px 20px; border-radius: 8px; border: 2px dashed #bdc3c7; }
+        .battery { font-size: 2.2em; font-weight: 900; color: white; background: #e74c3c; padding: 10px 25px; border-radius: 12px; border: 3px solid #c0392b; box-shadow: 0 0 15px rgba(231, 76, 60, 0.5); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
+        
+        /* 단어 학습 섹션 */
+        .alphabet-section { margin-bottom: 40px; background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .alphabet-title { font-size: 1.8em; font-weight: 900; color: #fff; background: #e67e22; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3); }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-card:hover { transform: translateY(-5px); border-color: #f39c12; box-shadow: 0 8px 15px rgba(243, 156, 18, 0.15); }
+        
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.6em; font-weight: 900; color: #2c3e50; letter-spacing: 1px; }
+        .kr-sound { font-size: 1.1em; color: #4a5568; font-weight: bold; background: #edf2f7; padding: 5px 12px; border-radius: 8px; }
+        
+        /* 조립 공식 박스 스타일 */
+        .formula-box { background: #fdfefe; padding: 15px; border-radius: 8px; border-left: 5px solid #f1c40f; font-size: 1em; color: #4a5568; margin-bottom: 15px; flex-grow: 1; line-height: 1.8; }
+        .formula-title { font-size: 0.85em; font-weight: bold; color: #d35400; margin-bottom: 8px; text-transform: uppercase; }
+        .vowel-battery { color: white; background: #e74c3c; font-weight: 900; padding: 2px 8px; border-radius: 6px; font-size: 1.1em; }
+        
+        .speak-btn { width: 100%; padding: 12px; background: #f39c12; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.2s; }
+        .speak-btn:hover { background: #d35400; }
+
+        /* 퀴즈 섹션 */
+        .quiz-section { background: #f0fdf4; padding: 35px; border-radius: 15px; border: 2px solid #86efac; margin-top: 50px; }
+        .quiz-header { font-size: 1.6em; font-weight: 900; color: #166534; text-align: center; margin-bottom: 25px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #bbf7d0; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        .question-text { font-weight: bold; color: #065f46; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; background: #f7fafc; cursor: pointer; font-weight: bold; outline: none; }
+        select:focus { border-color: #f39c12; }
+        
+        .submit-btn { display: block; width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #22c55e; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+        .submit-btn:hover { background: #16a34a; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; min-height: 40px; }
+        .correct { color: #16a34a; }
+        .incorrect { color: #dc2626; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔋 2일차: 소리에 생명을 불어넣는 '마법의 배터리 (모음)'</h1>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 왜 자음만 있으면 소리가 안 날까?</div>
+        <p>지효야, 1일차에 배운 자음 기차 칸 <b>P(ㅍ)</b>와 <b>G(ㄱ)</b>를 그냥 연결해 볼까? <br>
+        <i>"ㅍ...ㄱ... ㅍㄱ..."</i> 쇳덩이가 부딪히는 소리만 나고 멋진 단어가 안 되지?</p>
+        
+        <div class="battery-visual">
+            <div class="car">P (ㅍ)</div>
+            <div class="car" style="border: none; background: none; font-size: 1.5em;">+</div>
+            <div class="battery">⚡ I (이) ⚡</div>
+            <div class="car" style="border: none; background: none; font-size: 1.5em;">+</div>
+            <div class="car">G (ㄱ)</div>
+            <div class="car" style="border: none; background: none; font-size: 1.5em;">=</div>
+            <div class="car" style="background:#eafaf1; color:#27ae60; border-color:#2ecc71;">피그! 🐷</div>
+        </div>
+
+        <p>바로 기차를 움직이게 하는 <b>에너지 배터리</b>가 빠졌기 때문이야! <br>
+        영어에는 기차에 생명을 불어넣어 멋진 소리를 만들어주는 <b>5개의 마법 배터리(A, E, I, O, U)</b>가 있어.<br>
+        오늘 이 5형제가 각각 어떤 소리 에너지를 가지고 있는지 알고리즘을 파헤쳐 보자!</p>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">⚡ A 배터리 ➔ '애' 소리 에너지를 뿜어!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Ant</span><span class="kr-sound">앤트 (개미)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    <span class="vowel-battery">A(애)</span> + n(ㄴ) + t(트) <br>➔ 배터리가 맨 앞에 있네! "애-ㄴ-트"
+                </div>
+                <button class="speak-btn" onclick="speakWord('Ant')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Cat</span><span class="kr-sound">캣 (고양이)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    C(ㅋ) + <span class="vowel-battery">a(애)</span> + t(ㅌ) <br>➔ 가운데서 에너지를 뿜어! "ㅋ+애+ㅌ = 캣"
+                </div>
+                <button class="speak-btn" onclick="speakWord('Cat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Hat</span><span class="kr-sound">햇 (모자)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    H(ㅎ) + <span class="vowel-battery">a(애)</span> + t(ㅌ) <br>➔ "ㅎ+애+ㅌ = 햇"
+                </div>
+                <button class="speak-btn" onclick="speakWord('Hat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Bat</span><span class="kr-sound">뱃 (박쥐/방망이)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    B(ㅂ) + <span class="vowel-battery">a(애)</span> + t(ㅌ) <br>➔ 1일차에 배운 B 머리칸 등장! "ㅂ+애+ㅌ = 뱃"
+                </div>
+                <button class="speak-btn" onclick="speakWord('Bat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Apple</span><span class="kr-sound">애플 (사과)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    <span class="vowel-battery">A(애)</span> + pple(플) <br>➔ pp처럼 두 개가 겹치면 하나로 합쳐서 발음해.
+                </div>
+                <button class="speak-btn" onclick="speakWord('Apple')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section" style="border-color: #3498db;">
+        <div class="alphabet-title" style="background: #3498db;">⚡ E 배터리 ➔ '에' 소리 에너지를 뿜어!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Egg</span><span class="kr-sound">에그 (달걀)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    <span class="vowel-battery">E(에)</span> + gg(그) <br>➔ "에-그!"
+                </div>
+                <button class="speak-btn" style="background:#3498db;" onclick="speakWord('Egg')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pen</span><span class="kr-sound">펜</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    P(ㅍ) + <span class="vowel-battery">e(에)</span> + n(ㄴ) <br>➔ "ㅍ+에+ㄴ = 펜"
+                </div>
+                <button class="speak-btn" style="background:#3498db;" onclick="speakWord('Pen')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Net</span><span class="kr-sound">넷 (그물)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    N(ㄴ) + <span class="vowel-battery">e(에)</span> + t(ㅌ) <br>➔ "ㄴ+에+ㅌ = 넷"
+                </div>
+                <button class="speak-btn" style="background:#3498db;" onclick="speakWord('Net')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Ten</span><span class="kr-sound">텐 (숫자 10)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    T(ㅌ) + <span class="vowel-battery">e(에)</span> + n(ㄴ) <br>➔ 1일차 T 머리칸! "ㅌ+에+ㄴ = 텐"
+                </div>
+                <button class="speak-btn" style="background:#3498db;" onclick="speakWord('Ten')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Red</span><span class="kr-sound">레드 (빨간색)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    R(ㄹ) + <span class="vowel-battery">e(에)</span> + d(ㄷ) <br>➔ "ㄹ+에+ㄷ = 레드"
+                </div>
+                <button class="speak-btn" style="background:#3498db;" onclick="speakWord('Red')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section" style="border-color: #9b59b6;">
+        <div class="alphabet-title" style="background: #9b59b6;">⚡ I 배터리 ➔ '이' 소리 에너지를 뿜어!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pig</span><span class="kr-sound">피그 (돼지)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    P(ㅍ) + <span class="vowel-battery">i(이)</span> + g(그) <br>➔ "ㅍ+이+그 = 피그"
+                </div>
+                <button class="speak-btn" style="background:#9b59b6;" onclick="speakWord('Pig')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pin</span><span class="kr-sound">핀 (압정)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    P(ㅍ) + <span class="vowel-battery">i(이)</span> + n(ㄴ) <br>➔ "ㅍ+이+ㄴ = 핀"
+                </div>
+                <button class="speak-btn" style="background:#9b59b6;" onclick="speakWord('Pin')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Six</span><span class="kr-sound">식스 (숫자 6)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    S(ㅅ) + <span class="vowel-battery">i(이)</span> + x(ㄱ스) <br>➔ 1일차 S! "ㅅ+이+ㄱ스 = 식스"
+                </div>
+                <button class="speak-btn" style="background:#9b59b6;" onclick="speakWord('Six')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Lip</span><span class="kr-sound">립 (입술)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    L(ㄹ) + <span class="vowel-battery">i(이)</span> + p(ㅍ) <br>➔ "ㄹ+이+ㅍ = 립"
+                </div>
+                <button class="speak-btn" style="background:#9b59b6;" onclick="speakWord('Lip')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Igloo</span><span class="kr-sound">이글루</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    <span class="vowel-battery">I(이)</span> + g(그) + loo(루) <br>➔ 이-글-루
+                </div>
+                <button class="speak-btn" style="background:#9b59b6;" onclick="speakWord('Igloo')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section" style="border-color: #1abc9c;">
+        <div class="alphabet-title" style="background: #1abc9c;">⚡ O 배터리 ➔ '오' (또는 아) 소리 에너지!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Dog</span><span class="kr-sound">도그 (개)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    D(ㄷ) + <span class="vowel-battery">o(오)</span> + g(그) <br>➔ "ㄷ+오+그 = 도그"
+                </div>
+                <button class="speak-btn" style="background:#1abc9c;" onclick="speakWord('Dog')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Fox</span><span class="kr-sound">폭스 (여우)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    F(ㅍ) + <span class="vowel-battery">o(오)</span> + x(ㄱ스) <br>➔ "ㅍ+오+ㄱ스 = 폭스"
+                </div>
+                <button class="speak-btn" style="background:#1abc9c;" onclick="speakWord('Fox')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Box</span><span class="kr-sound">박스 (상자)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    B(ㅂ) + <span class="vowel-battery">o(아)</span> + x(ㄱ스) <br>➔ o는 때때로 '아' 소리도 내요! "ㅂ+아+ㄱ스 = 박스"
+                </div>
+                <button class="speak-btn" style="background:#1abc9c;" onclick="speakWord('Box')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Pot</span><span class="kr-sound">팟 (냄비)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    P(ㅍ) + <span class="vowel-battery">o(아)</span> + t(ㅌ) <br>➔ "ㅍ+아+ㅌ = 팟"
+                </div>
+                <button class="speak-btn" style="background:#1abc9c;" onclick="speakWord('Pot')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Top</span><span class="kr-sound">탑 (팽이/꼭대기)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    T(ㅌ) + <span class="vowel-battery">o(아)</span> + p(ㅍ) <br>➔ "ㅌ+아+ㅍ = 탑"
+                </div>
+                <button class="speak-btn" style="background:#1abc9c;" onclick="speakWord('Top')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section" style="border-color: #f1c40f;">
+        <div class="alphabet-title" style="background: #f1c40f; color:#2c3e50;">⚡ U 배터리 ➔ '어' 소리 에너지를 뿜어!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Sun</span><span class="kr-sound">썬 (태양)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    S(ㅅ) + <span class="vowel-battery" style="background:#f39c12;">u(어)</span> + n(ㄴ) <br>➔ "ㅅ+어+ㄴ = 썬"
+                </div>
+                <button class="speak-btn" style="background:#f1c40f; color:#2c3e50;" onclick="speakWord('Sun')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Bug</span><span class="kr-sound">버그 (벌레)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    B(ㅂ) + <span class="vowel-battery" style="background:#f39c12;">u(어)</span> + g(그) <br>➔ 앗! 시스템 버그의 그 버그! "ㅂ+어+그 = 버그"
+                </div>
+                <button class="speak-btn" style="background:#f1c40f; color:#2c3e50;" onclick="speakWord('Bug')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Cup</span><span class="kr-sound">컵</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    C(ㅋ) + <span class="vowel-battery" style="background:#f39c12;">u(어)</span> + p(ㅍ) <br>➔ "ㅋ+어+ㅍ = 컵"
+                </div>
+                <button class="speak-btn" style="background:#f1c40f; color:#2c3e50;" onclick="speakWord('Cup')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Bus</span><span class="kr-sound">버스</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    B(ㅂ) + <span class="vowel-battery" style="background:#f39c12;">u(어)</span> + s(스) <br>➔ "ㅂ+어+스 = 버스"
+                </div>
+                <button class="speak-btn" style="background:#f1c40f; color:#2c3e50;" onclick="speakWord('Bus')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Nut</span><span class="kr-sound">넛 (견과류)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 조립 공식</div>
+                    N(ㄴ) + <span class="vowel-battery" style="background:#f39c12;">u(어)</span> + t(ㅌ) <br>➔ "ㄴ+어+ㅌ = 넛"
+                </div>
+                <button class="speak-btn" style="background:#f1c40f; color:#2c3e50;" onclick="speakWord('Nut')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <div class="quiz-header">🕵️‍♀️ 시스템 배터리 교체 퀴즈 (총 10문제)</div>
+        <div class="quiz-grid">
+            
+            <div class="question-box">
+                <span class="question-text">1. <b>A</b> 배터리가 내는 에너지는 무슨 소리일까?</span>
+                <select id="q1"><option value="">선택</option><option value="애">애</option><option value="에">에</option><option value="이">이</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">2. <b>I</b> 배터리가 내는 에너지는 무슨 소리일까?</span>
+                <select id="q2"><option value="">선택</option><option value="에">에</option><option value="이">이</option><option value="오">오</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">3. <b>U</b> 배터리가 내는 에너지는 무슨 소리일까?</span>
+                <select id="q3"><option value="">선택</option><option value="어">어</option><option value="아">아</option><option value="애">애</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">4. <b>E</b> 배터리가 내는 에너지는 무슨 소리일까?</span>
+                <select id="q4"><option value="">선택</option><option value="이">이</option><option value="에">에</option><option value="어">어</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fffbeb;">
+                <span class="question-text">5. P(ㅍ) + <b>[ ? ]</b> + N(ㄴ) = <b>펜 (Pen)</b>. 가운데 들어갈 배터리는?</span>
+                <select id="q5"><option value="">선택</option><option value="A">A</option><option value="E">E</option><option value="I">I</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffbeb;">
+                <span class="question-text">6. D(ㄷ) + <b>[ ? ]</b> + G(그) = <b>도그 (Dog)</b>. 가운데 들어갈 배터리는?</span>
+                <select id="q6"><option value="">선택</option><option value="U">U</option><option value="A">A</option><option value="O">O</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffbeb;">
+                <span class="question-text">7. S(ㅅ) + <b>[ ? ]</b> + N(ㄴ) = <b>썬 (Sun)</b>. 가운데 들어갈 배터리는?</span>
+                <select id="q7"><option value="">선택</option><option value="U">U</option><option value="I">I</option><option value="E">E</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fffbeb;">
+                <span class="question-text">8. C(ㅋ) + <b>[ ? ]</b> + T(ㅌ) = <b>캣 (Cat)</b>. 가운데 들어갈 배터리는?</span>
+                <select id="q8"><option value="">선택</option><option value="A">A</option><option value="O">O</option><option value="I">I</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">9. [배터리 오류 🚨] <b>B + I + G</b> 가 결합하면 '버그' 소리가 난다? (O/X)</span>
+                <select id="q9"><option value="">선택</option><option value="O">O 맞아요</option><option value="X">X 틀려요 (비그 가 맞아요)</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">10. [배터리 오류 🚨] <b>H + A + T</b> 가 결합하면 '햇' 소리가 난다? (O/X)</span>
+                <select id="q10"><option value="">선택</option><option value="O">O 맞아요</option><option value="X">X 틀려요</option></select>
+            </div>
+
+        </div>
+
+        <button class="submit-btn" onclick="checkAllAnswers()">📝 배터리 교체 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    // 원어민 음성 출력 함수
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.85; 
+            utterance.pitch = 1.1; 
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("음성 기능을 지원하지 않는 브라우저입니다. 크롬이나 엣지를 사용해주세요.");
+        }
+    }
+
+    // 10문제 자동 채점 로직
+    function checkAllAnswers() {
+        const answers = {
+            q1: '애', q2: '이', q3: '어', q4: '에',
+            q5: 'E', q6: 'O', q7: 'U', q8: 'A',
+            q9: 'X', q10: 'O'
+        };
+
+        let score = 0;
+        let isAllAnswered = true;
+
+        for (let key in answers) {
+            const selectElement = document.getElementById(key);
+            const userAnswer = selectElement.value;
+            
+            if (userAnswer === "") {
+                isAllAnswered = false;
+                selectElement.style.borderColor = "#dc2626"; 
+            } else {
+                selectElement.style.borderColor = "#cbd5e0"; 
+                if (userAnswer === answers[key]) {
+                    score++;
+                }
+            }
+        }
+
+        const resultBox = document.getElementById('result-display');
+
+        if (!isAllAnswered) {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = "앗! 아직 교체하지 않은 배터리가 있어요. 모두 찾아주세요!";
+            return;
+        }
+
+        if (score === 10) {
+            resultBox.className = "correct";
+            resultBox.innerHTML = "🎉 100점! 마법의 배터리 5개 완벽 탑재 완료! 🚀";
+        } else {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = `앗, 10문제 중 ${score}문제를 맞혔어! 잘못 꽂힌 배터리가 있는지 다시 확인해볼까? 🔋`;
+        }
+    }
+</script>
+
+</body>
+</html>
