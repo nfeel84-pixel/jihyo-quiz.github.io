@@ -3,24 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지효의 매일매일 문제</title>
+    <title>✨ 지효의 마법 학습장 ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 20px; }
-        ul { list-style: none; padding: 0; }
-        li { margin: 15px 0; background-color: #f0f8ff; padding: 15px; border-radius: 10px; }
-        a { text-decoration: none; font-size: 20px; color: #0066cc; font-weight: bold; display: block; }
+        /* 1. 전체 배경 (2026 트렌드: 따뜻한 파스텔톤 애니메이션 배경) */
+        body {
+            font-family: 'Jua', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 100%);
+            min-height: 100vh; /* 화면 전체 높이 사용 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. 상단 타이틀 간판 (유리 질감 효과 - 글래스모피즘) */
+        .header {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(255, 100, 100, 0.2);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 40px;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 0px white;
+        }
+
+        p.subtitle {
+            font-size: 22px;
+            color: #555;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        /* 3. 과목 버튼들을 나란히 배치하는 공간 */
+        .menu-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* 4. 과목 버튼 (앱 아이콘처럼 크고 예쁘게) */
+        .menu-card {
+            background-color: white;
+            width: 200px;
+            height: 240px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            /* 마우스(또는 손가락)를 올렸을 때 부드럽게 움직이는 세팅 */
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+
+        /* 버튼에 손을 올리면 통통 튀어오르는 애니메이션 */
+        .menu-card:hover, .menu-card:active {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* 이모티콘 아이콘 설정 */
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        /* 손을 올리면 아이콘이 살짝 까딱거림 */
+        .menu-card:hover .icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* 과목 이름 글씨 */
+        .subject {
+            font-size: 28px;
+        }
+
+        /* 수학 버튼 포인트 컬러 */
+        .math { border-bottom: 8px solid #4facfe; }
+        .math .subject { color: #4facfe; }
+
+        /* 영어 버튼 포인트 컬러 */
+        .english { border-bottom: 8px solid #ff9a9e; }
+        .english .subject { color: #ff9a9e; }
+
+        /* 5. 맨 아래 귀여운 응원 문구 */
+        .footer {
+            margin-top: 60px;
+            font-size: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
-    <h1>👧 지효의 문제 풀이방</h1>
-    <ul>
-        <li><a href="지효_19일차.htm">3월 15일 오늘의 문제_두번째_아찌빠 📝</a></li>
-        <li><a href="지효_18일차.htm">3월 15일 오늘의 문제 📝</a></li>
-        <li><a href="지효_17일차.htm">3월 14일 오늘의 문제 📝</a></li>
-        <li><a href="지효_16일차.htm">3월 14일 오늘의 문제_두번째 📝</a></li>
-        <li><a href="지효_15일차.htm">3월 14일 오늘의 문제_세번째 📝</a></li>
-        <li><a href="지효_14일차.htm">3월 14일 오늘의 문제_네번째 📝</a></li>
-        <li><a href="지효_11일차까지복습.html">지효 방할때 했던 것_복습 📝</a></li>
-    </ul>
+
+    <div class="header">
+        <h1>👧✨ 지효의 마법 학습장 ✨👧</h1>
+        <p class="subtitle">오늘도 즐겁게 문제를 풀어볼까요?</p>
+    </div>
+
+    <div class="menu-container">
+        
+        <a href="math/index.html" class="menu-card math">
+            <div class="icon">📐</div>
+            <div class="subject">재미있는 수학</div>
+        </a>
+
+        <a href="eng/index.html" class="menu-card english">
+            <div class="icon">🔤</div>
+            <div class="subject">신나는 영어</div>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        동생 지수도 언니를 듬뿍 응원하고 있어요! 화이팅! 👶💕
+    </div>
+
 </body>
 </html>

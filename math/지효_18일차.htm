@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>18일차: 곱셈으로 푸는 실생활 퍼즐</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root { --main: #e84393; --bg: #fff0f6; --card: #fff; --error: #d63031; --point: #0984e3; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); padding: 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(232,67,147,0.15); box-sizing: border-box; }
+        
+        .header { text-align: center; border-bottom: 3px solid var(--main); padding-bottom: 15px; margin-bottom: 25px; }
+        .badge { background: var(--main); color: white; padding: 6px 18px; border-radius: 20px; font-family: 'Jua'; font-size: 16px;}
+        .title { font-family: 'Jua'; font-size: 32px; margin: 15px 0 5px 0; word-break: keep-all; line-height: 1.3; color: #2d3436;}
+        
+        /* 🔥 완벽한 세로셈 격자 (CSS Grid Matrix) 🔥 */
+        .math-vert-wrap { text-align: center; margin: 10px 0; }
+        .math-vert-box { display: inline-block; background: #fff; border: 3px dashed #fd79a8; border-radius: 15px; padding: 10px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .math-vert { display: grid; grid-template-columns: 35px 35px 35px; row-gap: 5px; text-align: center; font-family: 'Jua', sans-serif; font-size: 34px; color: #2d3436; align-items: center; justify-items: center; }
+        .math-vert .carry { color: var(--error); font-size: 20px; align-self: end; margin-bottom: -5px; }
+        .math-vert .op { font-size: 30px; color: #636e72; }
+        .math-vert .line { grid-column: 1 / 4; border-bottom: 4px solid #2d3436; margin: 5px 0; width: 100%; height: 0; }
+
+        /* 개념 설명 구역 */
+        .concept-card { background: #ffeaa7; border: 2px solid #fdcb6e; border-radius: 15px; padding: 20px; margin-bottom: 30px; }
+        .concept-title { font-family: 'Jua'; color: #d35400; margin: 0 0 15px 0; font-size: 24px; border-bottom: 2px dashed #e17055; padding-bottom: 10px; text-align: center;}
+        .step { display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 1.5; background: #fff; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+        .step-num { background: #d35400; color: white; padding: 4px 10px; border-radius: 8px; font-size: 15px; font-family: 'Jua'; flex-shrink: 0; }
+        
+        /* 문제 카드 */
+        .prob-grid { display: grid; gap: 20px; }
+        .prob-card { border: 2px solid #e2e8f0; border-radius: 15px; padding: 20px; background: #fafbfc; position: relative; transition: border-color 0.3s; }
+        .prob-card.correct { border-color: var(--point); background: #e3f2fd; }
+        .prob-card.wrong { border-color: var(--error); background: #fff0f0; }
+        .q-num { font-family: 'Jua'; color: white; background: var(--main); padding: 4px 12px; border-radius: 10px; display: inline-block; margin-bottom: 15px; font-size: 16px;}
+        .q-text { font-size: 17px; font-weight: bold; margin-bottom: 15px; line-height: 1.5; word-break: keep-all; text-align: left; color: #2d3436;}
+        
+        /* 보기 버튼 */
+        .options { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .opt-btn { border: 2px solid #cbd5e1; background: white; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-size: 17px; font-weight: bold; font-family: 'Noto Sans KR'; transition: all 0.2s; color: #2d3436; min-width: 80px; text-align: center; flex-grow: 1;}
+        .opt-btn:hover { border-color: var(--main); background: var(--bg); }
+        .opt-btn.selected { background: var(--main); color: white; border-color: var(--main); transform: scale(1.02);}
+        
+        /* 해설 영역 */
+        .explanation { display: none; margin-top: 20px; padding: 15px; background: white; border-left: 5px solid var(--error); border-radius: 10px; font-size: 15px; color: #333; line-height: 1.6; box-shadow: inset 0 0 10px rgba(0,0,0,0.02);}
+        
+        .submit-btn { background: linear-gradient(135deg, var(--main), #fd79a8); color: white; border: none; padding: 18px 30px; font-family: 'Jua'; font-size: 26px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 40px; box-shadow: 0 6px 0 #b8326e; transition: transform 0.1s;}
+        .submit-btn:active { transform: translateY(6px); box-shadow: none; }
+        
+        #result-modal { display: none; text-align: center; margin-top: 30px; font-family: 'Jua'; font-size: 30px; color: var(--error); padding: 30px; background: #fff; border: 5px solid var(--main); border-radius: 20px; animation: pop 0.5s ease;}
+        @keyframes pop { 0% {transform: scale(0.8); opacity: 0;} 100% {transform: scale(1); opacity: 1;} }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <span class="badge">디지털 교과서 18일차</span>
+        <h1 class="title">세로셈으로 푸는 실생활 퍼즐!</h1>
+        <div style="font-size:15px; color: #636e72;">학생명: <strong>서 지 효</strong> | TF팀 검증 완료</div>
+    </div>
+
+    <div class="concept-card">
+        <h3 class="concept-title">💡 아빠의 노하우: 글을 세로셈으로 바꾸기!</h3>
+        <div style="font-size: 16px; line-height: 1.6; text-align: center; word-break: keep-all;">
+            "지효야, 글이 길다고 겁먹지 마! <br>
+            <strong>'똑같은 수가 여러 번'</strong> 나오면 무조건 곱셈이야.<br>
+            문제를 읽고 아래에 있는 <strong>세로셈 빈칸</strong>을 먼저 채워보는 거야!"
+        </div>
+
+        <div class="step">
+            <span class="step-num">예제 1</span>
+            <div>"한 상자에 <strong>24개</strong>씩 들어있는 귤 <strong>3상자</strong>"<br>
+            👉 아래 세로셈처럼 24 × 3 을 계산하면 끝!</div>
+        </div>
+        <div class="step">
+            <span class="step-num">예제 2</span>
+            <div>"<strong>15장씩 4묶음</strong>이 있고, <strong>낱개 5장</strong>이 더 있어."<br>
+            👉 세로셈으로 (15 × 4)를 먼저 풀고, 나온 답에 5를 더해!</div>
+        </div>
+    </div>
+
+    <div id="quiz-area" class="prob-grid"></div>
+
+    <button class="submit-btn" onclick="gradeQuiz()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="result-modal"></div>
+</div>
+
+<script>
+    // 🔥 1. 절대 깨지지 않는 고정형 SVG 그래픽 (가로세로 120px 픽스) 🔥
+    const svgSquare = `
+    <div style="text-align:center; margin: 15px 0;">
+        <svg width="120px" height="120px" viewBox="0 0 100 100" style="display: block; margin: 0 auto; overflow: visible;">
+            <rect x="20" y="20" width="60" height="60" fill="#fff" stroke="#2d3436" stroke-width="3"/>
+            <polyline points="20,35 35,35 35,20" fill="none" stroke="#d63031" stroke-width="2"/>
+            <line x1="50" y1="10" x2="50" y2="30" stroke="#0984e3" stroke-width="3"/> <line x1="50" y1="70" x2="50" y2="90" stroke="#0984e3" stroke-width="3"/> <line x1="10" y1="50" x2="30" y2="50" stroke="#0984e3" stroke-width="3"/> <line x1="70" y1="50" x2="90" y2="50" stroke="#0984e3" stroke-width="3"/> </svg>
+    </div>
+    `;
+
+    // 🔥 2. 절대 흔들리지 않는 세로셈 표 생성 함수 🔥
+    function makeVert(carry, n1_t, n1_o, n2_o, res_h, res_t, res_o) {
+        let c = carry ? `<div class="carry">${carry}</div>` : `<div></div>`;
+        let rh = res_h ? `<div>${res_h}</div>` : `<div></div>`;
+        let rt = (res_t !== '' && res_t !== undefined) ? `<div>${res_t}</div>` : `<div></div>`;
+        let ro = (res_o !== '' && res_o !== undefined) ? `<div>${res_o}</div>` : `<div></div>`;
+        
+        return `
+        <div class="math-vert-wrap">
+            <div class="math-vert-box">
+                <div class="math-vert">
+                    <div></div> ${c} <div></div>
+                    <div></div> <div>${n1_t}</div> <div>${n1_o}</div>
+                    <div class="op">×</div> <div></div> <div>${n2_o}</div>
+                    <div class="line"></div>
+                    ${rh} ${rt} ${ro}
+                </div>
+            </div>
+        </div>
+        `;
+    }
+
+    // 🔥 3. 데이터 검증 완료: 모든 키값을 q_text로 통일, undefined 원천 차단 🔥
+    const quizData = [
+        { type: "복습 1", q_text: "도형 복습! 그림을 보고 완벽한 정사각형의 조건을 찾아보세요.", math: svgSquare, opts: ["네 각이 직각, 네 변의 길이가 같다", "세 각이 직각이다", "길이가 모두 다르다"], ans: 1, exp: "빨간 선은 직각, 파란 선은 길이가 같음을 나타냅니다. 이제 그림이 깨지지 않아요!" },
+        { type: "복습 2", q_text: "어제 배운 받아올림 세로셈! [ 15 × 4 = ? ]", math: makeVert('<span style="color:#0984e3">?</span>', '1', '5', '4', '', '?', '?'), opts: ["50", "60", "70"], ans: 2, exp: "일의 자리 5×4=20(2올림). 십의 자리 1×4=4에 2를 더해 60!" + makeVert('2', '1', '5', '4', '', '6', '0') },
+        { type: "복습 3", q_text: "곱셈과 나눗셈은 단짝! [ 45 ÷ 5 = ? ]", math: "", opts: ["7", "8", "9"], ans: 3, exp: "5단을 외워보세요. 5 × 9 = 45!" },
+        
+        { type: "문제 1", q_text: "한 반에 23명씩 있는 3개 반이 체육관에 모였습니다. 전체 학생은 모두 몇 명일까요?", math: makeVert('', '2', '3', '3', '', '?', '?'), opts: ["66명", "69명", "79명"], ans: 2, exp: "일의 자리 3×3=9, 십의 자리 2×3=6. 정답은 69명입니다." + makeVert('', '2', '3', '3', '', '6', '9') },
+        { type: "문제 2", q_text: "지효가 하루에 15쪽씩 4일 동안 동화책을 읽었습니다. 지효가 읽은 책은 모두 몇 쪽일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '5', '4', '', '?', '?'), opts: ["50쪽", "60쪽", "70쪽"], ans: 2, exp: "일의 자리 5×4=20(2올림). 1×4=4에 2를 더해 60쪽입니다." + makeVert('2', '1', '5', '4', '', '6', '0') },
+        { type: "문제 3", q_text: "연필 1타스는 12자루입니다. 연필을 5타스 샀다면 모두 몇 자루일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '2', '5', '', '?', '?'), opts: ["50자루", "60자루", "70자루"], ans: 2, exp: "일의 자리 2×5=10(1올림). 1×5=5에 1을 더해 60자루입니다." + makeVert('1', '1', '2', '5', '', '6', '0') },
+        { type: "문제 4", q_text: "한 상자에 사탕이 36개씩 들어있습니다. 2상자를 사면 사탕은 모두 몇 개일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '3', '6', '2', '', '?', '?'), opts: ["62개", "72개", "82개"], ans: 2, exp: "일의 자리 6×2=12(1올림). 3×2=6에 1을 더해 72개입니다." + makeVert('1', '3', '6', '2', '', '7', '2') },
+        { type: "문제 5", q_text: "18의 4배인 수는 얼마일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '8', '4', '', '?', '?'), opts: ["62", "72", "82"], ans: 2, exp: "일의 자리 8×4=32(3올림). 1×4=4에 3을 더해 72입니다." + makeVert('3', '1', '8', '4', '', '7', '2') },
+        { type: "문제 6", q_text: "다음 중 계산 결과가 18 × 4 와 <strong>같은</strong> 것은 무엇일까요?", math: "", opts: ["24 × 3", "15 × 4", "35 × 2"], ans: 1, exp: "18×4=72 입니다. 보기 ① 24×3=72, ② 15×4=60, ③ 35×2=70. 정답은 1번!" },
+        { type: "문제 7", q_text: "동네 놀이기구 탑승 요금은 1명당 14코인입니다. 5명이 함께 타려면 모두 몇 코인이 필요할까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '4', '5', '', '?', '?'), opts: ["60코인", "70코인", "80코인"], ans: 2, exp: "일의 자리 4×5=20(2올림). 1×5=5에 2를 더해 70코인입니다." + makeVert('2', '1', '4', '5', '', '7', '0') },
+        { type: "문제 8", q_text: "<strong>[응용]</strong> 색종이가 25장씩 3묶음 있고, 낱개로 10장이 더 있습니다. 색종이는 모두 몇 장일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '2', '5', '3', '', '?', '?'), opts: ["75장", "85장", "95장"], ans: 2, exp: "먼저 묶음을 계산해요. 25 × 3 = 75장. 여기에 낱개 10장을 더하면 75 + 10 = 85장입니다!" + makeVert('1', '2', '5', '3', '', '7', '5') },
+        { type: "문제 9", q_text: "[ 47 × 2 = ? ] 빈칸을 채워보세요.", math: makeVert('<span style="color:#0984e3">?</span>', '4', '7', '2', '', '?', '?'), opts: ["84", "94", "104"], ans: 2, exp: "7×2=14(1올림). 4×2=8에 1을 더해 94입니다." + makeVert('1', '4', '7', '2', '', '9', '4') },
+        { type: "문제 10", q_text: "[ 19 × 5 = ? ] 빈칸을 채워보세요.", math: makeVert('<span style="color:#0984e3">?</span>', '1', '9', '5', '', '?', '?'), opts: ["85", "95", "105"], ans: 2, exp: "9×5=45(4올림). 1×5=5에 4를 더해 95입니다." + makeVert('4', '1', '9', '5', '', '9', '5') },
+        { type: "문제 11", q_text: "삼촌의 나이는 14살이고, 할아버지의 나이는 삼촌 나이의 5배입니다. 할아버지의 연세는 몇 세일까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '4', '5', '', '?', '?'), opts: ["60세", "70세", "80세"], ans: 2, exp: "4×5=20(2올림). 1×5=5에 2를 더해 70세입니다." + makeVert('2', '1', '4', '5', '', '7', '0') },
+        { type: "문제 12", q_text: "<strong>[응용]</strong> 구슬을 18개씩 4봉지에 나누어 담았더니, 바닥에 5개가 남았습니다. 원래 구슬은 모두 몇 개였을까요?", math: makeVert('<span style="color:#0984e3">?</span>', '1', '8', '4', '', '?', '?'), opts: ["72개", "77개", "82개"], ans: 2, exp: "봉지에 담은 구슬은 18 × 4 = 72개. 여기에 남은 5개를 더하면 72 + 5 = 77개입니다." + makeVert('3', '1', '8', '4', '', '7', '2') },
+        { type: "문제 13", q_text: "다음 중 계산 결과가 가장 큰 것을 고르세요.", math: "", opts: ["15 × 6", "24 × 4", "29 × 3"], ans: 2, exp: "① 15×6=90, ② 24×4=96, ③ 29×3=87. 96이 가장 큽니다." },
+        { type: "문제 14", q_text: "사과는 1상자에 24개씩 4상자가 있고, 배는 1상자에 15개씩 5상자가 있습니다. 사과와 배 중 어느 것이 몇 개 더 많을까요?", math: "", opts: ["사과가 더 많다", "배가 더 많다", "개수가 똑같다"], ans: 1, exp: "사과는 24×4=96개, 배는 15×5=75개. 사과가 더 많습니다!" },
+        { type: "문제 15", q_text: "정확히 계산해보세요.", math: makeVert('', '3', '2', '3', '', '?', '?'), opts: ["86", "96", "106"], ans: 2, exp: "받아올림이 없는 곱셈이네요! 일의 자리 2×3=6, 십의 자리 3×3=9. 정답은 96!" + makeVert('', '3', '2', '3', '', '9', '6') },
+        { type: "문제 16", q_text: "하루에 12시간씩 3일 동안 겨울잠을 잤습니다. 잠을 잔 시간은 모두 몇 시간일까요?", math: makeVert('', '1', '2', '3', '', '?', '?'), opts: ["26시간", "36시간", "46시간"], ans: 2, exp: "12 × 3 = 36시간 입니다." + makeVert('', '1', '2', '3', '', '3', '6') },
+        { type: "문제 17", q_text: "어떤 수를 6으로 나누었더니 몫이 14가 되었습니다. 어떤 수는 얼마일까요? ( ? ÷ 6 = 14 )", math: makeVert('<span style="color:#0984e3">?</span>', '1', '4', '6', '', '?', '?'), opts: ["74", "84", "94"], ans: 2, exp: "나눗셈을 거꾸로 돌리면 곱셈! 14 × 6 = ? 을 계산하면 84입니다." + makeVert('2', '1', '4', '6', '', '8', '4') }
+    ];
+
+    const quizArea = document.getElementById('quiz-area');
+
+    quizData.forEach((qObj, i) => {
+        let bg = 'var(--main)';
+        if(qObj.type.includes('복습')) bg = '#0984e3';
+        
+        let html = `
+        <div class="prob-card" id="q${i}">
+            <span class="q-num" style="background:${bg};">${qObj.type}</span>
+            <div class="q-text">${qObj.q_text}</div>
+            ${qObj.math ? qObj.math : ''}
+            <div class="options">`;
+            
+        qObj.opts.forEach((opt, j) => {
+            html += `<div class="opt-btn" onclick="sel(${i}, ${j+1})">${opt}</div>`;
+        });
+        
+        html += `</div>
+            <div class="explanation">
+                <strong style="color:var(--error);">[아빠의 해설]</strong><br>
+                ${qObj.exp}
+            </div>
+        </div>`;
+        quizArea.innerHTML += html;
+    });
+
+    let userAns = {};
+    function sel(qIdx, opt) {
+        const box = document.getElementById('q'+qIdx);
+        const btns = box.querySelectorAll('.opt-btn');
+        btns.forEach(b => b.classList.remove('selected'));
+        btns[opt-1].classList.add('selected');
+        userAns[qIdx] = opt;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        if(Object.keys(userAns).length < quizData.length) { 
+            alert("아직 안 푼 퍼즐이 있어요! 20개의 문제를 모두 풀어주세요."); return; 
+        }
+        quizData.forEach((qObj, i) => {
+            const box = document.getElementById('q'+i);
+            const explain = box.querySelector('.explanation');
+            box.classList.remove('correct', 'wrong'); 
+            explain.style.display = 'none';
+
+            if(userAns[i] === qObj.ans) { 
+                score++; box.classList.add('correct'); 
+            } else { 
+                box.classList.add('wrong'); 
+                explain.style.display = 'block'; 
+                box.querySelectorAll('.opt-btn')[qObj.ans-1].style.border = "3px solid var(--error)";
+            }
+        });
+        
+        const res = document.getElementById('result-modal');
+        let finalScore = Math.round((score / quizData.length) * 100);
+        res.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--main); display:block; margin:10px 0;">${finalScore}점!</span>` + 
+                        (finalScore === 100 ? "🎉 완벽한 곱셈 퍼즐 마스터! 아빠한테 칭찬 스티커 받기!" : "👍 정말 잘했어! 빨간색으로 뜬 아빠 해설을 같이 읽어보자!");
+        res.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>
