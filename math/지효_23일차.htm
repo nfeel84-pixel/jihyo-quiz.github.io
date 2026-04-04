@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>22일차: 똑같이 나누는 분수의 기초</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root{--m:#6c5ce7;--bg:#f3f0ff;--c:#fff;--e:#d63031;--point:#0984e3;--review:#fdcb6e;}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);margin:0;padding:10px;color:#333;-webkit-tap-highlight-color:transparent;}
+        .wrap{max-width:800px;margin:0 auto;background:var(--c);padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);box-sizing:border-box;}
+        .hdr{text-align:center;border-bottom:3px solid var(--m);padding-bottom:15px;margin-bottom:20px;}
+        .bdg{background:var(--m);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Jua';font-size:16px;}
+        .tit{font-family:'Jua';font-size:30px;margin:15px 0 10px 0;word-break:keep-all;color:#2d3436;line-height:1.3;}
+        
+        /* 개념 설명 구역 강화 */
+        .box{background:#eef2ff;border:2px solid var(--m);border-radius:15px;padding:25px;margin-bottom:25px;}
+        .box-tit{font-family:'Jua';color:var(--m);font-size:26px;border-bottom:2px dashed #a29bfe;padding-bottom:10px;text-align:center;margin:0 0 15px 0;}
+        .story{font-size:17px;line-height:1.6;text-align:center;word-break:keep-all;margin-bottom:20px;}
+        
+        .step{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.5;background:#fff;padding:15px;border-radius:10px;margin-top:15px;border:1px solid #e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,0.02);}
+        .step-num{background:var(--m);color:white;padding:4px 12px;border-radius:8px;font-size:15px;font-family:'Jua';flex-shrink:0;}
+        
+        .frac-show{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 10px;font-family:'Jua';font-size:28px;color:#2d3436;}
+        .frac-show .top{border-bottom:3px solid #2d3436;padding:0 8px;}
+        .frac-show .bot{padding:0 8px;}
+        
+        .card{border:2px solid #e2e8f0;border-radius:15px;padding:20px;margin-bottom:20px;background:#fafbfc;}
+        .correct{border-color:var(--point);background:#e3f2fd;}
+        .wrong{border-color:var(--e);background:#fff0f0;}
+        .qnum{font-family:'Jua';color:#fff;background:var(--m);padding:5px 15px;border-radius:10px;display:inline-block;margin-bottom:15px;font-size:16px;}
+        .qtxt{font-size:17px;font-weight:bold;margin-bottom:15px;word-break:keep-all;line-height:1.5;}
+        
+        .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+        .btn{border:2px solid #cbd5e1;background:#fff;padding:12px 15px;border-radius:10px;cursor:pointer;font-weight:bold;flex-grow:1;text-align:center;font-size:17px;font-family:'Noto Sans KR';transition:0.1s;min-width:80px;}
+        .btn.sel{background:var(--m);color:#fff;border-color:var(--m);transform:scale(1.02);}
+        
+        .exp{display:none;margin-top:20px;padding:15px;background:#fff;border-left:5px solid var(--e);font-size:15px;line-height:1.6;box-shadow:inset 0 0 10px rgba(0,0,0,0.02);}
+        .sbmt{background:linear-gradient(135deg,var(--m),#a29bfe);color:#fff;border:none;padding:18px 30px;font-family:'Jua';font-size:26px;border-radius:50px;width:100%;margin-top:30px;cursor:pointer;box-shadow:0 6px 0 #4834d4;}
+        .sbmt:active{transform:translateY(6px);box-shadow:none;}
+        #res{display:none;text-align:center;margin-top:30px;font-family:'Jua';font-size:30px;color:var(--e);padding:30px;border:5px solid var(--m);border-radius:20px;background:#fff;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <span class="bdg">디지털 교과서 22일차 (개념 강화판)</span>
+        <h1 class="tit">엄마 등에 업힌 아들!<br>분수의 마법</h1>
+        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 아빠표 눈높이 코칭</div>
+    </div>
+
+    <div class="box">
+        <h3 class="box-tit">💡 아빠의 노하우: 분수는 '엄마와 아들'이야!</h3>
+        <div class="story">
+            "지효야! 분수는 <strong>'전체를 똑.같.이 나눈 것 중의 몇 개'</strong>인지 나타내는 거야.<br>
+            가장 중요한 건 조각의 크기가 <strong style="color:var(--e);">'무조건 똑같게'</strong> 나누어져야 한다는 사실!"
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 1</span>
+            <div style="width:100%;">
+                피자 1판을 똑같이 <strong>4조각</strong>으로 자르고, 지효가 <strong>1조각</strong>을 먹었어.<br>
+                그걸 숫자로 쓰면 이렇게 써! 👉 <div class="frac-show"><div class="top" style="color:var(--e);">1 (먹은 조각)</div><div class="bot" style="color:var(--point);">4 (전체 조각)</div></div><br>
+                읽을 때는 아래부터 위로! <strong>"4분의 1"</strong>이라고 읽어.
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 2</span>
+            <div style="width:100%;">
+                <strong>분모(어미 모)와 분자(아들 자)</strong><br>
+                아래에 있는 숫자(4)는 든든하게 받쳐주는 <strong>엄마(분모)</strong>야! 전체가 몇 조각인지 알려줘.<br>
+                위에 있는 숫자(1)는 엄마 등에 업혀 있는 <strong>아들(분자)</strong>이야! 내가 선택한 조각 수지.
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-area"></div>
+    <button class="sbmt" onclick="grade()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="res"></div>
+</div>
+
+<script>
+    // 절대 깨지지 않는 반응형 초콜릿(분수) SVG 함수
+    function mkChoco(total, colored) {
+        let w = 180, h = 45;
+        let partW = w / total;
+        let svg = `<div style="text-align:center; margin:15px 0;"><svg width="${w}px" height="${h}px" viewBox="0 0 ${w} ${h}" style="display:inline-block; border:4px solid #2d3436; border-radius:8px; overflow:hidden;">`;
+        for(let i=0; i<total; i++) {
+            let fill = i < colored ? '#ff7675' : '#fff';
+            svg += `<rect x="${i*partW}" y="0" width="${partW}" height="${h}" fill="${fill}" />`;
+            if(i > 0) svg += `<line x1="${i*partW}" y1="0" x2="${i*partW}" y2="${h}" stroke="#2d3436" stroke-width="4"/>`;
+        }
+        svg += `</svg></div>`;
+        return svg;
+    }
+
+    // 인라인 분수 HTML 생성
+    function f(top, bot) {
+        return `<span style="display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.2; font-family:'Jua'; margin:0 4px;"><span style="border-bottom:2px solid #333; padding:0 2px;">${top}</span><span>${bot}</span></span>`;
+    }
+
+    // 100% 안전 데이터 구조
+    const qData = [
+        { type: "복습 1", text: "시간 뺄셈 복습! [ 4시 50분 - 2시 20분 = ? ]", math: "", opts: ["2시 20분", "2시 30분", "3시 30분"], ans: 2, exp: "시는 시끼리(4-2=2), 분은 분끼리(50-20=30) 뺍니다!" },
+        { type: "복습 2", text: "시간 단위 복습! [ 2분 10초 ]는 모두 몇 초일까요?", math: "", opts: ["110초", "120초", "130초"], ans: 3, exp: "1분=60초 이므로 2분은 120초입니다. 120+10=130초!" },
+        { type: "복습 3", text: "길이 덧셈 복습! [ 2km 300m + 1km 500m = ? ]", math: "", opts: ["3km 800m", "4km 800m", "3km 200m"], ans: 1, exp: "km는 km끼리(2+1=3), m는 m끼리(300+500=800) 더합니다!" },
+        
+        { type: "문제 1", text: "분수를 만들 때 <strong>가장 중요한 첫 번째 약속</strong>은 무엇일까요?", math: "", opts: ["크게 잘라야 한다", "똑같이 잘라야 한다", "예쁘게 잘라야 한다"], ans: 2, exp: "분수는 전체를 '똑같이(공평하게)' 나눌 때만 쓸 수 있는 마법의 숫자입니다." },
+        { type: "문제 2", text: "그림의 초콜릿은 전체를 <strong>똑같이 몇 칸</strong>으로 나누었나요?", math: mkChoco(4, 0), opts: ["3칸", "4칸", "5칸"], ans: 2, exp: "칸을 세어보세요. 하나, 둘, 셋, 넷! 전체를 똑같이 4칸으로 나누었습니다." },
+        { type: "문제 3", text: "색칠된 부분은 전체 4칸 중의 <strong>몇 칸</strong>인가요?", math: mkChoco(4, 1), opts: ["1칸", "2칸", "3칸"], ans: 1, exp: "빨간색으로 칠해진 칸은 딱 1칸입니다." },
+        { type: "문제 4", text: "위 그림(전체 4칸 중 색칠 1칸)을 분수로 쓰면 어떻게 될까요?", math: mkChoco(4, 1), opts: [f(1,4), f(4,1), f(1,3)], ans: 1, exp: "전체 나눈 수(4)를 아래에, 색칠한 수(1)를 위에 씁니다. 정답은 1/4 입니다." },
+        { type: "문제 5", text: "분수 ${f(1,4)} 은(는) 어떻게 읽을까요?", math: "", opts: ["1분의 4", "4분의 1", "4와 1"], ans: 2, exp: "아래(엄마)부터 위(아들)로 읽습니다. '4분의 1'입니다." },
+        { type: "문제 6", text: "그림의 색칠된 부분을 <strong>분수로 알맞게 읽은 것</strong>은?", math: mkChoco(3, 2), opts: ["3분의 2", "2분의 3", "3과 2"], ans: 1, exp: "전체 3칸 중 2칸이 칠해져 있으므로 밑에 3, 위에 2! '3분의 2'입니다." },
+        { type: "문제 7", text: "'8분의 3'을 분수로 바르게 쓴 것은?", math: "", opts: [f(8,3), f(3,8), f(3,5)], ans: 2, exp: "아래에 전체(8), 위에 내가 고른 수(3)를 씁니다. 정답은 3/8 입니다." },
+        { type: "문제 8", text: "다음 그림의 색칠된 부분은?", math: mkChoco(5, 4), opts: ["4분의 5", "5분의 3", "5분의 4"], ans: 3, exp: "전체 5칸 중 4칸이 색칠되어 있으므로 '5분의 4'입니다." },
+        { type: "문제 9", text: "분수 ${f(3,7)} 에서 <strong>아래에 있는 숫자 '7'</strong>을 부르는 이름은?", math: "", opts: ["분모", "분자", "몫"], ans: 1, exp: "아래에서 든든하게 받쳐주는 수! '어미 모(어머니)'를 써서 <strong>'분모'</strong>라고 부릅니다." },
+        { type: "문제 10", text: "분수 ${f(2,9)} 에서 <strong>위에 있는 숫자 '2'</strong>를 부르는 이름은?", math: "", opts: ["분모", "분자", "합"], ans: 2, exp: "엄마 등에 업혀 있는 수! '아들 자'를 써서 <strong>'분자'</strong>라고 부릅니다." },
+        { type: "문제 11", text: "다음 중 <strong>분모가 6</strong>인 분수는 어느 것일까요?", math: "", opts: [f(7,6), f(5,6), f(6,5)], ans: 2, exp: "분모는 아래에 있는 숫자입니다. 아래가 6인 것은 5/6 입니다." },
+        { type: "문제 12", text: "그림을 분수로 나타낼 때, <strong>분자</strong>에 들어갈 숫자는 얼마인가요?", math: mkChoco(6, 5), opts: ["6", "5", "1"], ans: 2, exp: "분자는 색칠된(선택한) 칸 수입니다. 빨간 칸이 5칸이므로 분자는 5입니다." },
+        { type: "문제 13", text: "피자 1판을 똑같이 8조각으로 나누어 지효가 3조각을 먹었습니다. 지효가 먹은 양을 분수로 나타내면?", math: "", opts: ["8분의 3", "3분의 8", "5분의 3"], ans: 1, exp: "전체 8조각(엄마) 중 3조각(아들)이므로 '8분의 3'입니다." },
+        { type: "문제 14", text: "케이크를 똑같이 6조각으로 잘랐습니다. 아빠가 2조각을 먹었다면 분수로 얼마인가요?", math: "", opts: [f(2,6), f(6,2), f(2,4)], ans: 1, exp: "전체 6조각 중 2조각이므로 2/6 (6분의 2) 입니다." },
+        { type: "문제 15", text: "'분모가 10이고 분자가 7인 분수'를 고르세요.", math: "", opts: [f(7,10), f(10,7), f(7,7)], ans: 1, exp: "아래(분모)가 10, 위(분자)가 7이므로 7/10 (10분의 7)입니다." },
+        { type: "문제 16", text: "색칠되지 <strong>않은</strong> (하얀색) 부분은 전체의 분수로 얼마일까요?", math: mkChoco(4, 1), opts: ["4분의 1", "4분의 2", "4분의 3"], ans: 3, exp: "하얀색 칸을 세어보면 전체 4칸 중 3칸입니다. 따라서 '4분의 3'입니다!" },
+        { type: "문제 17", text: "마지막 문제! 분수 ${f(1,2)} (2분의 1) 과 같은 뜻을 가진 말은 무엇일까요?", math: mkChoco(2, 1), opts: ["전체의 전부", "전체의 절반(반)", "전체의 두 배"], ans: 2, exp: "똑같이 2칸으로 나눈 것 중 1칸은 딱 '절반(반)'을 의미합니다. 참 잘했어요!" }
+    ];
+
+    const qArea = document.getElementById('quiz-area');
+    qData.forEach((q, i) => {
+        let bg = q.type.includes('복습') ? 'var(--review)' : 'var(--m)';
+        let font = q.type.includes('복습') ? '#333' : '#fff';
+        let h = `<div class="card" id="q${i}">
+            <span class="qnum" style="background:${bg}; color:${font};">${q.type}</span>
+            <div class="qtxt">${q.text}</div>
+            ${q.math}
+            <div class="opts">`;
+        q.opts.forEach((o, j) => { h += `<div class="btn" onclick="sel(${i},${j+1})">${o}</div>`; });
+        h += `</div><div class="exp"><strong>[아빠의 해설]</strong><br>${q.exp}</div></div>`;
+        qArea.innerHTML += h;
+    });
+
+    let userAns = {};
+    function sel(i, o) {
+        let b = document.getElementById('q'+i).querySelectorAll('.btn');
+        b.forEach(x => x.classList.remove('sel'));
+        b[o-1].classList.add('sel');
+        userAns[i] = o;
+    }
+
+    function grade() {
+        let s = 0;
+        if(Object.keys(userAns).length < 20) { alert("아직 안 푼 문제가 있어요! 20번까지 모두 풀어주세요."); return; }
+        qData.forEach((q, i) => {
+            let bx = document.getElementById('q'+i), ex = bx.querySelector('.exp');
+            bx.classList.remove('correct', 'wrong'); ex.style.display = 'none';
+            if(userAns[i] === q.ans) { s++; bx.classList.add('correct'); }
+            else { bx.classList.add('wrong'); ex.style.display = 'block'; bx.querySelectorAll('.btn')[q.ans-1].style.border = "3px solid #d63031"; }
+        });
+        let r = document.getElementById('res');
+        let fs = Math.round((s / 20) * 100);
+        r.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">${fs}점!</span>` + 
+                      (fs === 100 ? "🎉 분수의 마법을 완벽하게 깨우쳤어! 아빠랑 하이파이브!" : "👍 정말 잘했어! 빨간색 해설의 '엄마와 아들' 이야기를 다시 생각해보자!");
+        r.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>
