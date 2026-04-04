@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 4일차 - 마법의 요정 e</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f0ff; color: #2d3748; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(128, 90, 213, 0.1); }
+        
+        h1 { text-align: center; color: #44337a; font-weight: 900; border-bottom: 4px solid #9f7aea; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        /* 개념 설명 섹션 */
+        .concept-box { background: #faf5ff; padding: 30px; border-radius: 15px; border: 2px solid #d6bcfa; margin-bottom: 40px; position: relative; }
+        .concept-title { font-size: 1.6em; font-weight: 900; color: #6b46c1; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .magic-visual { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 25px 0; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(107, 70, 193, 0.1); flex-wrap: wrap; text-align: center; }
+        .train-block { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 10px; padding: 15px; width: 120px; position: relative; }
+        .train-block.magic-target { background: #fff5f5; border-color: #fc8181; box-shadow: 0 0 15px rgba(252, 129, 129, 0.5); }
+        .train-block.magic-e { background: #f3e8ff; border-color: #b794f4; color: #6b46c1; animation: float 2s infinite ease-in-out; }
+        .word-text { font-size: 2.2em; font-weight: 900; }
+        .sound-text { font-size: 1.1em; color: #4a5568; font-weight: bold; margin-top: 5px; }
+        .arrow-text { font-size: 2em; color: #9f7aea; font-weight: bold; }
+        
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* 단어 학습 섹션 */
+        .alphabet-section { margin-bottom: 35px; background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .alphabet-title { font-size: 1.5em; font-weight: 900; color: #fff; background: #805ad5; padding: 8px 20px; border-radius: 8px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #e9d8fd; border-radius: 12px; padding: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+        .word-card:hover { transform: translateY(-5px); border-color: #805ad5; box-shadow: 0 8px 15px rgba(128, 90, 213, 0.2); }
+        
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #d6bcfa; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #44337a; letter-spacing: 2px; }
+        .magic-letter { color: #d53f8c; }
+        .kr-sound { font-size: 1.1em; color: #4a5568; font-weight: bold; background: #faf5ff; padding: 5px 12px; border-radius: 8px; }
+        
+        /* 조립 공식 박스 */
+        .formula-box { background: #fbfeb; padding: 15px; border-radius: 8px; border-left: 5px solid #d53f8c; font-size: 1.05em; color: #2d3748; margin-bottom: 15px; flex-grow: 1; line-height: 1.7; background-color: #fff5f7; }
+        .formula-title { font-size: 0.85em; font-weight: bold; color: #b83280; margin-bottom: 8px; }
+        
+        .speak-btn { width: 100%; padding: 12px; background: #805ad5; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1em; cursor: pointer; transition: background 0.2s; }
+        .speak-btn:hover { background: #6b46c1; }
+
+        /* 퀴즈 섹션 */
+        .quiz-section { background: #fffff0; padding: 35px; border-radius: 15px; border: 2px solid #f6e05e; margin-top: 50px; }
+        .quiz-header { font-size: 1.6em; font-weight: 900; color: #b7791f; text-align: center; margin-bottom: 25px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #fef08a; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        .question-text { font-weight: bold; color: #744210; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; background: #f7fafc; cursor: pointer; font-weight: bold; outline: none; }
+        select:focus { border-color: #805ad5; }
+        
+        .submit-btn { display: block; width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #d53f8c; color: white; border: none; border-radius: 10px; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+        .submit-btn:hover { background: #b83280; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; min-height: 40px; }
+        .correct { color: #d53f8c; }
+        .incorrect { color: #e53e3e; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🪄 4일차: 예외 처리! 마법의 요정 'Magic e'</h1>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 단어 끝에 'e'가 나타나면 마법이 시작돼!</div>
+        <p>지효야, 3일차에 배운 3칸 기차 <b>C-A-P(캡)</b> 기억나지? <br>
+        그런데 이 기차 맨 뒤에 <b>마법의 요정 'e'</b>가 몰래 타면 엄청난 일이 발생해!</p>
+        
+        <div class="magic-visual">
+            <div class="train-block">
+                <div class="word-text">C<span style="color:#e53e3e;">a</span>p</div>
+                <div class="sound-text">ㅋ+애+ㅍ = <br><b>캡 (모자)</b></div>
+            </div>
+            <div class="arrow-text">➕ e ➔</div>
+            <div class="train-block magic-target">
+                <div class="word-text">C<span style="color:#e53e3e;">a</span>p<span style="color:#b83280;">e</span></div>
+                <div class="sound-text">ㅋ+<span style="color:#e53e3e;">에이</span>+ㅍ = <br><b>케이프 (망토)</b></div>
+            </div>
+            <div class="train-block magic-e">
+                <div style="font-size: 3em;">🧚‍♀️</div>
+                <div class="sound-text">나는 묵음!<br>마법만 걸어!</div>
+            </div>
+        </div>
+
+        <p><b>⚙️ Magic 'e' 실행 알고리즘:</b> <br>
+        1. 맨 끝에 있는 'e'는 입을 꾹 다물고 소리를 내지 않아. <b>(묵음)</b><br>
+        2. 대신, 앞에 있는 배터리(모음)에게 요술 지팡이를 얍! 하고 휘둘러서 <span style="color:#d53f8c; font-weight:bold;">"너의 원래 알파벳 이름대로 길게 소리 내!"</span> 라고 마법을 걸어.</p>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">🪄 a_e 마법 ➔ '애'가 '에이'로 변신!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C<span class="magic-letter">a</span>k<span class="magic-letter">e</span></span><span class="kr-sound">케이크</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    C(ㅋ) + <span class="magic-letter">a(에이)</span> + k(ㅋ) + <span class="magic-letter">e(묵음)</span><br>➔ 캑(cak) ❌ / 케이크(cake) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Cake')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">M<span class="magic-letter">a</span>k<span class="magic-letter">e</span></span><span class="kr-sound">메이크 (만들다)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    M(ㅁ) + <span class="magic-letter">a(에이)</span> + k(ㅋ) + <span class="magic-letter">e(묵음)</span><br>➔ 맥(mak) ❌ / 메이크(make) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Make')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">G<span class="magic-letter">a</span>t<span class="magic-letter">e</span></span><span class="kr-sound">게이트 (문)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    G(ㄱ) + <span class="magic-letter">a(에이)</span> + t(ㅌ) + <span class="magic-letter">e(묵음)</span><br>➔ 갯(gat) ❌ / 게이트(gate) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Gate')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">🪄 i_e 마법 ➔ '이'가 '아이'로 변신!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">P<span class="magic-letter">i</span>n<span class="magic-letter">e</span></span><span class="kr-sound">파인 (소나무)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    P(ㅍ) + <span class="magic-letter">i(아이)</span> + n(ㄴ) + <span class="magic-letter">e(묵음)</span><br>➔ 핀(pin) ❌ / 파인(pine) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Pine')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">K<span class="magic-letter">i</span>t<span class="magic-letter">e</span></span><span class="kr-sound">카이트 (연)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    K(ㅋ) + <span class="magic-letter">i(아이)</span> + t(ㅌ) + <span class="magic-letter">e(묵음)</span><br>➔ 킷(kit) ❌ / 카이트(kite) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Kite')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">B<span class="magic-letter">i</span>k<span class="magic-letter">e</span></span><span class="kr-sound">바이크 (자전거)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    B(ㅂ) + <span class="magic-letter">i(아이)</span> + k(ㅋ) + <span class="magic-letter">e(묵음)</span><br>➔ 빅(bik) ❌ / 바이크(bike) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Bike')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">🪄 o_e 마법 ➔ '아/오'가 '오우'로 변신!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">R<span class="magic-letter">o</span>s<span class="magic-letter">e</span></span><span class="kr-sound">로즈 (장미)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    R(ㄹ) + <span class="magic-letter">o(오우)</span> + s(ㅈ) + <span class="magic-letter">e(묵음)</span><br>➔ s가 모음 사이에 끼면 'ㅈ' 소리가 나요.
+                </div>
+                <button class="speak-btn" onclick="speakWord('Rose')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">B<span class="magic-letter">o</span>n<span class="magic-letter">e</span></span><span class="kr-sound">본 (뼈)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    B(ㅂ) + <span class="magic-letter">o(오우)</span> + n(ㄴ) + <span class="magic-letter">e(묵음)</span><br>➔ ㅂ+오우+ㄴ = 본! (원어민은 보운! 에 가깝게 해요)
+                </div>
+                <button class="speak-btn" onclick="speakWord('Bone')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">N<span class="magic-letter">o</span>t<span class="magic-letter">e</span></span><span class="kr-sound">노트 (공책)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    N(ㄴ) + <span class="magic-letter">o(오우)</span> + t(ㅌ) + <span class="magic-letter">e(묵음)</span><br>➔ 낫(not) ❌ / 노트(note) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Note')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alphabet-section">
+        <div class="alphabet-title">🪄 u_e 마법 ➔ '어'가 '유'로 변신!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C<span class="magic-letter">u</span>b<span class="magic-letter">e</span></span><span class="kr-sound">큐브 (정육면체)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    C(ㅋ) + <span class="magic-letter">u(유)</span> + b(ㅂ) + <span class="magic-letter">e(묵음)</span><br>➔ 컵(cub) ❌ / 큐브(cube) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Cube')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">T<span class="magic-letter">u</span>b<span class="magic-letter">e</span></span><span class="kr-sound">튜브 (관/원통)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    T(ㅌ) + <span class="magic-letter">u(유)</span> + b(ㅂ) + <span class="magic-letter">e(묵음)</span><br>➔ 터브(tub) ❌ / 튜브(tube) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Tube')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C<span class="magic-letter">u</span>t<span class="magic-letter">e</span></span><span class="kr-sound">큐트 (귀여운)</span></div>
+                <div class="formula-box"><div class="formula-title">⚙️ 마법 해독 공식</div>
+                    C(ㅋ) + <span class="magic-letter">u(유)</span> + t(ㅌ) + <span class="magic-letter">e(묵음)</span><br>➔ 컷(cut) ❌ / 큐트(cute) ⭕
+                </div>
+                <button class="speak-btn" onclick="speakWord('Cute')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <div class="quiz-header">🕵️‍♀️ 요정의 마법 디버깅 퀴즈 (총 10문제)</div>
+        <div class="quiz-grid">
+            
+            <div class="question-box">
+                <span class="question-text">1. 요정 'e'가 <b>a (애)</b>에게 마법을 걸면 무슨 소리로 변할까?</span>
+                <select id="q1"><option value="">선택</option><option value="에이">에이 (A)</option><option value="아이">아이 (I)</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">2. 요정 'e'가 <b>i (이)</b>에게 마법을 걸면 무슨 소리로 변할까?</span>
+                <select id="q2"><option value="">선택</option><option value="아이">아이 (I)</option><option value="오우">오우 (O)</option></select>
+            </div>
+            <div class="question-box">
+                <span class="question-text">3. 요정 'e'가 <b>u (어)</b>에게 마법을 걸면 무슨 소리로 변할까?</span>
+                <select id="q3"><option value="">선택</option><option value="유">유 (U)</option><option value="에이">에이 (A)</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fff5f7;">
+                <span class="question-text">4. <b>M a k</b> 는 '맥' 이라고 읽어. 그럼 <b>M a k e</b> 는 어떻게 읽을까?</span>
+                <select id="q4"><option value="">선택</option><option value="마크">마크</option><option value="메이크">메이크</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fff5f7;">
+                <span class="question-text">5. <b>P i n</b> 은 '핀' 이라고 읽어. 그럼 <b>P i n e</b> 는 어떻게 읽을까?</span>
+                <select id="q5"><option value="">선택</option><option value="파인">파인</option><option value="피네">피네</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fff5f7;">
+                <span class="question-text">6. <b>C u t</b> 은 '컷' 이라고 읽어. 그럼 <b>C u t e</b> 는 어떻게 읽을까?</span>
+                <select id="q6"><option value="">선택</option><option value="쿠테">쿠테</option><option value="큐트">큐트</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fff5f7;">
+                <span class="question-text">7. <b>N o t</b> 은 '낫' 이라고 읽어. 그럼 <b>N o t e</b> 는 어떻게 읽을까?</span>
+                <select id="q7"><option value="">선택</option><option value="노트">노트</option><option value="노테">노테</option></select>
+            </div>
+
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">8. 단어 맨 끝에 붙어있는 마법의 요정 <b>'e'</b>는 소리를 낼까?</span>
+                <select id="q8"><option value="">선택</option><option value="네">네 ('에' 소리가 나요)</option><option value="아니요">아니요 (묵음이에요)</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">9. 요정 'e'는 앞에 있는 모음이 무엇을 소리 내게 만들까?</span>
+                <select id="q9"><option value="">선택</option><option value="알파벳">원래 알파벳 이름 (에이, 아이...)</option><option value="한글">한글 소리</option></select>
+            </div>
+            <div class="question-box" style="background-color: #fef2f2;">
+                <span class="question-text">10. <b>B i k e (자전거)</b>를 정확하게 읽은 것은?</span>
+                <select id="q10"><option value="">선택</option><option value="바이크">바이크</option><option value="비케">비케</option><option value="빅">빅</option></select>
+            </div>
+
+        </div>
+
+        <button class="submit-btn" onclick="checkAllAnswers()">📝 마법 디버깅 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.85; 
+            utterance.pitch = 1.1; 
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("음성 기능을 지원하지 않는 브라우저입니다.");
+        }
+    }
+
+    function checkAllAnswers() {
+        const answers = {
+            q1: '에이', q2: '아이', q3: '유',
+            q4: '메이크', q5: '파인', q6: '큐트', q7: '노트',
+            q8: '아니요', q9: '알파벳', q10: '바이크'
+        };
+
+        let score = 0;
+        let isAllAnswered = true;
+
+        for (let key in answers) {
+            const selectElement = document.getElementById(key);
+            const userAnswer = selectElement.value;
+            
+            if (userAnswer === "") {
+                isAllAnswered = false;
+                selectElement.style.borderColor = "#e53e3e"; 
+            } else {
+                selectElement.style.borderColor = "#cbd5e0"; 
+                if (userAnswer === answers[key]) {
+                    score++;
+                }
+            }
+        }
+
+        const resultBox = document.getElementById('result-display');
+
+        if (!isAllAnswered) {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = "앗! 요정의 마법을 아직 다 풀지 못했어요. 모두 선택해주세요!";
+            return;
+        }
+
+        if (score === 10) {
+            resultBox.className = "correct";
+            resultBox.innerHTML = "🎉 100점! 지효가 요정의 마법 규칙을 완벽하게 마스터했어요! 🚀";
+        } else {
+            resultBox.className = "incorrect";
+            resultBox.innerHTML = `앗, 10문제 중 ${score}문제를 맞혔어! 마법에 걸린 단어가 있는지 다시 볼까? 🧚‍♀️`;
+        }
+    }
+</script>
+
+</body>
+</html>

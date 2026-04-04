@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>20일차: 1초의 비밀과 시간 덧셈</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root{--m:#6c5ce7;--bg:#f3f0ff;--c:#fff;--e:#d63031;}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);margin:0;padding:10px;color:#333;-webkit-tap-highlight-color:transparent;}
+        .wrap{max-width:800px;margin:0 auto;background:var(--c);padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);box-sizing:border-box;}
+        .hdr{text-align:center;border-bottom:3px solid var(--m);padding-bottom:15px;margin-bottom:20px;}
+        .bdg{background:var(--m);color:#fff;padding:5px 15px;border-radius:20px;font-family:'Jua';font-size:16px;}
+        .tit{font-family:'Jua';font-size:30px;margin:10px 0;word-break:keep-all;color:#2d3436;}
+        .box{background:#eef2ff;border:2px solid var(--m);border-radius:15px;padding:20px;margin-bottom:20px;}
+        .box-tit{font-family:'Jua';color:var(--m);font-size:22px;border-bottom:2px dashed #a29bfe;padding-bottom:10px;text-align:center;margin:0 0 10px 0;}
+        .card{border:2px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:15px;background:#fafbfc;}
+        .correct{border-color:#00b894;background:#e6fffa;}
+        .wrong{border-color:var(--e);background:#fff0f0;}
+        .qnum{font-family:'Jua';color:#fff;background:var(--m);padding:4px 12px;border-radius:8px;display:inline-block;margin-bottom:10px;font-size:16px;}
+        .qtxt{font-size:17px;font-weight:bold;margin-bottom:15px;word-break:keep-all;line-height:1.4;}
+        .opts{display:flex;gap:10px;flex-wrap:wrap;}
+        .btn{border:2px solid #cbd5e1;background:#fff;padding:12px 10px;border-radius:10px;cursor:pointer;font-weight:bold;flex-grow:1;text-align:center;font-size:16px;transition:0.1s;}
+        .btn.sel{background:var(--m);color:#fff;border-color:var(--m);transform:scale(1.02);}
+        .exp{display:none;margin-top:15px;padding:15px;background:#fff;border-left:5px solid var(--e);font-size:15px;line-height:1.5;box-shadow:inset 0 0 5px rgba(0,0,0,0.05);}
+        .sbmt{background:var(--m);color:#fff;border:none;padding:15px;font-family:'Jua';font-size:24px;border-radius:30px;width:100%;margin-top:20px;cursor:pointer;box-shadow:0 5px 0 #4834d4;}
+        .sbmt:active{transform:translateY(5px);box-shadow:none;}
+        #res{display:none;text-align:center;margin-top:20px;font-family:'Jua';font-size:28px;color:var(--e);padding:20px;border:4px solid var(--m);border-radius:15px;background:#fff;}
+        .time-math{display:inline-block;font-family:'Jua';font-size:22px;text-align:right;border:2px dashed #0984e3;padding:15px 25px;border-radius:10px;background:#fff;margin:10px 0;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <span class="bdg">디지털 교과서 20일차</span>
+        <h1 class="tit">째깍째깍! 1초의 비밀과 덧셈</h1>
+        <div style="font-size:14px;color:#636e72;">학생명: <strong>서 지 효</strong> | 아빠표 무결점 모드</div>
+    </div>
+
+    <div class="box">
+        <h3 class="box-tit">💡 아빠의 노하우: 시, 분, 초 끼리 끼리!</h3>
+        <div style="font-size:16px;line-height:1.6;text-align:center;">
+            "지효야! 시계에서 가장 빨리 도는 바늘이 초침이야.<br>
+            초침이 시계 한 바퀴를 휙~ 돌면 <strong>60초</strong>가 되고, 이건 <strong>1분</strong>이랑 똑같아!<br>
+            <strong style="color:var(--e);">[ 1분 = 60초 ]</strong> 절대 잊지 마!<br><br>
+            시간을 더할 때는 길이 단위처럼 <strong>'시'는 '시'끼리, '분'은 '분'끼리</strong> 세로로 더해주면 돼!"
+        </div>
+    </div>
+
+    <div id="quiz-area"></div>
+    <button class="sbmt" onclick="grade()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="res"></div>
+</div>
+
+<script>
+    function mkTime(op, h1, m1, s1, h2, m2, s2, rh, rm, rs) {
+        let r1 = (h1?h1+'시 ':'') + (m1?m1+'분 ':'') + (s1?s1+'초':'');
+        let r2 = (h2?h2+'시 ':'') + (m2?m2+'분 ':'') + (s2?s2+'초':'');
+        let rr = (rh?rh+'시 ':'') + (rm?rm+'분 ':'') + (rs?rs+'초':'');
+        if(!rh && !rm && !rs) rr = '<span style="color:#e84393; font-size:28px;">?</span>';
+        return `<div style="text-align:center;"><div class="time-math">
+            <div>${r1}</div><div><span style="float:left;">${op}</span> ${r2}</div>
+            <div style="border-top:3px solid #333; margin:5px 0;"></div><div style="color:#d63031">${rr}</div>
+        </div></div>`;
+    }
+
+    const qData = [
+        { type: "복습 1", text: "길이 복습! [ 1 cm = ? mm ] 빈칸에 알맞은 수는?", math: "", opts: ["10", "100", "1000"], ans: 1, exp: "1cm 자 안에는 1mm 눈금이 10칸 들어있습니다." },
+        { type: "복습 2", text: "길이 복습! [ 1 km = ? m ] 빈칸에 알맞은 수는?", math: "", opts: ["10", "100", "1000"], ans: 3, exp: "1000m가 모이면 1km로 레벨 업!" },
+        { type: "복습 3", text: "길이의 덧셈! [ 2cm 3mm + 4cm 5mm = ? ]", math: "", opts: ["6cm 8mm", "7cm 8mm", "8cm 6mm"], ans: 1, exp: "cm는 cm끼리(2+4=6), mm는 mm끼리(3+5=8) 더합니다." },
+        
+        { type: "문제 1", text: "시계에서 가장 가늘고 빠르게 움직이는 바늘이 가리키는 단위는 무엇일까요?", math: "", opts: ["시", "분", "초"], ans: 3, exp: "가장 빠른 바늘은 1초마다 째깍 움직이는 '초침'입니다." },
+        { type: "문제 2", text: "초침이 시계를 한 바퀴(60칸) 도는 데 걸리는 시간은 얼마일까요?", math: "", opts: ["60초", "1시간", "1일"], ans: 1, exp: "초침이 한 칸 움직이면 1초, 60칸 움직이면 60초입니다." },
+        { type: "문제 3", text: "중요한 규칙! [ 60초 = 1 ( ? ) ] 빈칸에 알맞은 단위는?", math: "", opts: ["시", "분", "일"], ans: 2, exp: "60초가 모이면 1분으로 레벨 업!" },
+        { type: "문제 4", text: "[ 1분 10초 ]를 모두 '초' 단위로 바꾸면 몇 초일까요?", math: "", opts: ["110초", "70초", "60초"], ans: 2, exp: "1분은 60초입니다. 60초에 10초를 더하면 70초입니다." },
+        { type: "문제 5", text: "[ 2분 ]은 몇 초일까요?", math: "", opts: ["20초", "100초", "120초"], ans: 3, exp: "1분이 60초이므로, 2분은 60+60 = 120초입니다." },
+        { type: "문제 6", text: "[ 80초 ]는 몇 분 몇 초일까요?", math: "", opts: ["1분 20초", "1분 30초", "8분 0초"], ans: 1, exp: "80초에서 60초(1분)를 덜어내면 20초가 남습니다. 따라서 1분 20초!" },
+        { type: "문제 7", text: "다음 빈칸을 채워 시간의 덧셈을 완성하세요.", math: mkTime('+', '2', '10', '', '3', '20', '', '', '', ''), opts: ["4시 30분", "5시 30분", "6시 30분"], ans: 2, exp: "시는 시끼리(2+3=5), 분은 분끼리(10+20=30) 더합니다." + mkTime('+', '2', '10', '', '3', '20', '', '5', '30', '') },
+        { type: "문제 8", text: "시간의 덧셈을 완성하세요.", math: mkTime('+', '1', '15', '20', '2', '30', '10', '', '', ''), opts: ["3시 45분 30초", "4시 40분 30초", "3시 40분 30초"], ans: 1, exp: "시(1+2=3), 분(15+30=45), 초(20+10=30) 끼리 더합니다." + mkTime('+', '1', '15', '20', '2', '30', '10', '3', '45', '30') },
+        { type: "문제 9", text: "지효가 오후 1시 20분에 책을 읽기 시작해서 1시간 10분 동안 읽었습니다. 책을 다 읽은 시간은 몇 시 몇 분일까요?", math: mkTime('+', '1', '20', '', '1', '10', '', '', '', ''), opts: ["2시 30분", "2시 40분", "3시 30분"], ans: 1, exp: "1시 20분 + 1시간 10분을 더하면 2시 30분입니다." },
+        { type: "문제 10", text: "계산해 볼까요?", math: mkTime('+', '', '20', '40', '', '15', '10', '', '', ''), opts: ["35분 50초", "45분 50초", "35분 40초"], ans: 1, exp: "분(20+15=35), 초(40+10=50) 끼리 더합니다." + mkTime('+', '', '20', '40', '', '15', '10', '', '35', '50') },
+        { type: "문제 11", text: "다음 중 시간이 가장 <strong>긴</strong> 것은?", math: "", opts: ["70초", "1분", "1분 5초"], ans: 1, exp: "1분=60초, 1분 5초=65초. 70초가 가장 깁니다." },
+        { type: "문제 12", text: "더하기를 해보세요!", math: mkTime('+', '4', '50', '', '2', '05', '', '', '', ''), opts: ["6시 50분", "6시 55분", "7시 05분"], ans: 2, exp: "시(4+2=6), 분(50+5=55). 정답은 6시 55분!" },
+        { type: "문제 13", text: "지효가 1분 15초 동안 숨을 참고, 동생 지수는 40초 동안 숨을 참았습니다. 지효는 동생보다 <strong>몇 초 더 오래</strong> 숨을 참았을까요? (힌트: 1분 15초를 초로 바꾸어 빼보세요)", math: "", opts: ["35초", "45초", "55초"], ans: 1, exp: "1분 15초 = 75초. 75초 - 40초 = 35초입니다." },
+        { type: "문제 14", text: "다음 식을 바르게 계산한 것은?", math: mkTime('+', '5', '35', '20', '1', '10', '15', '', '', ''), opts: ["6시 45분 35초", "6시 40분 35초", "7시 45분 30초"], ans: 1, exp: "시(5+1=6), 분(35+10=45), 초(20+15=35). 6시 45분 35초!" },
+        { type: "문제 15", text: "[ 130초 ]는 몇 분 몇 초일까요?", math: "", opts: ["1분 30초", "2분 10초", "2분 30초"], ans: 2, exp: "120초가 2분입니다. 130에서 120을 빼면 10초가 남으므로 2분 10초!" },
+        { type: "문제 16", text: "아빠가 요리하는 데 40분이 걸리고, 먹는 데 25분이 걸렸습니다. 아빠가 요리하고 먹는 데 걸린 <strong>총 시간</strong>은 몇 분일까요?", math: "", opts: ["55분", "65분", "75분"], ans: 2, exp: "40분 + 25분 = 65분입니다. (1시간 5분)" },
+        { type: "문제 17", text: "마지막 문제! 정확히 더해보세요.", math: mkTime('+', '11', '10', '10', '1', '05', '05', '', '', ''), opts: ["12시 15분 15초", "12시 20분 15초", "13시 15분 15초"], ans: 1, exp: "시(11+1=12), 분(10+5=15), 초(10+5=15). 12시 15분 15초!" }
+    ];
+
+    const qArea = document.getElementById('quiz-area');
+    qData.forEach((q, i) => {
+        let bg = q.type.includes('복습') ? '#fdcb6e' : 'var(--m)';
+        let font = q.type.includes('복습') ? '#333' : '#fff';
+        let h = `<div class="card" id="q${i}"><span class="qnum" style="background:${bg}; color:${font};">${q.type}</span>
+        <div class="qtxt">${q.text}</div>${q.math}<div class="opts">`;
+        q.opts.forEach((o, j) => { h += `<div class="btn" onclick="sel(${i},${j+1})">${o}</div>`; });
+        h += `</div><div class="exp"><strong>[아빠의 해설]</strong><br>${q.exp}</div></div>`;
+        qArea.innerHTML += h;
+    });
+
+    let userAns = {};
+    function sel(i, o) {
+        let b = document.getElementById('q'+i).querySelectorAll('.btn');
+        b.forEach(x => x.classList.remove('sel'));
+        b[o-1].classList.add('sel');
+        userAns[i] = o;
+    }
+
+    function grade() {
+        let s = 0;
+        if(Object.keys(userAns).length < 20) { alert("아직 안 푼 문제가 있어요! 20번까지 모두 풀어주세요."); return; }
+        qData.forEach((q, i) => {
+            let bx = document.getElementById('q'+i), ex = bx.querySelector('.exp');
+            bx.classList.remove('correct', 'wrong'); ex.style.display = 'none';
+            if(userAns[i] === q.ans) { s++; bx.classList.add('correct'); }
+            else { bx.classList.add('wrong'); ex.style.display = 'block'; bx.querySelectorAll('.btn')[q.ans-1].style.border = "3px solid #d63031"; }
+        });
+        let r = document.getElementById('res');
+        let fs = Math.round((s / 20) * 100);
+        r.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">${fs}점!</span>` + 
+                      (fs === 100 ? "🎉 시간 덧셈 완벽 정복! 아빠 최고, 지효 최고!" : "👍 정말 잘했어! 빨간색 해설의 세로셈을 눈여겨보자!");
+        r.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>
