@@ -13,7 +13,6 @@
         .bdg{background:var(--m);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Jua';font-size:16px;}
         .tit{font-family:'Jua';font-size:30px;margin:15px 0 10px 0;word-break:keep-all;color:#2d3436;line-height:1.3;}
         
-        /* 개념 설명 구역 강화 */
         .box{background:#eef2ff;border:2px solid var(--m);border-radius:15px;padding:25px;margin-bottom:25px;}
         .box-tit{font-family:'Jua';color:var(--m);font-size:26px;border-bottom:2px dashed #a29bfe;padding-bottom:10px;text-align:center;margin:0 0 15px 0;}
         .story{font-size:17px;line-height:1.6;text-align:center;word-break:keep-all;margin-bottom:20px;}
@@ -44,7 +43,7 @@
 <body>
 <div class="wrap">
     <div class="hdr">
-        <span class="bdg">디지털 교과서 22일차 (개념 강화판)</span>
+        <span class="bdg">디지털 교과서 22일차</span>
         <h1 class="tit">엄마 등에 업힌 아들!<br>분수의 마법</h1>
         <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 아빠표 눈높이 코칭</div>
     </div>
@@ -81,7 +80,7 @@
 </div>
 
 <script>
-    // 절대 깨지지 않는 반응형 초콜릿(분수) SVG 함수
+    // 반응형 초콜릿(분수) SVG 함수
     function mkChoco(total, colored) {
         let w = 180, h = 45;
         let partW = w / total;
@@ -95,12 +94,12 @@
         return svg;
     }
 
-    // 인라인 분수 HTML 생성
+    // 인라인 분수 HTML 생성 함수 (오류 수정 완료)
     function f(top, bot) {
         return `<span style="display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.2; font-family:'Jua'; margin:0 4px;"><span style="border-bottom:2px solid #333; padding:0 2px;">${top}</span><span>${bot}</span></span>`;
     }
 
-    // 100% 안전 데이터 구조
+    // 데이터 구조 (문자열 결합 '+' 방식으로 오류 원천 차단)
     const qData = [
         { type: "복습 1", text: "시간 뺄셈 복습! [ 4시 50분 - 2시 20분 = ? ]", math: "", opts: ["2시 20분", "2시 30분", "3시 30분"], ans: 2, exp: "시는 시끼리(4-2=2), 분은 분끼리(50-20=30) 뺍니다!" },
         { type: "복습 2", text: "시간 단위 복습! [ 2분 10초 ]는 모두 몇 초일까요?", math: "", opts: ["110초", "120초", "130초"], ans: 3, exp: "1분=60초 이므로 2분은 120초입니다. 120+10=130초!" },
@@ -110,19 +109,19 @@
         { type: "문제 2", text: "그림의 초콜릿은 전체를 <strong>똑같이 몇 칸</strong>으로 나누었나요?", math: mkChoco(4, 0), opts: ["3칸", "4칸", "5칸"], ans: 2, exp: "칸을 세어보세요. 하나, 둘, 셋, 넷! 전체를 똑같이 4칸으로 나누었습니다." },
         { type: "문제 3", text: "색칠된 부분은 전체 4칸 중의 <strong>몇 칸</strong>인가요?", math: mkChoco(4, 1), opts: ["1칸", "2칸", "3칸"], ans: 1, exp: "빨간색으로 칠해진 칸은 딱 1칸입니다." },
         { type: "문제 4", text: "위 그림(전체 4칸 중 색칠 1칸)을 분수로 쓰면 어떻게 될까요?", math: mkChoco(4, 1), opts: [f(1,4), f(4,1), f(1,3)], ans: 1, exp: "전체 나눈 수(4)를 아래에, 색칠한 수(1)를 위에 씁니다. 정답은 1/4 입니다." },
-        { type: "문제 5", text: "분수 ${f(1,4)} 은(는) 어떻게 읽을까요?", math: "", opts: ["1분의 4", "4분의 1", "4와 1"], ans: 2, exp: "아래(엄마)부터 위(아들)로 읽습니다. '4분의 1'입니다." },
+        { type: "문제 5", text: "분수 " + f(1,4) + " 은(는) 어떻게 읽을까요?", math: "", opts: ["1분의 4", "4분의 1", "4와 1"], ans: 2, exp: "아래(엄마)부터 위(아들)로 읽습니다. '4분의 1'입니다." },
         { type: "문제 6", text: "그림의 색칠된 부분을 <strong>분수로 알맞게 읽은 것</strong>은?", math: mkChoco(3, 2), opts: ["3분의 2", "2분의 3", "3과 2"], ans: 1, exp: "전체 3칸 중 2칸이 칠해져 있으므로 밑에 3, 위에 2! '3분의 2'입니다." },
         { type: "문제 7", text: "'8분의 3'을 분수로 바르게 쓴 것은?", math: "", opts: [f(8,3), f(3,8), f(3,5)], ans: 2, exp: "아래에 전체(8), 위에 내가 고른 수(3)를 씁니다. 정답은 3/8 입니다." },
         { type: "문제 8", text: "다음 그림의 색칠된 부분은?", math: mkChoco(5, 4), opts: ["4분의 5", "5분의 3", "5분의 4"], ans: 3, exp: "전체 5칸 중 4칸이 색칠되어 있으므로 '5분의 4'입니다." },
-        { type: "문제 9", text: "분수 ${f(3,7)} 에서 <strong>아래에 있는 숫자 '7'</strong>을 부르는 이름은?", math: "", opts: ["분모", "분자", "몫"], ans: 1, exp: "아래에서 든든하게 받쳐주는 수! '어미 모(어머니)'를 써서 <strong>'분모'</strong>라고 부릅니다." },
-        { type: "문제 10", text: "분수 ${f(2,9)} 에서 <strong>위에 있는 숫자 '2'</strong>를 부르는 이름은?", math: "", opts: ["분모", "분자", "합"], ans: 2, exp: "엄마 등에 업혀 있는 수! '아들 자'를 써서 <strong>'분자'</strong>라고 부릅니다." },
+        { type: "문제 9", text: "분수 " + f(3,7) + " 에서 <strong>아래에 있는 숫자 '7'</strong>을 부르는 이름은?", math: "", opts: ["분모", "분자", "몫"], ans: 1, exp: "아래에서 든든하게 받쳐주는 수! '어미 모(어머니)'를 써서 <strong>'분모'</strong>라고 부릅니다." },
+        { type: "문제 10", text: "분수 " + f(2,9) + " 에서 <strong>위에 있는 숫자 '2'</strong>를 부르는 이름은?", math: "", opts: ["분모", "분자", "합"], ans: 2, exp: "엄마 등에 업혀 있는 수! '아들 자'를 써서 <strong>'분자'</strong>라고 부릅니다." },
         { type: "문제 11", text: "다음 중 <strong>분모가 6</strong>인 분수는 어느 것일까요?", math: "", opts: [f(7,6), f(5,6), f(6,5)], ans: 2, exp: "분모는 아래에 있는 숫자입니다. 아래가 6인 것은 5/6 입니다." },
         { type: "문제 12", text: "그림을 분수로 나타낼 때, <strong>분자</strong>에 들어갈 숫자는 얼마인가요?", math: mkChoco(6, 5), opts: ["6", "5", "1"], ans: 2, exp: "분자는 색칠된(선택한) 칸 수입니다. 빨간 칸이 5칸이므로 분자는 5입니다." },
         { type: "문제 13", text: "피자 1판을 똑같이 8조각으로 나누어 지효가 3조각을 먹었습니다. 지효가 먹은 양을 분수로 나타내면?", math: "", opts: ["8분의 3", "3분의 8", "5분의 3"], ans: 1, exp: "전체 8조각(엄마) 중 3조각(아들)이므로 '8분의 3'입니다." },
         { type: "문제 14", text: "케이크를 똑같이 6조각으로 잘랐습니다. 아빠가 2조각을 먹었다면 분수로 얼마인가요?", math: "", opts: [f(2,6), f(6,2), f(2,4)], ans: 1, exp: "전체 6조각 중 2조각이므로 2/6 (6분의 2) 입니다." },
         { type: "문제 15", text: "'분모가 10이고 분자가 7인 분수'를 고르세요.", math: "", opts: [f(7,10), f(10,7), f(7,7)], ans: 1, exp: "아래(분모)가 10, 위(분자)가 7이므로 7/10 (10분의 7)입니다." },
         { type: "문제 16", text: "색칠되지 <strong>않은</strong> (하얀색) 부분은 전체의 분수로 얼마일까요?", math: mkChoco(4, 1), opts: ["4분의 1", "4분의 2", "4분의 3"], ans: 3, exp: "하얀색 칸을 세어보면 전체 4칸 중 3칸입니다. 따라서 '4분의 3'입니다!" },
-        { type: "문제 17", text: "마지막 문제! 분수 ${f(1,2)} (2분의 1) 과 같은 뜻을 가진 말은 무엇일까요?", math: mkChoco(2, 1), opts: ["전체의 전부", "전체의 절반(반)", "전체의 두 배"], ans: 2, exp: "똑같이 2칸으로 나눈 것 중 1칸은 딱 '절반(반)'을 의미합니다. 참 잘했어요!" }
+        { type: "문제 17", text: "마지막 문제! 분수 " + f(1,2) + " (2분의 1) 과 같은 뜻을 가진 말은 무엇일까요?", math: mkChoco(2, 1), opts: ["전체의 전부", "전체의 절반(반)", "전체의 두 배"], ans: 2, exp: "똑같이 2칸으로 나눈 것 중 1칸은 딱 '절반(반)'을 의미합니다. 참 잘했어요!" }
     ];
 
     const qArea = document.getElementById('quiz-area');

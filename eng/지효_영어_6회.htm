@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 6일차 - 모음팀 결성!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #ebf8ff; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(66, 153, 225, 0.1); }
+        h1 { text-align: center; color: #2b6cb0; font-weight: 900; border-bottom: 4px solid #4299e1; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        .concept-box { background: #fffaf0; padding: 30px; border-radius: 15px; border: 3px solid #f6ad55; margin-bottom: 40px; text-align: center; }
+        .concept-title { font-size: 1.8em; font-weight: 900; color: #dd6b20; margin-bottom: 20px; }
+        .team-visual { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; font-size: 2em; font-weight: 900; flex-wrap: wrap; }
+        .captain { background: #fed7d7; color: #c53030; padding: 15px 30px; border-radius: 15px; border: 4px solid #fc8181; box-shadow: 0 5px 0 #e53e3e; position: relative; }
+        .captain::after { content: '대장!'; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.4em; background: #e53e3e; color: white; padding: 2px 8px; border-radius: 10px; }
+        .member { background: #edf2f7; color: #a0aec0; padding: 15px 30px; border-radius: 15px; border: 4px dashed #cbd5e0; position: relative;}
+        .member::after { content: '쉿!묵음'; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 0.4em; background: #a0aec0; color: white; padding: 2px 8px; border-radius: 10px; }
+        
+        .team-section { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e2e8f0; }
+        .team-title { font-size: 1.6em; font-weight: 900; color: white; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #2d3748; letter-spacing: 1px; }
+        .kr-sound { font-size: 1.1em; font-weight: bold; padding: 5px 12px; border-radius: 8px; }
+        .formula-box { background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; font-size: 1.05em;}
+        .speak-btn { width: 100%; padding: 12px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        .quiz-section { background: #f0fdf4; padding: 35px; border-radius: 15px; border: 2px solid #9ae6b4; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #c6f6d5; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; cursor: pointer; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #38a169; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚀 6일차: 모음팀 결성! 대장이 자기 이름을 외친다!</h1>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 "When two vowels go walking, the first one does the talking!"</div>
+        <p style="font-size: 1.2em; color: #4a5568;">지효야, 배터리(모음) 두 개가 나란히 손을 잡고 걸어가면 아주 재미있는 알고리즘이 발생해!</p>
+        <div class="team-visual">
+            <div class="captain">A</div><div>+</div><div class="member">I</div><div>=</div><div style="color: #e53e3e;">"에이!"</div>
+        </div>
+        <p style="font-size: 1.1em; font-weight: bold; color: #2d3748; background: white; padding: 15px; border-radius: 10px; border: 2px dashed #fbd38d;">
+            ⚙️ 모음팀 알고리즘 규칙<br>
+            1. <b>앞에 있는 모음(대장)</b>이 자기 알파벳 이름을 길게 소리친다! (A면 '에이', E면 '이', O면 '오우')<br>
+            2. <b>뒤에 따라가는 모음(부하)</b>은 입을 꾹 다물고 소리를 내지 않는다! (묵음)
+        </p>
+    </div>
+
+    <div class="team-section" style="border-color: #fc8181;">
+        <div class="team-title" style="background: #e53e3e;">🔴 모음팀 [AI] & [AY] ➔ "에이!" 팀</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">R <span style="color:#e53e3e;">a i</span> n</span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">레인 (비)</span></div>
+                <div class="formula-box">R(ㄹ) + <b style="color:#e53e3e;">ai(에이)</b> + n(받침ㄴ)</div>
+                <button class="speak-btn" style="background: #e53e3e;" onclick="speakWord('Rain')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">T r <span style="color:#e53e3e;">a i</span> n</span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">트레인 (기차)</span></div>
+                <div class="formula-box">Tr(트ㄹ) + <b style="color:#e53e3e;">ai(에이)</b> + n(받침ㄴ)</div>
+                <button class="speak-btn" style="background: #e53e3e;" onclick="speakWord('Train')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">P l <span style="color:#e53e3e;">a y</span></span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">플레이 (놀다)</span></div>
+                <div class="formula-box">Pl(플ㄹ) + <b style="color:#e53e3e;">ay(에이)</b> ➔ Y도 끝에선 모음팀 합류!</div>
+                <button class="speak-btn" style="background: #e53e3e;" onclick="speakWord('Play')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">D <span style="color:#e53e3e;">a y</span></span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">데이 (날/하루)</span></div>
+                <div class="formula-box">D(ㄷ) + <b style="color:#e53e3e;">ay(에이)</b></div>
+                <button class="speak-btn" style="background: #e53e3e;" onclick="speakWord('Day')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-section" style="border-color: #68d391;">
+        <div class="team-title" style="background: #38a169;">🟢 모음팀 [EE] & [EA] ➔ "이~" 팀</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">T r <span style="color:#38a169;">e e</span></span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">트리 (나무)</span></div>
+                <div class="formula-box">Tr(트ㄹ) + <b style="color:#38a169;">ee(이)</b></div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Tree')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">S <span style="color:#38a169;">e a</span></span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">씨 (바다)</span></div>
+                <div class="formula-box">S(ㅆ) + <b style="color:#38a169;">ea(이)</b> ➔ E가 대장이니까 '이!'</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Sea')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">M <span style="color:#38a169;">e a</span> t</span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">미트 (고기)</span></div>
+                <div class="formula-box">M(ㅁ) + <b style="color:#38a169;">ea(이)</b> + t(받침ㅅ)</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Meat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">L <span style="color:#38a169;">e a</span> f</span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">리프 (나뭇잎)</span></div>
+                <div class="formula-box">L(ㄹ) + <b style="color:#38a169;">ea(이)</b> + f(프)</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Leaf')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-section" style="border-color: #63b3ed;">
+        <div class="team-title" style="background: #3182ce;">🔵 모음팀 [OA] & [OW] ➔ "오우" 팀</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">B <span style="color:#3182ce;">o a</span> t</span><span class="kr-sound" style="background:#ebf8ff; color:#2c5282;">보우트 (배)</span></div>
+                <div class="formula-box">B(ㅂ) + <b style="color:#3182ce;">oa(오우)</b> + t(받침ㅅ)</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Boat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">S <span style="color:#3182ce;">o a</span> p</span><span class="kr-sound" style="background:#ebf8ff; color:#2c5282;">소우프 (비누)</span></div>
+                <div class="formula-box">S(ㅅ) + <b style="color:#3182ce;">oa(오우)</b> + p(받침ㅂ)</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Soap')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">S n <span style="color:#3182ce;">o w</span></span><span class="kr-sound" style="background:#ebf8ff; color:#2c5282;">스노우 (눈)</span></div>
+                <div class="formula-box">Sn(스ㄴ) + <b style="color:#3182ce;">ow(오우)</b></div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Snow')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Y e l l <span style="color:#3182ce;">o w</span></span><span class="kr-sound" style="background:#ebf8ff; color:#2c5282;">옐로우 (노란색)</span></div>
+                <div class="formula-box">Yell(옐) + l<b style="color:#3182ce;">ow(오우)</b></div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Yellow')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #2f855a; text-align: center;">🕵️‍♀️ 모음팀 15제 알고리즘 테스트</h2>
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. 모음 두 개가 나란히 있을 때 규칙은?
+                <select id="q1"><option value="">선택</option><option value="앞">앞에 있는 대장 모음만 자기 알파벳 소리를 낸다</option><option value="뒤">뒤에 있는 모음이 소리를 낸다</option></select>
+            </div>
+            <div class="question-box">2. 모음팀에서 두 번째 모음(부하)은 어떻게 될까?
+                <select id="q2"><option value="">선택</option><option value="묵음">소리가 나지 않는 묵음이 된다</option><option value="소리">크게 소리친다</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">3. 모음팀 <b>AI</b> 와 <b>AY</b> 에서 대장은 누구일까?
+                <select id="q3"><option value="">선택</option><option value="A">A (에이)</option><option value="I">I (아이)</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">4. R-<b>ai</b>-n (비)은 어떻게 읽을까?
+                <select id="q4"><option value="">선택</option><option value="레인">레인</option><option value="라인">라인</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">5. P-l-<b>ay</b> (놀다)는 어떻게 읽을까?
+                <select id="q5"><option value="">선택</option><option value="플레이">플레이</option><option value="플라이">플라이</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">6. M-<b>ai</b>-l (우편)은 어떻게 읽을까?
+                <select id="q6"><option value="">선택</option><option value="메일">메일</option><option value="마일">마일</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">7. 모음팀 <b>EE</b> 와 <b>EA</b> 에서 대장은 누구일까?
+                <select id="q7"><option value="">선택</option><option value="E">E (이)</option><option value="A">A (에이)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">8. S-<b>ee</b>-d (씨앗)는 어떻게 읽을까?
+                <select id="q8"><option value="">선택</option><option value="씨드">씨드</option><option value="세드">세드</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">9. S-<b>ea</b> (바다)는 어떻게 읽을까?
+                <select id="q9"><option value="">선택</option><option value="씨">씨</option><option value="세아">세아</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">10. M-<b>ea</b>-t (고기)는 어떻게 읽을까?
+                <select id="q10"><option value="">선택</option><option value="미트">미트</option><option value="메아트">메아트</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">11. 모음팀 <b>OA</b> 와 <b>OW</b> 에서 대장은 누구일까?
+                <select id="q11"><option value="">선택</option><option value="O">O (오우)</option><option value="W">W (우)</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">12. B-<b>oa</b>-t (배)는 어떻게 읽을까?
+                <select id="q12"><option value="">선택</option><option value="보우트">보우트 (보트)</option><option value="보아트">보아트</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">13. S-n-<b>ow</b> (눈)는 어떻게 읽을까?
+                <select id="q13"><option value="">선택</option><option value="스노우">스노우</option><option value="스나우">스나우</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">14. Y-e-ll-<b>ow</b> (노란색)는 어떻게 읽을까?
+                <select id="q14"><option value="">선택</option><option value="옐로우">옐로우</option><option value="옐로아">옐로아</option></select>
+            </div>
+            <div class="question-box" style="background:#fffaf0;">15. [알고리즘 복합] 4일차에 배운 <b>M a k e (마법의 e)</b> 와 6일차 <b>M a i l (모음팀)</b>의 공통점은?
+                <select id="q15"><option value="">선택</option><option value="에이">둘 다 A가 대장이라서 '에이' 소리가 난다!</option><option value="없음">공통점 없다</option></select>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="checkAnswers()">📝 모음팀 결성 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1.1; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    function checkAnswers() {
+        const ans = { q1:'앞', q2:'묵음', q3:'A', q4:'레인', q5:'플레이', q6:'메일', q7:'E', q8:'씨드', q9:'씨', q10:'미트', q11:'O', q12:'보우트', q13:'스노우', q14:'옐로우', q15:'에이' };
+        let score = 0; let isAll = true;
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") { isAll = false; sel.style.borderColor = "#e53e3e"; }
+            else { 
+                sel.style.borderColor = "#cbd5e0"; 
+                if (sel.value === ans['q'+i]) score++; 
+            }
+        }
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "#e53e3e"; res.innerHTML = "앗! 아직 풀지 않은 퍼즐이 있어요."; return; }
+        if (score === 15) { res.style.color = "#38a169"; res.innerHTML = "🎉 100점! 지효가 모음팀의 비밀을 완벽하게 해독했어! 대단해!"; }
+        else { res.style.color = "#e53e3e"; res.innerHTML = `앗, 15문제 중 ${score}문제를 맞혔어! 대장이 누구인지 다시 볼까?`; }
+    }
+</script>
+</body>
+</html>
