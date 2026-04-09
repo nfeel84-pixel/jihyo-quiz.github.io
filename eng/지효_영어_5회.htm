@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 5일차 - 시스템 긴급 패치 (확장판)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f0fdf4; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(72, 187, 120, 0.1); }
+        h1 { text-align: center; color: #22543d; font-weight: 900; border-bottom: 4px solid #48bb78; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        /* 0단계 복습 박스 */
+        .review-box { background: #fffaf0; border: 3px dashed #dd6b20; border-radius: 15px; padding: 30px; margin-bottom: 40px; }
+        .review-title { font-size: 1.6em; font-weight: 900; color: #c05621; text-align: center; margin-bottom: 20px; }
+        .combo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .combo-item { background: white; border: 2px solid #fbd38d; padding: 15px; border-radius: 12px; font-size: 1.3em; font-weight: 900; color: #2d3748; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+        .combo-btn { padding: 8px; background: #dd6b20; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        
+        /* 알림 박스 */
+        .alert-box { background: #1a202c; color: #48bb78; padding: 30px; border-radius: 15px; border: 4px solid #48bb78; margin-bottom: 40px; }
+        .alert-title { font-size: 1.6em; font-weight: 900; color: #68d391; margin-bottom: 15px; }
+        
+        /* 패치 섹션 */
+        .patch-section { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e2e8f0; }
+        .patch-title { font-size: 1.5em; font-weight: 900; color: #2c5282; background: #ebf8ff; padding: 10px 20px; border-radius: 10px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #2d3748; }
+        .kr-sound { font-size: 1.1em; color: #2b6cb0; font-weight: bold; background: #ebf8ff; padding: 5px 12px; border-radius: 8px; }
+        .formula-box { background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 5px solid #38a169; margin-bottom: 15px; }
+        .speak-btn { width: 100%; padding: 12px; background: #4299e1; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        /* 퀴즈 섹션 */
+        .quiz-section { background: #fffaf0; padding: 35px; border-radius: 15px; border: 2px solid #fbd38d; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #feebc8; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; cursor: pointer; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #dd6b20; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+        .red-txt { color: #e53e3e; } .blue-txt { color: #3182ce; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛠️ 5일차: 지효를 위한 시스템 긴급 패치! (확장판)</h1>
+
+    <div class="review-box">
+        <div class="review-title">🔄 0단계: 머리칸+배터리 합체! (기본 음절 복습)</div>
+        <p style="text-align: center; font-weight: bold; color: #7b341e;">자음(머리칸)과 모음(배터리)이 짝을 이루면 어떤 덩어리 소리가 되는지 먼저 복습하자!</p>
+        <div class="combo-grid">
+            <div class="combo-item">M(ㅁ) + a(애) = <b>Ma (매)</b><button class="combo-btn" onclick="speakWord('Ma')">🔊</button></div>
+            <div class="combo-item">M(ㅁ) + i(이) = <b>Mi (미)</b><button class="combo-btn" onclick="speakWord('Me')">🔊</button></div>
+            <div class="combo-item">P(ㅍ) + e(에) = <b>Pe (페)</b><button class="combo-btn" onclick="speakWord('Pe')">🔊</button></div>
+            <div class="combo-item">P(ㅍ) + i(이) = <b>Pi (피)</b><button class="combo-btn" onclick="speakWord('Pi')">🔊</button></div>
+            <div class="combo-item">B(ㅂ) + o(아/오) = <b>Bo (보/바)</b><button class="combo-btn" onclick="speakWord('Bo')">🔊</button></div>
+            <div class="combo-item">S(ㅅ) + u(어) = <b>Su (써)</b><button class="combo-btn" onclick="speakWord('Su')">🔊</button></div>
+        </div>
+        <p style="text-align: center; color: #c05621; font-weight: 900;">이 합체된 소리 덩어리 밑에 '꼬리칸(자음)'이 받침으로 쏙! 들어가면 단어가 돼!</p>
+    </div>
+
+    <div class="alert-box">
+        <div class="alert-title">⚠️ SYSTEM BUGS: 지효의 예리한 질문!</div>
+        <div class="alert-text">
+            <b>"아빠! SMILE은 스미레가 맞잖아? 그리고 W, H, Y, G는 소리가 자꾸 왜 바뀌어?"</b><br><br>
+            > 네가 규칙을 너무 완벽하게 지켜서 발견한 훌륭한 시스템의 빈틈이야! <br>
+            > 영어가 엉터리인 게 아니라, 아직 다운로드하지 않은 <b>[고급 패치 3가지]</b>가 있었기 때문이란다. 지금 바로 업데이트하자!
+        </div>
+    </div>
+
+    <div class="patch-section" style="border-color: #d53f8c;">
+        <div class="patch-title" style="background: #fff5f7; color: #b83280;">⚙️ 패치 1: 꼬리칸 받침 슬라이딩 (SMILE의 비밀)</div>
+        <p><b>영어에는 '으' 모음이 없어!</b> 뒤에 배터리(모음)가 없는 마지막 자음은 혼자 소리 낼 힘이 없어서 <b>앞 글자의 '받침'으로 쏙!</b> 들어간단다.</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">S m i l e</span><span class="kr-sound">스마일</span></div>
+                <div class="formula-box"><b style="color:#d53f8c;">해독:</b> S(스) + M+i(마이) + <b class="red-txt">l(받침 ㄹ)</b> + e(묵음)<br>➔ e가 묵음이라 L이 배터리를 못 얻고 '마이'의 받침으로 쏙!</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Smile')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C a m p</span><span class="kr-sound">캠프</span></div>
+                <div class="formula-box"><b style="color:#d53f8c;">해독:</b> C+a(캐) + <b class="red-txt">m(받침 ㅁ)</b> + p(프)<br>➔ m이 '캐' 밑으로 들어가서 '캠'! 남은 p는 가볍게 '프'</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Camp')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">M i l k</span><span class="kr-sound">밀크</span></div>
+                <div class="formula-box"><b style="color:#d53f8c;">해독:</b> M+i(미) + <b class="red-txt">l(받침 ㄹ)</b> + k(크)<br>➔ l이 '미' 밑으로 들어가서 '밀'!</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Milk')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="patch-section" style="border-color: #38b2ac;">
+        <div class="patch-title" style="background: #e6fffa; color: #234e52;">⚙️ 패치 2: 아직 못 찾은 요정들 (W, H)</div>
+        <p><b>W</b> = 입술을 '우~' 동그랗게 모았다가 튕기는 요정! / <b>H</b> = 목에서 가볍게 바람만 '하~' 빼주는 요정!</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word"><span class="blue-txt">We</span> b</span><span class="kr-sound">웹 (거미줄)</span></div>
+                <div class="formula-box"><b style="color:#319795;">해독:</b> <b class="blue-txt">W+e(웨)</b> + b(받침ㅂ) ➔ 입술을 모았다가 '웨!'</div>
+                <button class="speak-btn" style="background: #38b2ac;" onclick="speakWord('Web')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word"><span class="blue-txt">Wi</span> nd</span><span class="kr-sound">윈드 (바람)</span></div>
+                <div class="formula-box"><b style="color:#319795;">해독:</b> <b class="blue-txt">W+i(위)</b> + n(받침ㄴ) + d(드) ➔ '윈-드'</div>
+                <button class="speak-btn" style="background: #38b2ac;" onclick="speakWord('Wind')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word"><span class="red-txt">Ha</span> t</span><span class="kr-sound">햇 (모자)</span></div>
+                <div class="formula-box"><b style="color:#319795;">해독:</b> <b class="red-txt">H+a(해)</b> + t(받침ㅅ) ➔ 바람 빠지듯 '햇'</div>
+                <button class="speak-btn" style="background: #38b2ac;" onclick="speakWord('Hat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word"><span class="red-txt">Hu</span> g</span><span class="kr-sound">허그 (안아주다)</span></div>
+                <div class="formula-box"><b style="color:#319795;">해독:</b> <b class="red-txt">H+u(허)</b> + g(받침ㄱ) ➔ 바람 빠지듯 '허그'</div>
+                <button class="speak-btn" style="background: #38b2ac;" onclick="speakWord('Hug')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="patch-section" style="border-color: #ecc94b;">
+        <div class="patch-title" style="background: #fffff0; color: #744210;">⚙️ 패치 3: 변신 카멜레온 (Y, G)</div>
+        <p><b>G의 두 얼굴:</b> 뒤에 e, i, y가 오면 'ㅈ'으로 변신! <br><b>Y의 변신:</b> 단어 끝에 오면 '이' 또는 '아이' 소리를 내는 모음으로 변신!</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Ma<span class="red-txt">gi</span>c</span><span class="kr-sound">매직 (마술)</span></div>
+                <div class="formula-box"><b style="color:#975a16;">해독:</b> Ma(매) + <b class="red-txt">g+i(지)</b> + c(받침ㄱ) ➔ i를 만나 'ㅈ' 변신!</div>
+                <button class="speak-btn" style="background: #d69e2e;" onclick="speakWord('Magic')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word"><span class="red-txt">Gy</span>m</span><span class="kr-sound">짐 (체육관)</span></div>
+                <div class="formula-box"><b style="color:#975a16;">해독:</b> <b class="red-txt">g+y(지)</b> + m(받침ㅁ) ➔ y를 만나 'ㅈ' 변신!</div>
+                <button class="speak-btn" style="background: #d69e2e;" onclick="speakWord('Gym')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Happ<span class="blue-txt">y</span></span><span class="kr-sound">해피 (행복한)</span></div>
+                <div class="formula-box"><b style="color:#975a16;">해독:</b> Hap(해) + p+<b class="blue-txt">y(이)</b> ➔ 긴 단어 끝에선 '이'</div>
+                <button class="speak-btn" style="background: #d69e2e;" onclick="speakWord('Happy')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Sk<span class="blue-txt">y</span></span><span class="kr-sound">스카이 (하늘)</span></div>
+                <div class="formula-box"><b style="color:#975a16;">해독:</b> Sk(스ㅋ) + <b class="blue-txt">y(아이)</b> ➔ 짧은 단어 끝에선 '아이'</div>
+                <button class="speak-btn" style="background: #d69e2e;" onclick="speakWord('Sky')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #c05621; text-align: center;">🕵️‍♀️ 시스템 패치 15제 디버깅 테스트</h2>
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. 영어 단어 끝에 모음이 없으면 마지막 자음은 어떻게 발음할까?
+                <select id="q1"><option value="">선택</option><option value="받침">앞 글자의 받침으로 쏙!</option><option value="으">크게 '으' 소리를 낸다</option></select>
+            </div>
+            <div class="question-box">2. S-M-I-L-E 이 '스미레'가 아니라 '스마일'인 이유는?
+                <select id="q2"><option value="">선택</option><option value="이유">e가 묵음이라 L이 '받침'으로 들어가서</option><option value="그냥">그냥 그렇게 외우는 거라서</option></select>
+            </div>
+            <div class="question-box">3. M-a-c 은 '매크'일까, '맥'일까?
+                <select id="q3"><option value="">선택</option><option value="맥">맥</option><option value="매크">매크</option></select>
+            </div>
+            <div class="question-box">4. D-e-s-k (책상)에서 s는 어떻게 소리 날까?
+                <select id="q4"><option value="">선택</option><option value="스">혼자 '스' 소리를 낸다</option><option value="받침">앞에 받침으로 들어간다</option></select>
+            </div>
+            <div class="question-box">5. T-e-n-t (텐트)에서 첫 번째 n은 어떻게 될까?
+                <select id="q5"><option value="">선택</option><option value="받침">e 밑에 받침(ㄴ)으로 들어간다</option><option value="느">'느' 소리가 난다</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">6. 입술을 '우~' 하고 모았다가 튕기게 해주는 요정은?
+                <select id="q6"><option value="">선택</option><option value="W">W</option><option value="H">H</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">7. 바람만 가볍게 '하~' 하고 빼주는 요정은?
+                <select id="q7"><option value="">선택</option><option value="H">H</option><option value="W">W</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">8. W+e+t (젖은) 은 어떻게 읽을까?
+                <select id="q8"><option value="">선택</option><option value="웻">웻</option><option value="헷">헷</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">9. H+o+p (껑충 뛰다) 는 어떻게 읽을까?
+                <select id="q9"><option value="">선택</option><option value="합">합 (또는 홉)</option><option value="왑">왑</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">10. W+i+n (이기다) 은 어떻게 읽을까?
+                <select id="q10"><option value="">선택</option><option value="윈">윈</option><option value="힌">힌</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">11. G의 기본 소리는 'ㄱ'이야. 그럼 언제 'ㅈ'으로 변신할까?
+                <select id="q11"><option value="">선택</option><option value="eiy">뒤에 e, i, y가 올 때</option><option value="aou">뒤에 a, o, u가 올 때</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">12. Ma-gi-c (마술)에서 G는 무슨 소리가 날까?
+                <select id="q12"><option value="">선택</option><option value="ㅈ">ㅈ (매직)</option><option value="ㄱ">ㄱ (매기크)</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">13. Ga-me (게임)에서 G는 무슨 소리가 날까? (뒤에 a야!)
+                <select id="q13"><option value="">선택</option><option value="ㄱ">ㄱ (게임)</option><option value="ㅈ">ㅈ (제임)</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">14. 긴 단어 Happ-y (해피) 끝에 있는 Y는 무슨 소리일까?
+                <select id="q14"><option value="">선택</option><option value="이">이</option><option value="아이">아이</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">15. 짧은 단어 Sk-y (하늘) 끝에 있는 Y는 무슨 소리일까?
+                <select id="q15"><option value="">선택</option><option value="아이">아이</option><option value="이">이</option></select>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="checkAnswers()">📝 15제 디버깅 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1.1; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+
+    function checkAnswers() {
+        const ans = { q1:'받침', q2:'이유', q3:'맥', q4:'스', q5:'받침', q6:'W', q7:'H', q8:'웻', q9:'합', q10:'윈', q11:'eiy', q12:'ㅈ', q13:'ㄱ', q14:'이', q15:'아이' };
+        let score = 0; let isAll = true;
+
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") { isAll = false; sel.style.borderColor = "#e53e3e"; }
+            else { 
+                sel.style.borderColor = "#cbd5e0"; 
+                if (sel.value === ans['q'+i]) score++; 
+            }
+        }
+        
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "#e53e3e"; res.innerHTML = "앗! 풀지 않은 문제가 있어요."; return; }
+        if (score === 15) { res.style.color = "#38a169"; res.innerHTML = "🎉 100점! 15개의 시스템 패치를 완벽하게 해독했어!"; }
+        else { res.style.color = "#e53e3e"; res.innerHTML = `앗, 15문제 중 ${score}문제를 맞혔어! 다시 확인해볼까?`; }
+    }
+</script>
+</body>
+</html>

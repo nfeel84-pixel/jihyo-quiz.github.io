@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 7일차 - 소리를 지배하는 보스 'R'</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f7fafc; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #1a365d; font-weight: 900; border-bottom: 4px solid #718096; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        .boss-box { background: #2d3748; color: white; padding: 30px; border-radius: 15px; border: 4px solid #4a5568; margin-bottom: 40px; text-align: center; position: relative; overflow: hidden; }
+        .boss-title { font-size: 1.8em; font-weight: 900; color: #ecc94b; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .boss-visual { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; font-size: 2em; font-weight: 900; }
+        .vowel-victim { background: #e2e8f0; color: #4a5568; padding: 15px 30px; border-radius: 15px; opacity: 0.7; text-decoration: line-through; }
+        .boss-r { background: #e53e3e; color: white; padding: 20px 40px; border-radius: 15px; border: 4px solid #c53030; box-shadow: 0 0 20px rgba(229, 62, 62, 0.8); transform: scale(1.1); }
+        
+        .r-section { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e2e8f0; }
+        .r-title { font-size: 1.6em; font-weight: 900; color: white; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #2d3748; letter-spacing: 1px; }
+        .kr-sound { font-size: 1.1em; font-weight: bold; padding: 5px 12px; border-radius: 8px; }
+        .formula-box { background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; font-size: 1.05em; }
+        .speak-btn { width: 100%; padding: 12px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: #718096; }
+        .speak-btn:hover { background: #4a5568; }
+        
+        .quiz-section { background: #edf2f7; padding: 35px; border-radius: 15px; border: 2px solid #cbd5e0; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; cursor: pointer; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #2d3748; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🌪️ 7일차: 소리를 지배하는 보스 'R' (R-Controlled Vowels)</h1>
+
+    <div class="boss-box">
+        <div class="boss-title">⚠️ SYSTEM OVERRIDE: 보스 R의 등장!</div>
+        <p style="font-size: 1.2em; color: #e2e8f0;">지효야, 배터리(모음) 뒤에 <b>무시무시한 보스 알파벳 'R'</b>이 붙으면, <br>모음의 원래 소리는 꿀꺽 삼켜지고 혀를 동그랗게 마는 <b>'굴러가는 소리'</b>로 지배당해!</p>
+        <div class="boss-visual">
+            <div class="vowel-victim">A (애)</div><div>+</div><div class="boss-r">R</div><div>=</div><div style="color: #fc8181;">"아-ㄹ!"</div>
+        </div>
+        <p style="font-size: 1.1em; color: #cbd5e0; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;">
+            <b>⚙️ 보스 R 알고리즘 3대장</b><br>
+            1. <b>AR</b> ➔ "아-ㄹ" (입을 크게 벌리고 혀를 굴려요)<br>
+            2. <b>OR</b> ➔ "오-ㄹ" (입술을 동그랗게 모으고 혀를 굴려요)<br>
+            3. <b>ER / IR / UR</b> ➔ "어-ㄹ" (이 세 녀석은 소리가 똑같아! 외우기 완전 쉬움!)
+        </p>
+    </div>
+
+    <div class="r-section" style="border-color: #fc8181;">
+        <div class="r-title" style="background: #e53e3e;">🔴 보스 AR ➔ "아-ㄹ" 소리로 지배한다!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C <span style="color:#e53e3e;">a r</span></span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">카-ㄹ (자동차)</span></div>
+                <div class="formula-box">C(ㅋ) + <b style="color:#e53e3e;">ar(아-ㄹ)</b></div>
+                <button class="speak-btn" onclick="speakWord('Car')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">St <span style="color:#e53e3e;">a r</span></span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">스타-ㄹ (별)</span></div>
+                <div class="formula-box">St(스트) + <b style="color:#e53e3e;">ar(아-ㄹ)</b></div>
+                <button class="speak-btn" onclick="speakWord('Star')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">P <span style="color:#e53e3e;">a r</span> k</span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">파-ㄹ크 (공원)</span></div>
+                <div class="formula-box">P(ㅍ) + <b style="color:#e53e3e;">ar(아-ㄹ)</b> + k(크)</div>
+                <button class="speak-btn" onclick="speakWord('Park')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">Sh <span style="color:#e53e3e;">a r</span> k</span><span class="kr-sound" style="background:#fed7d7; color:#c53030;">샤-ㄹ크 (상어)</span></div>
+                <div class="formula-box">Sh(쉬) + <b style="color:#e53e3e;">ar(아-ㄹ)</b> + k(크)</div>
+                <button class="speak-btn" onclick="speakWord('Shark')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="r-section" style="border-color: #f6ad55;">
+        <div class="r-title" style="background: #dd6b20;">🟠 보스 OR ➔ "오-ㄹ" 소리로 지배한다!</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">C <span style="color:#dd6b20;">o r</span> n</span><span class="kr-sound" style="background:#feebc8; color:#c05621;">코-ㄹㄴ (옥수수)</span></div>
+                <div class="formula-box">C(ㅋ) + <b style="color:#dd6b20;">or(오-ㄹ)</b> + n(받침ㄴ)</div>
+                <button class="speak-btn" onclick="speakWord('Corn')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">H <span style="color:#dd6b20;">o r</span> n</span><span class="kr-sound" style="background:#feebc8; color:#c05621;">호-ㄹㄴ (뿔/경적)</span></div>
+                <div class="formula-box">H(ㅎ) + <b style="color:#dd6b20;">or(오-ㄹ)</b> + n(받침ㄴ)</div>
+                <button class="speak-btn" onclick="speakWord('Horn')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">F <span style="color:#dd6b20;">o r</span> k</span><span class="kr-sound" style="background:#feebc8; color:#c05621;">포-ㄹ크 (포크)</span></div>
+                <div class="formula-box">F(ㅍ/f) + <b style="color:#dd6b20;">or(오-ㄹ)</b> + k(크)</div>
+                <button class="speak-btn" onclick="speakWord('Fork')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">St <span style="color:#dd6b20;">o r</span> m</span><span class="kr-sound" style="background:#feebc8; color:#c05621;">스토-ㄹㅁ (폭풍)</span></div>
+                <div class="formula-box">St(스트) + <b style="color:#dd6b20;">or(오-ㄹ)</b> + m(받침ㅁ)</div>
+                <button class="speak-btn" onclick="speakWord('Storm')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="r-section" style="border-color: #68d391;">
+        <div class="r-title" style="background: #38a169;">🟢 보스 ER, IR, UR ➔ 셋 다 똑같이 "어-ㄹ" !</div>
+        <p style="font-weight: bold; color: #2f855a; margin-bottom: 15px;">이 세 가지는 혀를 뒤로 당기면서 '어-ㄹ' 하고 똑같은 소리를 내. (알고리즘 통합!)</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">H <span style="color:#38a169;">e r</span></span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">허-ㄹ (그녀를)</span></div>
+                <div class="formula-box">H(ㅎ) + <b style="color:#38a169;">er(어-ㄹ)</b></div>
+                <button class="speak-btn" onclick="speakWord('Her')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">B <span style="color:#38a169;">i r</span> d</span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">버-ㄹ드 (새)</span></div>
+                <div class="formula-box">B(ㅂ) + <b style="color:#38a169;">ir(어-ㄹ)</b> + d(드)</div>
+                <button class="speak-btn" onclick="speakWord('Bird')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">G <span style="color:#38a169;">i r</span> l</span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">거-ㄹ (소녀)</span></div>
+                <div class="formula-box">G(ㄱ) + <b style="color:#38a169;">ir(어-ㄹ)</b> + l(받침ㄹ)</div>
+                <button class="speak-btn" onclick="speakWord('Girl')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word">N <span style="color:#38a169;">u r</span> se</span><span class="kr-sound" style="background:#c6f6d5; color:#22543d;">너-ㄹ스 (간호사)</span></div>
+                <div class="formula-box">N(ㄴ) + <b style="color:#38a169;">ur(어-ㄹ)</b> + se(스)</div>
+                <button class="speak-btn" onclick="speakWord('Nurse')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #2d3748; text-align: center;">🕵️‍♀️ 보스 R 15제 디버깅 테스트</h2>
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. 모음(배터리) 뒤에 보스 'R'이 오면 모음의 원래 소리는 어떻게 될까?
+                <select id="q1"><option value="">선택</option><option value="지배">R에게 지배당해서 혀가 굴러가는 소리로 바뀐다</option><option value="그대로">원래 소리 그대로 난다</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">2. 보스 <b>AR</b> 은 무슨 소리가 날까?
+                <select id="q2"><option value="">선택</option><option value="아-ㄹ">아-ㄹ</option><option value="애-ㄹ">애-ㄹ</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">3. C-<b>ar</b> (자동차)은 어떻게 읽을까?
+                <select id="q3"><option value="">선택</option><option value="카-ㄹ">카-ㄹ (카)</option><option value="캐-ㄹ">캐-ㄹ (캐)</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">4. P-<b>ar</b>-k (공원)은 어떻게 읽을까?
+                <select id="q4"><option value="">선택</option><option value="파-ㄹ크">파-ㄹ크 (파크)</option><option value="패-ㄹ크">패-ㄹ크 (패크)</option></select>
+            </div>
+            <div class="question-box" style="background:#fffaf0;">5. 보스 <b>OR</b> 은 무슨 소리가 날까?
+                <select id="q5"><option value="">선택</option><option value="오-ㄹ">오-ㄹ</option><option value="어-ㄹ">어-ㄹ</option></select>
+            </div>
+            <div class="question-box" style="background:#fffaf0;">6. C-<b>or</b>-n (옥수수)은 어떻게 읽을까?
+                <select id="q6"><option value="">선택</option><option value="코-ㄹㄴ">코-ㄹㄴ (콘)</option><option value="커-ㄹㄴ">커-ㄹㄴ (컨)</option></select>
+            </div>
+            <div class="question-box" style="background:#fffaf0;">7. H-<b>or</b>-n (경적)은 어떻게 읽을까?
+                <select id="q7"><option value="">선택</option><option value="호-ㄹㄴ">호-ㄹㄴ (혼)</option><option value="허-ㄹㄴ">허-ㄹㄴ (헌)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">8. 보스 <b>ER, IR, UR</b> 이 세 가지는 모두 무슨 소리가 날까?
+                <select id="q8"><option value="">선택</option><option value="어-ㄹ">어-ㄹ</option><option value="각자">각자 다 다른 소리</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">9. H-<b>er</b> (그녀를)은 어떻게 읽을까?
+                <select id="q9"><option value="">선택</option><option value="허-ㄹ">허-ㄹ (헐)</option><option value="헤-ㄹ">헤-ㄹ (헬)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">10. B-<b>ir</b>-d (새)는 어떻게 읽을까?
+                <select id="q10"><option value="">선택</option><option value="버-ㄹ드">버-ㄹ드 (버드)</option><option value="비-ㄹ드">비-ㄹ드 (비드)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">11. G-<b>ir</b>-l (소녀)은 어떻게 읽을까?
+                <select id="q11"><option value="">선택</option><option value="거-ㄹ">거-ㄹ (걸)</option><option value="기-ㄹ">기-ㄹ (길)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">12. N-<b>ur</b>-se (간호사)는 어떻게 읽을까?
+                <select id="q12"><option value="">선택</option><option value="너-ㄹ스">너-ㄹ스 (널스)</option><option value="누-ㄹ스">누-ㄹ스 (눌스)</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">13. C-o-r-n 과 H-o-r-n 의 공통점은?
+                <select id="q13"><option value="">선택</option><option value="오-ㄹ">둘 다 보스 OR(오-ㄹ) 이 들어있다!</option><option value="없음">없다</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">14. B-i-r-d 와 N-u-r-se 의 공통점은?
+                <select id="q14"><option value="">선택</option><option value="어-ㄹ">모양은 ir과 ur로 다르지만 똑같이 '어-ㄹ' 소리가 난다!</option><option value="없음">없다</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">15. C-a-t (고양이) 과 C-a-r (자동차) 의 결정적 차이는?
+                <select id="q15"><option value="">선택</option><option value="R">보스 R이 있어서 a가 '애'에서 '아-ㄹ'로 변했다!</option><option value="C">C 소리가 변했다</option></select>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="checkAnswers3()">📝 보스 R 디버깅 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1.1; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    function checkAnswers3() {
+        const ans = { q1:'지배', q2:'아-ㄹ', q3:'카-ㄹ', q4:'파-ㄹ크', q5:'오-ㄹ', q6:'코-ㄹㄴ', q7:'호-ㄹㄴ', q8:'어-ㄹ', q9:'허-ㄹ', q10:'버-ㄹ드', q11:'거-ㄹ', q12:'너-ㄹ스', q13:'오-ㄹ', q14:'어-ㄹ', q15:'R' };
+        let score = 0; let isAll = true;
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") { isAll = false; sel.style.borderColor = "#e53e3e"; }
+            else { 
+                sel.style.borderColor = "#cbd5e0"; 
+                if (sel.value === ans['q'+i]) score++; 
+            }
+        }
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "#e53e3e"; res.innerHTML = "앗! 아직 무찌르지 못한 보스 문제가 있어요."; return; }
+        if (score === 15) { res.style.color = "#2b6cb0"; res.innerHTML = "🎉 100점! 지효가 가장 어려운 보스 R을 완벽하게 무찔렀어! 대단해!"; }
+        else { res.style.color = "#e53e3e"; res.innerHTML = `앗, 15문제 중 ${score}문제를 맞혔어! 헷갈리는 보스가 있는지 다시 볼까?`; }
+    }
+</script>
+</body>
+</html>
