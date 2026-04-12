@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 8일차 - 합체 로봇과 콤보 스킬</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f4f6f8; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2d3748; font-weight: 900; border-bottom: 4px solid #4a5568; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        .concept-box { background: #edf2f7; padding: 30px; border-radius: 15px; border: 3px solid #a0aec0; margin-bottom: 40px; }
+        .concept-title { font-size: 1.8em; font-weight: 900; color: #2b6cb0; margin-bottom: 20px; text-align: center; }
+        .robot-visual { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0; font-size: 1.5em; font-weight: 900; flex-wrap: wrap; text-align: center; }
+        .part { background: white; color: #4a5568; padding: 15px 25px; border-radius: 10px; border: 3px dashed #cbd5e0; }
+        .mega-robot { background: #3182ce; color: white; padding: 15px 30px; border-radius: 10px; border: 4px solid #2b6cb0; box-shadow: 0 0 15px rgba(49, 130, 206, 0.5); transform: scale(1.1); }
+        
+        .section-box { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e2e8f0; }
+        .section-title { font-size: 1.6em; font-weight: 900; color: white; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; letter-spacing: 1px; }
+        .kr-sound { font-size: 1.1em; font-weight: bold; padding: 5px 12px; border-radius: 8px; }
+        .formula-box { background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 1.05em; font-weight: bold; }
+        .speak-btn { width: 100%; padding: 12px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        .quiz-section { background: #fffff0; padding: 35px; border-radius: 15px; border: 2px solid #f6e05e; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #fef08a; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; cursor: pointer; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #d69e2e; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🤖 8일차: 자음들의 특수 스킬! (합체 로봇과 콤보 공격)</h1>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 자음 두 개가 나란히 붙어 있다면?</div>
+        <p style="font-size: 1.2em; text-align: center; color: #4a5568;">지효야, 기차 머리칸이나 꼬리칸에 <b>자음이 2개 연속으로</b> 올 때가 있어. 이때는 두 가지 스킬 중 하나가 발동해!</p>
+        
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: 15px; border: 2px solid #3182ce;">
+                <h3 style="color: #2b6cb0; text-align: center;">스킬 1. 합체 로봇 (Digraphs)</h3>
+                <div class="robot-visual">
+                    <div class="part">S (ㅅ)</div><div>+</div><div class="part">H (ㅎ)</div><div>=</div><div class="mega-robot">SH (쉬!)</div>
+                </div>
+                <p style="text-align: center;">두 알파벳이 만나서 <b>완전히 새로운 하나의 소리</b>로 합체해버려!</p>
+            </div>
+            
+            <div style="flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: 15px; border: 2px solid #38a169;">
+                <h3 style="color: #2f855a; text-align: center;">스킬 2. 콤보 공격 (Blends)</h3>
+                <div class="robot-visual">
+                    <div class="part">S (ㅅ)</div><div>+</div><div class="part">T (ㅌ)</div><div>=</div><div class="mega-robot" style="background:#38a169; border-color:#2f855a; box-shadow: 0 0 15px rgba(56,161,105,0.5);">ST (스트!)</div>
+                </div>
+                <p style="text-align: center;">새로운 소리가 되진 않지만, <b>엄청나게 빠른 속도로 연달아 슬라이딩</b> 발음해!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box" style="border-color: #3182ce;">
+        <div class="section-title" style="background: #2b6cb0;">🤖 합체 로봇 [SH] & [CH]</div>
+        <p style="font-weight: bold; color: #2b6cb0; margin-bottom: 15px;">▶ SH는 조용히 할 때 내는 "쉬~!" 소리 / CH는 기차가 출발할 때 내는 "취 칙폭폭!" 소리야.</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2b6cb0;"><span style="color:#e53e3e;">Sh</span> i p</span><span class="kr-sound" style="background:#ebf8ff; color:#2b6cb0;">쉽 (배)</span></div>
+                <div class="formula-box"><b style="color:#2b6cb0;">해독:</b> <b style="color:#e53e3e;">Sh(쉬)</b> + i(이) + p(받침ㅂ)</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Ship')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2b6cb0;">F i <span style="color:#e53e3e;">sh</span></span><span class="kr-sound" style="background:#ebf8ff; color:#2b6cb0;">피쉬 (물고기)</span></div>
+                <div class="formula-box"><b style="color:#2b6cb0;">해독:</b> F(ㅍ) + i(이) + <b style="color:#e53e3e;">sh(쉬)</b> ➔ 꼬리칸에서 합체!</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Fish')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2b6cb0;"><span style="color:#e53e3e;">Ch</span> a t</span><span class="kr-sound" style="background:#ebf8ff; color:#2b6cb0;">챗 (수다떨다)</span></div>
+                <div class="formula-box"><b style="color:#2b6cb0;">해독:</b> <b style="color:#e53e3e;">Ch(취)</b> + a(애) + t(받침ㅅ)</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Chat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2b6cb0;">M u <span style="color:#e53e3e;">ch</span></span><span class="kr-sound" style="background:#ebf8ff; color:#2b6cb0;">머치 (많은)</span></div>
+                <div class="formula-box"><b style="color:#2b6cb0;">해독:</b> M(ㅁ) + u(어) + <b style="color:#e53e3e;">ch(치)</b></div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Much')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box" style="border-color: #805ad5;">
+        <div class="section-title" style="background: #6b46c1;">👅 혀를 무는 특수 로봇 [TH]</div>
+        <p style="font-weight: bold; color: #6b46c1; margin-bottom: 15px;">▶ TH는 한국어에 없는 특별한 스킬이야. 혀를 윗니 아랫니 사이에 살짝 물었다가 빼면서 바람을 내! (두 가지 소리가 있어)</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#6b46c1;"><span style="color:#d53f8c;">Th</span> i n</span><span class="kr-sound" style="background:#faf5ff; color:#6b46c1;">씬 (바람 빠지는 쓰)</span></div>
+                <div class="formula-box"><b style="color:#805ad5;">해독:</b> <b style="color:#d53f8c;">Th(쓰)</b> + i(이) + n(받침ㄴ)</div>
+                <button class="speak-btn" style="background: #805ad5;" onclick="speakWord('Thin')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#6b46c1;">B a <span style="color:#d53f8c;">th</span></span><span class="kr-sound" style="background:#faf5ff; color:#6b46c1;">배쓰 (목욕)</span></div>
+                <div class="formula-box"><b style="color:#805ad5;">해독:</b> B(ㅂ) + a(애) + <b style="color:#d53f8c;">th(쓰)</b></div>
+                <button class="speak-btn" style="background: #805ad5;" onclick="speakWord('Bath')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#6b46c1;"><span style="color:#d53f8c;">Th</span> i s</span><span class="kr-sound" style="background:#faf5ff; color:#6b46c1;">디스 (진동하는 뜨/드)</span></div>
+                <div class="formula-box"><b style="color:#805ad5;">해독:</b> <b style="color:#d53f8c;">Th(뜨)</b> + i(이) + s(스) ➔ 이건 목이 떨리는 '뜨'야.</div>
+                <button class="speak-btn" style="background: #805ad5;" onclick="speakWord('This')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#6b46c1;"><span style="color:#d53f8c;">Th</span> a t</span><span class="kr-sound" style="background:#faf5ff; color:#6b46c1;">댓 (진동하는 뜨/드)</span></div>
+                <div class="formula-box"><b style="color:#805ad5;">해독:</b> <b style="color:#d53f8c;">Th(뜨)</b> + a(애) + t(받침ㅅ)</div>
+                <button class="speak-btn" style="background: #805ad5;" onclick="speakWord('That')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box" style="border-color: #38a169;">
+        <div class="section-title" style="background: #2f855a;">⚡ 빠른 콤보 공격! (S+자음 / B+L)</div>
+        <p style="font-weight: bold; color: #2f855a; margin-bottom: 15px;">▶ 새로운 소리가 되는 건 아니야. 그냥 "스.트"가 아니라 "스트!" 하고 0.1초 만에 빠르게 이어서 치는 콤보 스킬!</p>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2f855a;"><span style="color:#dd6b20;">St</span> o p</span><span class="kr-sound" style="background:#f0fdf4; color:#2f855a;">스탑 (멈춰)</span></div>
+                <div class="formula-box"><b style="color:#38a169;">해독:</b> <b style="color:#dd6b20;">St(스트)</b> + o(아) + p(받침ㅂ) ➔ '스트' 콤보!</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Stop')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2f855a;"><span style="color:#dd6b20;">St</span> e p</span><span class="kr-sound" style="background:#f0fdf4; color:#2f855a;">스텝 (발걸음)</span></div>
+                <div class="formula-box"><b style="color:#38a169;">해독:</b> <b style="color:#dd6b20;">St(스트)</b> + e(에) + p(받침ㅂ)</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Step')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2f855a;"><span style="color:#dd6b20;">Bl</span> a c k</span><span class="kr-sound" style="background:#f0fdf4; color:#2f855a;">블랙 (검은색)</span></div>
+                <div class="formula-box"><b style="color:#38a169;">해독:</b> <b style="color:#dd6b20;">Bl(블ㄹ)</b> + a(애) + ck(받침ㄱ) ➔ L이 뒤에 모음까지 혀를 이어줘!</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Black')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="word-header"><span class="en-word" style="color:#2f855a;"><span style="color:#dd6b20;">Bl</span> u e</span><span class="kr-sound" style="background:#f0fdf4; color:#2f855a;">블루 (파란색)</span></div>
+                <div class="formula-box"><b style="color:#38a169;">해독:</b> <b style="color:#dd6b20;">Bl(블ㄹ)</b> + ue(우) ➔ '블' 콤보 발사!</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Blue')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #b7791f; text-align: center;">🕵️‍♀️ 합체 로봇 & 콤보 스킬 15제 디버깅</h2>
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. C와 H가 만나 <b>CH</b>로 합체하면 무슨 소리가 날까?
+                <select id="q1"><option value="">선택</option><option value="취">취 (칙폭폭!)</option><option value="쉬">쉬</option></select>
+            </div>
+            <div class="question-box">2. S와 H가 만나 <b>SH</b>로 합체하면 무슨 소리가 날까?
+                <select id="q2"><option value="">선택</option><option value="쉬">쉬 (조용히 해!)</option><option value="취">취</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">3. S-h-o-p (가게)은 어떻게 조립되어 읽힐까?
+                <select id="q3"><option value="">선택</option><option value="샵">샵 (쉬+아+받침ㅂ)</option><option value="스홉">스홉</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">4. C-h-i-n (턱)은 어떻게 조립되어 읽힐까?
+                <select id="q4"><option value="">선택</option><option value="친">친 (취+이+받침ㄴ)</option><option value="쉰">쉰</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">5. D-i-s-h (접시)은 꼬리칸에 합체 로봇이 있네. 어떻게 읽지?
+                <select id="q5"><option value="">선택</option><option value="디쉬">디쉬 (ㄷ+이+쉬)</option><option value="디취">디취</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">6. R-i-c-h (부자인)은 어떻게 읽을까?
+                <select id="q6"><option value="">선택</option><option value="리치">리치 (ㄹ+이+취)</option><option value="리쉬">리쉬</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">7. 혀를 살짝 물었다 빼는 특수 스킬 알파벳은?
+                <select id="q7"><option value="">선택</option><option value="TH">TH</option><option value="SH">SH</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">8. <b>TH</b>는 두 가지 소리가 있어. 바람 빠지는 소리와 또 하나는?
+                <select id="q8"><option value="">선택</option><option value="떨리는">목이 떨리는 '뜨/드' 소리</option><option value="쉬">조용히 하는 '쉬' 소리</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">9. Th-a-n-k (감사하다)는 바람이 빠지는 소리야. 어떻게 읽을까?
+                <select id="q9"><option value="">선택</option><option value="땡크">땡크 (쌩크)</option><option value="섕크">섕크</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">10. Th-e-m (그들을)은 목이 떨리는 소리야. 어떻게 읽을까?
+                <select id="q10"><option value="">선택</option><option value="뎀">뎀 (뗌)</option><option value="솀">솀</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">11. S와 T가 만난 <b>ST</b>는 합체해서 전혀 다른 소리가 될까?
+                <select id="q11"><option value="">선택</option><option value="콤보">아니, 자기 소리 그대로 빠르게 '스트' 콤보를 해</option><option value="합체">응, '쉬'로 합체해</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">12. St-a-r (별)는 어떻게 읽을까? (7일차 보스 R도 들어있네!)
+                <select id="q12"><option value="">선택</option><option value="스타">스타-ㄹ (스트+아-ㄹ)</option><option value="스태">스태-ㄹ</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">13. B와 L이 만난 <b>BL</b> 콤보는 어떻게 발음될까?
+                <select id="q13"><option value="">선택</option><option value="블ㄹ">블ㄹ (L이 혀를 연결해줌)</option><option value="브르">브르</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">14. Bl-o-c-k (블록)은 어떻게 읽을까?
+                <select id="q14"><option value="">선택</option><option value="블락">블락 (블록)</option><option value="브로크">브로크</option></select>
+            </div>
+            <div class="question-box" style="background:#fffff0;">15. [복합 알고리즘] <b>Ch-e-e-s-e (치즈)</b> 에는 합체 로봇, 모음팀, 마법의 e까지 다 들어있어! 어떻게 해독될까?
+                <select id="q15"><option value="">선택</option><option value="치즈">Ch(취) + ee(이) + s(ㅈ) + e(묵음) = 치즈!</option><option value="체세">체세</option></select>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="checkAnswers4()">📝 스킬 마스터 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1.1; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    function checkAnswers4() {
+        const ans = { q1:'취', q2:'쉬', q3:'샵', q4:'친', q5:'디쉬', q6:'리치', q7:'TH', q8:'떨리는', q9:'땡크', q10:'뎀', q11:'콤보', q12:'스타', q13:'블ㄹ', q14:'블락', q15:'치즈' };
+        let score = 0; let isAll = true;
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") { isAll = false; sel.style.borderColor = "#e53e3e"; }
+            else { 
+                sel.style.borderColor = "#cbd5e0"; 
+                if (sel.value === ans['q'+i]) score++; 
+            }
+        }
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "#e53e3e"; res.innerHTML = "앗! 아직 풀지 않은 스킬 퀴즈가 있어요."; return; }
+        if (score === 15) { res.style.color = "#d69e2e"; res.innerHTML = "🎉 100점! 지효가 합체 로봇과 콤보 스킬을 완벽하게 마스터했어!"; }
+        else { res.style.color = "#e53e3e"; res.innerHTML = `앗, 15문제 중 ${score}문제를 맞혔어! 스킬을 다시 한 번 확인해볼까?`; }
+    }
+</script>
+</body>
+</html>
