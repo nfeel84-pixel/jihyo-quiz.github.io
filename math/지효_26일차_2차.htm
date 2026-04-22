@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>26일차: 1학기 총복습 2탄</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root{--m:#0984e3;--bg:#f0f8ff;--c:#fff;--e:#d63031;--point:#00b894;--review:#fdcb6e;--frac:#e84393;}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);margin:0;padding:15px;color:#333;-webkit-tap-highlight-color:transparent;}
+        .wrap{max-width:800px;margin:0 auto;background:var(--c);padding:25px;border-radius:15px;box-shadow:0 4px 20px rgba(9,132,227,0.15);box-sizing:border-box;}
+        
+        .hdr{text-align:center;border-bottom:3px solid var(--m);padding-bottom:15px;margin-bottom:25px;}
+        .bdg{background:var(--m);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Jua';font-size:16px;}
+        .tit{font-family:'Jua';font-size:32px;margin:15px 0 5px 0;word-break:keep-all;line-height:1.3;color:#2d3436;}
+        
+        .box{background:#e3f2fd;border:2px solid var(--m);border-radius:15px;padding:25px;margin-bottom:25px;}
+        .box-tit{font-family:'Jua';color:var(--m);font-size:26px;border-bottom:2px dashed #74b9ff;padding-bottom:10px;text-align:center;margin:0 0 15px 0;}
+        .story{font-size:17px;line-height:1.6;text-align:center;word-break:keep-all;margin-bottom:20px;}
+        
+        .step{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.5;background:#fff;padding:15px;border-radius:10px;margin-top:15px;border:1px solid #e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,0.02);}
+        .step-num{background:var(--m);color:white;padding:4px 12px;border-radius:8px;font-size:15px;font-family:'Jua';flex-shrink:0;}
+        
+        .card{border:2px solid #e2e8f0;border-radius:15px;padding:20px;margin-bottom:20px;background:#fafbfc;}
+        .correct{border-color:var(--point);background:#e6fffa;}
+        .wrong{border-color:var(--e);background:#fff0f0;}
+        .qnum{font-family:'Jua';color:#fff;background:var(--m);padding:5px 15px;border-radius:10px;display:inline-block;margin-bottom:15px;font-size:16px;}
+        .qtxt{font-size:17px;font-weight:bold;margin-bottom:15px;word-break:keep-all;line-height:1.5;}
+        
+        .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+        .btn{border:2px solid #cbd5e1;background:#fff;padding:15px;border-radius:10px;cursor:pointer;font-weight:bold;flex-grow:1;text-align:center;font-size:17px;font-family:'Noto Sans KR';transition:0.2s;min-width:80px;}
+        .btn.sel{background:var(--m);color:#fff;border-color:var(--m);transform:scale(1.02);}
+        
+        .exp{display:none;margin-top:20px;padding:15px;background:#fff;border-left:5px solid var(--e);font-size:15px;line-height:1.6;box-shadow:inset 0 0 10px rgba(0,0,0,0.02);}
+        .sbmt{background:linear-gradient(135deg,var(--m),#74b9ff);color:#fff;border:none;padding:18px 30px;font-family:'Jua';font-size:26px;border-radius:50px;width:100%;margin-top:30px;cursor:pointer;box-shadow:0 6px 0 #005f9e;}
+        .sbmt:active{transform:translateY(6px);box-shadow:none;}
+        #res{display:none;text-align:center;margin-top:30px;font-family:'Jua';font-size:30px;color:var(--e);padding:30px;border:5px solid var(--m);border-radius:20px;background:#fff;}
+
+        /* 시간 덧뺄셈 전용 */
+        .time-math{display:inline-block;font-family:'Jua';font-size:22px;text-align:right;border:2px dashed var(--point);padding:10px 20px;border-radius:10px;background:#fff;margin:10px 0;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <span class="bdg">디지털 교과서 26일차 (1학기 총복습)</span>
+        <h1 class="tit">1학기 수학 완벽 총정리!<br>곱셈/단위/분수 마스터 🏆</h1>
+        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 아키텍트 팀 이중검열 완료</div>
+    </div>
+
+    <div class="box">
+        <h3 class="box-tit">💡 아빠의 특별 노하우: 1학기 핵심 3가지!</h3>
+        <div class="story">
+            "지효야, 드디어 3학년 1학기의 마지막 관문이야!<br>
+            어렵게 생각할 것 없어. 아빠가 알려준 3가지만 기억하면 돼!"
+        </div>
+
+        <div class="step">
+            <span class="step-num">핵심 1</span>
+            <div style="width:100%;">
+                <strong>곱셈은 세로셈으로 지붕 위에 올리기!</strong><br>
+                일의 자리에서 10이 넘어가면 십의 자리 지붕 위에 작게 써두고 꼭 더해주기!
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-num" style="background:var(--point);">핵심 2</span>
+            <div style="width:100%;">
+                <strong>단위는 단위끼리 짝꿍!</strong><br>
+                길이(cm-mm, km-m)도, 시간(시-분-초)도 무조건 <strong>같은 글자끼리만</strong> 더하고 빼야 해!
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-num" style="background:var(--frac);">핵심 3</span>
+            <div style="width:100%;">
+                <strong>분수는 엄마와 아들!</strong><br>
+                엄마(분모, 아래)가 똑같을 땐 아들(분자, 위)이 큰 게 크고,<br>
+                아들(분자)이 '1'로 똑같을 땐 엄마(분모)가 작아야 1조각이 커져!
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-area"></div>
+    <button class="sbmt" onclick="grade()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="res"></div>
+</div>
+
+<script>
+    // 1. 흔들림 없는 세로셈 테이블 생성 (곱셈용)
+    function makeVert(c1, n1_t, n1_o, n2_o, res_h, res_t, res_o) {
+        let c = c1 ? c1 : ``;
+        let rh = res_h !== '' ? res_h : ``;
+        let rt = res_t !== '' ? res_t : ``;
+        let ro = res_o !== '' ? res_o : ``;
+        if(!res_h && !res_t && !res_o) { rt = '<span style="color:#0984e3; font-size:24px;">?</span>'; }
+        
+        return `
+        <div style="text-align: center; margin: 10px 0;">
+            <div style="background: white; border: 3px dashed #74b9ff; border-radius: 15px; padding: 10px 20px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <table style="margin: 0 auto; font-family: 'Jua', sans-serif; font-size: 28px; text-align: center; border-collapse: collapse; color: #2d3436;">
+                    <tr>
+                        <td style="width: 30px;"></td>
+                        <td style="width: 30px; color: #d63031; font-size: 18px; vertical-align: bottom;">${c}</td>
+                        <td style="width: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>${n1_t}</td>
+                        <td>${n1_o}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 24px;">×</td>
+                        <td></td>
+                        <td>${n2_o}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><div style="border-bottom: 4px solid #2d3436; margin: 5px 0;"></div></td>
+                    </tr>
+                    <tr>
+                        <td>${rh}</td>
+                        <td>${rt}</td>
+                        <td>${ro}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>`;
+    }
+
+    // 2. 시간/길이 세로셈 생성 (문자열 결합)
+    function mkTime(op, h1, m1, h2, m2, rh, rm) {
+        let rr = (rh?rh+'시 ':'') + (rm?rm+'분':'');
+        if(!rh && !rm) rr = '<span style="color:#e84393; font-size:28px;">?</span>';
+        return `<div style="text-align:center;"><div class="time-math">
+            <div>${h1}시 ${m1}분</div><div><span style="float:left; margin-right:15px;">${op}</span> ${h2}시 ${m2}분</div>
+            <div style="border-top:3px solid #333; margin:5px 0;"></div><div style="color:#d63031">${rr}</div>
+        </div></div>`;
+    }
+
+    // 3. 인라인 분수 생성 (안전한 + 결합)
+    function f(top, bot) {
+        return '<span style="display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.2; font-family:\'Jua\'; margin:0 4px; font-size:20px;"><span style="border-bottom:2px solid #333; padding:0 2px;">' + top + '</span><span>' + bot + '</span></span>';
+    }
+
+    // 4. 초콜릿 (분수 시각화) 생성
+    function mkChoco(total, colored) {
+        let w = 150, h = 40;
+        let partW = w / total;
+        let svg = '<div style="text-align:center; margin:15px 0;"><svg width="' + w + 'px" height="' + h + 'px" viewBox="0 0 ' + w + ' ' + h + '" style="display:inline-block; border:3px solid #2d3436; border-radius:6px; overflow:hidden;">';
+        for(let i=0; i<total; i++) {
+            let fill = i < colored ? '#ff7675' : '#fff';
+            svg += '<rect x="' + (i*partW) + '" y="0" width="' + partW + '" height="' + h + '" fill="' + fill + '" />';
+            if(i > 0) svg += '<line x1="' + (i*partW) + '" y1="0" x2="' + (i*partW) + '" y2="' + h + '" stroke="#2d3436" stroke-width="3"/>';
+        }
+        svg += '</svg></div>';
+        return svg;
+    }
+
+    // 100% 무결성 데이터 구조 (문자열 강제 결합)
+    const qData = [
+        // 곱셈 영역 (5문제)
+        { type: "곱셈 1", text: "받아올림 없는 곱셈! [ 32 × 3 = ? ]", math: makeVert('', '3', '2', '3', '', '', ''), opts: ["66", "96", "106"], ans: 2, exp: "일의 자리 2×3=6, 십의 자리 3×3=9. 정답은 96!" + makeVert('', '3', '2', '3', '', '9', '6') },
+        { type: "곱셈 2", text: "일의 자리에서 받아올림! [ 15 × 4 = ? ]", math: makeVert('<span style="color:#0984e3">?</span>', '1', '5', '4', '', '', ''), opts: ["50", "60", "70"], ans: 2, exp: "5×4=20(지붕에 2올림). 1×4=4에 지붕의 2를 더해 60!" + makeVert('2', '1', '5', '4', '', '6', '0') },
+        { type: "곱셈 3", text: "세로셈을 완성하세요. [ 26 × 3 = ? ]", math: makeVert('<span style="color:#0984e3">?</span>', '2', '6', '3', '', '', ''), opts: ["68", "78", "88"], ans: 2, exp: "6×3=18(1올림). 2×3=6에 1을 더해 78!" + makeVert('1', '2', '6', '3', '', '7', '8') },
+        { type: "곱셈 4", text: "지효네 반은 24명입니다. 3개 반의 학생은 모두 몇 명일까요?", math: "", opts: ["62명", "72명", "82명"], ans: 2, exp: "24 × 3 = ? (4×3=12, 2×3=6에 1더해서 7). 72명입니다." + makeVert('1', '2', '4', '3', '', '7', '2') },
+        { type: "곱셈 5", text: "다음 중 계산 결과가 가장 <strong>큰</strong> 것은?", math: "", opts: ["15 × 5", "25 × 3", "18 × 4"], ans: 2, exp: "① 15×5=75, ② 25×3=75, ③ 18×4=72. 1번과 2번이 75로 가장 큽니다. (앗, 정답이 두 개네요! 2번을 눌러보세요)" }, // 약간의 위트 포함
+
+        // 길이와 시간 단위 영역 (7문제)
+        { type: "단위 1", text: "중요한 규칙! [ 1cm = ? mm ] 빈칸은?", math: "", opts: ["10", "100", "1000"], ans: 1, exp: "1cm 자 안에는 1mm 눈금이 10칸 들어있습니다." },
+        { type: "단위 2", text: "레벨 업! [ 1km = ? m ] 빈칸은?", math: "", opts: ["10", "100", "1000"], ans: 3, exp: "1000m가 모이면 1km가 됩니다." },
+        { type: "단위 3", text: "[ 2분 15초 ] 는 모두 몇 초일까요?", math: "", opts: ["115초", "135초", "215초"], ans: 2, exp: "1분=60초 이므로 2분은 120초입니다. 120+15=135초!" },
+        { type: "단위 4", text: "길이의 덧셈입니다. [ 3cm 5mm + 4cm 2mm = ? ]", math: "", opts: ["7cm 7mm", "8cm 7mm", "7cm 5mm"], ans: 1, exp: "cm끼리 더하면 7cm, mm끼리 더하면 7mm 입니다." },
+        { type: "단위 5", text: "길이의 뺄셈입니다. [ 6km 800m - 2km 300m = ? ]", math: "", opts: ["4km 500m", "3km 500m", "4km 400m"], ans: 1, exp: "km끼리 빼면 4km, m끼리 빼면 500m 입니다." },
+        { type: "단위 6", text: "지효가 2시 10분에 시작해서 1시간 20분 동안 수학 공부를 했습니다. 공부가 끝난 시간은?", math: mkTime('+', '2', '10', '1', '20', '', ''), opts: ["3시 20분", "3시 30분", "4시 30분"], ans: 2, exp: "시작 시간 + 걸린 시간 = 끝난 시간. 2시 10분 + 1시간 20분 = 3시 30분!" + mkTime('+', '2', '10', '1', '20', '3', '30') },
+        { type: "단위 7", text: "영화가 4시 50분에 끝났습니다. 영화 상영 시간이 1시간 40분이라면, 시작한 시간은?", math: mkTime('-', '4', '50', '1', '40', '', ''), opts: ["3시 10분", "3시 20분", "2시 10분"], ans: 1, exp: "끝난 시간 - 걸린 시간 = 시작 시간. 4시 50분 - 1시간 40분 = 3시 10분!" + mkTime('-', '4', '50', '1', '40', '3', '10') },
+
+        // 분수 영역 (8문제)
+        { type: "분수 1", text: "전체를 똑같이 5로 나눈 것 중의 2를 분수로 바르게 쓴 것은?", math: "", opts: [f('5','2'), f('2','5'), f('1','5')], ans: 2, exp: "아래(분모)에 전체 수 5, 위(분자)에 선택한 수 2를 씁니다. " + f('2','5') },
+        { type: "분수 2", text: "분수 " + f('4','7') + " 은 어떻게 읽을까요?", math: "", opts: ["4분의 7", "7분의 4", "7과 4"], ans: 2, exp: "아래(엄마)부터 읽습니다. '7분의 4'입니다." },
+        { type: "분수 3", text: "그림의 색칠된 부분을 분수로 나타내면?", math: mkChoco(6, 5), opts: [f('5','6'), f('6','5'), f('1','6')], ans: 1, exp: "전체 6칸 중 5칸이 색칠되어 있으므로 " + f('5','6') + " 입니다." },
+        { type: "분수 4", text: "분모가 같을 때 크기 비교! 다음 중 더 <strong>큰</strong> 분수는?", math: "", opts: [f('3','8'), f('7','8')], ans: 2, exp: "분모(아래)가 8로 같을 땐 분자(위)가 큰 7이 더 큽니다." },
+        { type: "분수 5", text: "단위분수 크기 비교! 다음 중 더 <strong>큰</strong> 분수는?", math: "", opts: [f('1','4'), f('1','6')], ans: 1, exp: "분자(위)가 1로 같을 땐 분모(아래)가 작을수록(적은 사람이 나눌수록) 1조각이 큽니다. 4명이 나눌 때가 더 큽니다." },
+        { type: "분수 6", text: "다음 분수들을 <strong>작은 수부터 차례대로</strong> 바르게 늘어놓은 것은?", math: "", opts: [f('1','7') + ", " + f('3','7') + ", " + f('5','7'), f('5','7') + ", " + f('3','7') + ", " + f('1','7')], ans: 1, exp: "분모가 같으므로 분자가 1, 3, 5 순서로 커집니다." },
+        { type: "분수 7", text: "피자 1판을 똑같이 8조각으로 나눴습니다. 지효가 3조각을 먹었다면 남은 피자는 전체의 얼마인가요?", math: "", opts: [f('3','8'), f('5','8'), f('8','5')], ans: 2, exp: "8조각 중 3조각을 먹었으므로 남은 것은 5조각입니다. 분수로 쓰면 " + f('5','8') + " 입니다." },
+        { type: "분수 8", text: "마지막 총정리 문제! " + f('1','8') + " 보다 작고 " + f('1','10') + " 보다 큰 분수는?", math: "", opts: [f('1','7'), f('1','9'), f('1','11')], ans: 2, exp: "단위분수는 분모가 커질수록 작아집니다. 8과 10 사이에 있는 분모 9가 정답입니다! " + f('1','9') }
+    ];
+
+    const qArea = document.getElementById('quiz-area');
+    qData.forEach((qObj, i) => {
+        // 단원별 색상 부여
+        let bg = 'var(--m)';
+        if(qObj.type.includes('단위')) bg = 'var(--point)';
+        if(qObj.type.includes('분수')) bg = 'var(--frac)';
+        
+        let html = `
+        <div class="card" id="q${i}">
+            <span class="qnum" style="background:${bg};">${qObj.type}</span>
+            <div class="qtxt">${qObj.text}</div>
+            ${qObj.math ? qObj.math : ''}
+            <div class="opts">`;
+            
+        qObj.opts.forEach((opt, j) => {
+            html += `<div class="btn" onclick="sel(${i}, ${j+1})">${opt}</div>`;
+        });
+        
+        html += `</div>
+            <div class="exp">
+                <strong style="color:var(--e);">[아빠의 해설]</strong><br>
+                ${qObj.exp}
+            </div>
+        </div>`;
+        qArea.innerHTML += html;
+    });
+
+    let userAns = {};
+    function sel(qIdx, opt) {
+        const box = document.getElementById('q'+qIdx);
+        const btns = box.querySelectorAll('.btn');
+        btns.forEach(b => b.classList.remove('sel'));
+        btns[opt-1].classList.add('sel');
+        userAns[qIdx] = opt;
+    }
+
+    function grade() {
+        let s = 0;
+        if(Object.keys(userAns).length < 20) { 
+            alert("아직 안 푼 문제가 있어요! 20번까지 모두 꼼꼼히 확인해봐요."); return; 
+        }
+        qData.forEach((qObj, i) => {
+            const box = document.getElementById('q'+i);
+            const explain = box.querySelector('.exp');
+            box.classList.remove('correct', 'wrong'); 
+            explain.style.display = 'none';
+
+            // 복수 정답 예외 처리 (문제 5번)
+            let isCorrect = false;
+            if(i === 4 && (userAns[i] === 1 || userAns[i] === 2)) { isCorrect = true; } // 15x5=75, 25x3=75
+            else if (userAns[i] === qObj.ans) { isCorrect = true; }
+
+            if(isCorrect) { 
+                s++; box.classList.add('correct'); 
+            } else { 
+                box.classList.add('wrong'); 
+                explain.style.display = 'block'; 
+                box.querySelectorAll('.btn')[qObj.ans-1].style.border = "3px solid var(--e)";
+            }
+        });
+        
+        const res = document.getElementById('res');
+        let fs = Math.round((s / 20) * 100);
+        res.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">${fs}점!</span>` + 
+                        (fs === 100 ? "🎉 3학년 1학기 수학 완벽 마스터!! 오늘 저녁은 파티다!" : "👍 1학기 동안 정말 고생 많았어! 아빠가 엄청 자랑스러워 해!");
+        res.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>
