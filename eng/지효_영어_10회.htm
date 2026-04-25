@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 10일차 - 최종 컴파일</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #ecfdf5; color: #064e3b; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(5, 150, 105, 0.1); }
+        h1 { text-align: center; color: #059669; font-weight: 900; border-bottom: 4px solid #34d399; padding-bottom: 15px; }
+        
+        .hardcode-box { background: #d1fae5; border: 3px solid #10b981; padding: 30px; border-radius: 15px; margin: 40px 0; }
+        .sight-words { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .sight-card { background: white; padding: 15px 25px; border-radius: 50px; font-weight: 900; font-size: 1.4em; border: 2px solid #059669; cursor: pointer; transition: 0.2s; }
+        .sight-card:hover { transform: scale(1.1); background: #059669; color: white; }
+
+        .diary-section { background: #f0fdf4; border: 2px dashed #10b981; padding: 30px; border-radius: 15px; margin-bottom: 40px; }
+        .diary-text { font-size: 1.8em; line-height: 2; font-weight: 700; color: #065f46; text-align: center; }
+        .diary-word { cursor: pointer; border-bottom: 2px solid transparent; }
+        .diary-word:hover { border-bottom: 2px solid #059669; color: #059669; }
+
+        .quiz-section { background: #ecfdf5; padding: 35px; border-radius: 15px; border: 2px solid #6ee7b7; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #a7f3d0; display: flex; justify-content: space-between; align-items: center; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #059669; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 2em; font-weight: 900; }
+        
+        .certificate { display: none; text-align: center; border: 10px double #059669; padding: 50px; border-radius: 20px; background: #f9fafb; margin-top: 40px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎓 10일차: 알고리즘 최종 컴파일 및 마스터 졸업</h1>
+
+    <div class="hardcode-box">
+        <h2 style="text-align: center;">⚠️ 규칙 브레이커: 하드코딩 단어 (Sight Words)</h2>
+        <p style="text-align: center;">지효야, 이 단어들은 파닉스 규칙을 무시하는 '반칙왕'들이야. <br>억지로 해독하려 하지 말고 <b>이미지처럼 찰칵!</b> 눈에 저장하자.</p>
+        <div class="sight-words">
+            <div class="sight-card" onclick="speakWord('The')">The</div>
+            <div class="sight-card" onclick="speakWord('You')">You</div>
+            <div class="sight-card" onclick="speakWord('Said')">Said</div>
+            <div class="sight-card" onclick="speakWord('Was')">Was</div>
+            <div class="sight-card" onclick="speakWord('Are')">Are</div>
+            <div class="sight-card" onclick="speakWord('To')">To</div>
+            <div class="sight-card" onclick="speakWord('Go')">Go</div>
+            <div class="sight-card" onclick="speakWord('Have')">Have</div>
+            <div class="sight-card" onclick="speakWord('Of')">Of</div>
+            <div class="sight-card" onclick="speakWord('What')">What</div>
+        </div>
+    </div>
+
+    <div class="diary-section">
+        <h2 style="text-align: center; color: #065f46;">📖 지효의 마스터 미션: 첫 번째 일기 읽기</h2>
+        <p style="text-align: center; color: #065f46;">단어를 클릭하면 소리를 들을 수 있어. 지금까지 배운 모든 알고리즘을 사용해 봐!</p>
+        <div class="diary-text">
+            <span class="diary-word" onclick="speakWord('The')">The</span> 
+            <span class="diary-word" onclick="speakWord('sun')">sun</span> 
+            <span class="diary-word" onclick="speakWord('is')">is</span> 
+            <span class="diary-word" onclick="speakWord('bright')">bright</span>. <br>
+            <span class="diary-word" onclick="speakWord('I')">I</span> 
+            <span class="diary-word" onclick="speakWord('like')">like</span> 
+            <span class="diary-word" onclick="speakWord('to')">to</span> 
+            <span class="diary-word" onclick="speakWord('play')">play</span> 
+            <span class="diary-word" onclick="speakWord('with')">with</span> 
+            <span class="diary-word" onclick="speakWord('my')">my</span> 
+            <span class="diary-word" onclick="speakWord('dog')">dog</span>. <br>
+            <span class="diary-word" onclick="speakWord('He')">He</span> 
+            <span class="diary-word" onclick="speakWord('is')">is</span> 
+            <span class="diary-word" onclick="speakWord('so')">so</span> 
+            <span class="diary-word" onclick="speakWord('cute')">cute</span>!
+        </div>
+    </div>
+
+    <div class="quiz-section" id="final-quiz">
+        <h2 style="text-align: center; color: #065f46;">🏆 파닉스 알고리즘 마스터 최종 테스트 (15제)</h2>
+        <div class="quiz-grid">
+            <div class="question-box">1. 'The'는 규칙대로 읽히는 단어인가요? <select id="q1"><option value="">선택</option><option value="X">아니요 (하드코딩)</option><option value="O">예 (규칙대로)</option></select></div>
+            <div class="question-box">2. 'Cake'에서 끝의 e는 무슨 역할을 하나요? <select id="q2"><option value="">선택</option><option value="마법">앞 모음을 길게 바꿈</option><option value="에">'에' 소리를 냄</option></select></div>
+            <div class="question-box">3. 'Smile'이 스미레가 아닌 이유는? <select id="q3"><option value="">선택</option><option value="묵음">e가 묵음이라서</option><option value="그냥">그냥</option></select></div>
+            <div class="question-box">4. 'Ship'의 SH는 무슨 소리가 나나요? <select id="q4"><option value="">선택</option><option value="쉬">쉬</option><option value="취">취</option></select></div>
+            <div class="question-box">5. 'Car'에서 R은 모음 a를 어떻게 만드나요? <select id="q5"><option value="">선택</option><option value="굴림">혀가 굴러가는 아-ㄹ</option><option value="단모음">짧은 애</option></select></div>
+            <div class="question-box">6. 'Magic'에서 G가 'ㅈ' 소리인 이유는? <select id="q6"><option value="">선택</option><option value="I">뒤에 i 배터리가 와서</option><option value="원래">원래 ㅈ이라서</option></select></div>
+            <div class="question-box">7. 'Rain'에서 대장 모음은 누구인가요? <select id="q7"><option value="">선택</option><option value="A">A (에이!)</option><option value="I">I (이!)</option></select></div>
+            <div class="question-box">8. 'Boat'는 어떻게 읽을까요? <select id="q8"><option value="">선택</option><option value="보우트">보우트</option><option value="보아트">보아트</option></select></div>
+            <div class="question-box">9. 'Stop'처럼 자음이 연달아 오면 어떻게 읽나요? <select id="q9"><option value="">선택</option><option value="콤보">빠르게 이어서 (콤보)</option><option value="느리게">천천히 하나씩</option></select></div>
+            <div class="question-box">10. 긴 단어 'Muffin'은 어디를 자를까요? <select id="q10"><option value="">선택</option><option value="Muf-fin">Muf | fin</option><option value="Mu-ffin">Mu | ffin</option></select></div>
+            <div class="question-box">11. 'Paper'는 'Rabbit' 규칙인가요 'Tiger' 규칙인가요? <select id="q11"><option value="">선택</option><option value="T">Tiger (자음 1개)</option><option value="R">Rabbit (자음 2개)</option></select></div>
+            <div class="question-box">12. 규칙을 무시하는 '반칙왕' 단어를 부르는 말은? <select id="q12"><option value="">선택</option><option value="Sight">Sight Words</option><option value="Sound">Sound Words</option></select></div>
+            <div class="question-box">13. 'Have'는 규칙대로라면 '헤이브'여야 하지만... <select id="q13"><option value="">선택</option><option value="해브">실제로는 '해브'라고 읽음</option><option value="헤이브">그래도 '헤이브'임</option></select></div>
+            <div class="question-box">14. 지효가 처음 보는 단어를 만났을 때 할 행동은? <select id="q14"><option value="">선택</option><option value="알고리즘">배운 알고리즘으로 분해해본다!</option><option value="포기">엄마한테 물어본다</option></select></div>
+            <div class="question-box">15. 지효는 이제 영어를 스스로 읽을 수 있나요? <select id="q15"><option value="">선택</option><option value="Yes">Yes! I can!</option><option value="No">No</option></select></div>
+        </div>
+        <button class="submit-btn" onclick="finalCheck()">📝 최종 알고리즘 컴파일 실행!</button>
+        <div id="result-display"></div>
+    </div>
+
+    <div id="cert" class="certificate">
+        <h1 style="font-size: 3em;">🏆 졸업장 🏆</h1>
+        <p style="font-size: 1.5em;">위 어린이 <b>서지효</b>는<br>영어 읽기 알고리즘 10일 과정을<br>훌륭하게 마스터하였으므로 이 증서를 수여함.</p>
+        <p style="font-size: 1.2em; color: #666;">2026년 4월 25일</p>
+        <p style="font-size: 1.5em; font-weight: bold;">지효의 AI 선생님 & 아빠 PM 드림</p>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    function finalCheck() {
+        const ans = { q1:'X', q2:'마법', q3:'묵음', q4:'쉬', q5:'굴림', q6:'I', q7:'A', q8:'보우트', q9:'콤보', q10:'Muf-fin', q11:'T', q12:'Sight', q13:'해브', q14:'알고리즘', q15:'Yes' };
+        let score = 0; let isAll = true;
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") isAll = false;
+            else if (sel.value === ans['q'+i]) score++;
+        }
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "red"; res.innerHTML = "앗! 마지막 문제를 다 풀지 않았어요!"; return; }
+        if (score === 15) {
+            res.style.color = "#059669";
+            res.innerHTML = "🎉 완벽합니다! 모든 알고리즘이 정상적으로 컴파일되었습니다!";
+            document.getElementById('final-quiz').style.display = 'none';
+            document.getElementById('cert').style.display = 'block';
+        } else {
+            res.style.color = "red";
+            res.innerHTML = `앗, ${score}점이에요! 버그가 조금 남아있네요. 다시 수정해볼까요?`;
+        }
+    }
+</script>
+</body>
+</html>

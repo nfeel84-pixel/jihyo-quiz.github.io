@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 9일차 - 데이터 슬라이싱</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #fdf2f8; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(190, 24, 93, 0.1); }
+        h1 { text-align: center; color: #9d174d; font-weight: 900; border-bottom: 4px solid #f472b6; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        .parsing-box { background: #fff1f2; border: 3px solid #fb7185; padding: 30px; border-radius: 15px; margin-bottom: 40px; text-align: center; }
+        .logic-card { background: white; padding: 20px; border-radius: 12px; margin: 15px 0; border: 2px solid #fda4af; }
+        .cut-line { color: #e11d48; font-weight: 900; font-size: 1.5em; margin: 0 10px; }
+        
+        .section-box { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #fce7f3; }
+        .section-title { font-size: 1.6em; font-weight: 900; color: white; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; background: #db2777; }
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #fbcfe8; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .en-word { font-size: 1.8em; font-weight: 900; color: #be185d; letter-spacing: 2px; }
+        .formula-box { background: #fff5f7; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 5px solid #ec4899; font-weight: bold; }
+        .speak-btn { width: 100%; padding: 12px; background: #ec4899; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        .quiz-section { background: #fff5f7; padding: 35px; border-radius: 15px; border: 2px solid #f9a8d4; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #fbcfe8; display: flex; justify-content: space-between; align-items: center; font-size: 1.1em; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #db2777; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>✂️ 9일차: 긴 단어 쪼개기 알고리즘 (Data Slicing)</h1>
+
+    <div class="parsing-box">
+        <h2 style="color: #be185d;">지효야, 단어가 너무 길어서 당황했니?</h2>
+        <p>걱정 마! 아무리 긴 단어도 <b>'배터리(모음)'</b>를 기준으로 싹둑 자르면 우리가 아는 짧은 단어 2개로 변해!</p>
+        
+        <div class="logic-card">
+            <h3>규칙 1. Rabbit(토끼) 규칙 🐰</h3>
+            <p>배터리 사이에 자음 기차가 <b>두 칸</b>이면? 사이를 <b>반으로 싹둑!</b></p>
+            <div style="font-size: 1.5em; font-weight: 900;">Rab <span class="cut-line">|</span> bit</div>
+            <p>(랩 + 빗 = 래빗!)</p>
+        </div>
+
+        <div class="logic-card">
+            <h3>규칙 2. Tiger(호랑이) 규칙 🐯</h3>
+            <p>배터리 사이에 자음 기차가 <b>한 칸</b>이면? 앞 배터리 뒤에서 <b>싹둑!</b></p>
+            <div style="font-size: 1.5em; font-weight: 900;">Ti <span class="cut-line">|</span> ger</div>
+            <p>(타이 + 거 = 타이거!)</p>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">📦 실전 슬라이싱 데이터 (10개 단어)</div>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="en-word">Bas | ket</div>
+                <div class="formula-box">해독: Bas(배스) + ket(켓) = 바구니</div>
+                <button class="speak-btn" onclick="speakWord('Basket')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Nap | kin</div>
+                <div class="formula-box">해독: Nap(냅) + kin(킨) = 나뭇잎</div>
+                <button class="speak-btn" onclick="speakWord('Napkin')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Sun | ny</div>
+                <div class="formula-box">해독: Sun(썬) + ny(니) = 화창한</div>
+                <button class="speak-btn" onclick="speakWord('Sunny')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Pa | per</div>
+                <div class="formula-box">해독: Pa(페이) + per(퍼) = 종이</div>
+                <button class="speak-btn" onclick="speakWord('Paper')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Rob | ot</div>
+                <div class="formula-box">해독: Rob(로) + ot(봇) = 로봇</div>
+                <button class="speak-btn" onclick="speakWord('Robot')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Win | ter</div>
+                <div class="formula-box">해독: Win(윈) + ter(터) = 겨울</div>
+                <button class="speak-btn" onclick="speakWord('Winter')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Puppy</div>
+                <div class="formula-box">해독: Pup(펍) + py(피) = 강아지</div>
+                <button class="speak-btn" onclick="speakWord('Puppy')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Muffin</div>
+                <div class="formula-box">해독: Muf(머프) + fin(핀) = 머핀</div>
+                <button class="speak-btn" onclick="speakWord('Muffin')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Magnet</div>
+                <div class="formula-box">해독: Mag(매그) + net(넷) = 자석</div>
+                <button class="speak-btn" onclick="speakWord('Magnet')">🔊 들어보기</button>
+            </div>
+            <div class="word-card">
+                <div class="en-word">Pil | low</div>
+                <div class="formula-box">해독: Pil(필) + low(로우) = 베개</div>
+                <button class="speak-btn" onclick="speakWord('Pillow')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #be185d; text-align: center;">🕵️‍♀️ 15제 데이터 슬라이싱 디버깅</h2>
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. <b>Muffin</b>은 어디를 잘라야 할까? <select id="q1"><option value="">선택</option><option value="Muf-fin">Muf | fin</option><option value="Mu-ffin">Mu | ffin</option></select></div>
+            <div class="question-box">2. <b>Rabbit</b> 규칙은 자음이 몇 개일 때 사이를 자를까? <select id="q2"><option value="">선택</option><option value="2">2개</option><option value="1">1개</option></select></div>
+            <div class="question-box">3. <b>Winter</b> (겨울)를 바르게 쪼갠 것은? <select id="q3"><option value="">선택</option><option value="Win-ter">Win | ter</option><option value="Wint-er">Wint | er</option></select></div>
+            <div class="question-box">4. <b>Basket</b> (바구니)의 첫 번째 조각 소리는? <select id="q4"><option value="">선택</option><option value="배스">배스 (Bas)</option><option value="바">바 (Ba)</option></select></div>
+            <div class="question-box">5. <b>Tiger</b> 규칙은 자음이 몇 개일 때 적용할까? <select id="q5"><option value="">선택</option><option value="1">1개</option><option value="2">2개</option></select></div>
+            <div class="question-box">6. <b>Magnet</b> (자석)을 바르게 쪼갠 것은? <select id="q6"><option value="">선택</option><option value="Mag-net">Mag | net</option><option value="Ma-gnet">Ma | gnet</option></select></div>
+            <div class="question-box">7. <b>Paper</b> (종이)의 첫 조각 Pa는 어떻게 읽을까? <select id="q7"><option value="">선택</option><option value="페이">페이</option><option value="파">파</option></select></div>
+            <div class="question-box">8. <b>Puppy</b>를 쪼개면? <select id="q8"><option value="">선택</option><option value="Pup-py">Pup | py</option><option value="Pu-ppy">Pu | ppy</option></select></div>
+            <div class="question-box">9. <b>Robot</b>의 앞부분 Ro는 어떻게 읽을까? <select id="q9"><option value="">선택</option><option value="로우">로우 (Robo의 Ro)</option><option value="랍">랍</option></select></div>
+            <div class="question-box">10. <b>Napkin</b>의 뒤쪽 조각 kin 소리는? <select id="q10"><option value="">선택</option><option value="킨">킨</option><option value="카인">카인</option></select></div>
+            <div class="question-box">11. 긴 단어를 읽을 때 가장 먼저 찾아야 할 것은? <select id="q11"><option value="">선택</option><option value="모음">배터리(모음)</option><option value="첫글자">그냥 첫 글자</option></select></div>
+            <div class="question-box">12. <b>Pillow</b> (베개)를 쪼개면? <select id="q12"><option value="">선택</option><option value="Pil-low">Pil | low</option><option value="Pi-llow">Pi | llow</option></select></div>
+            <div class="question-box">13. <b>Sunny</b> (화창한)에서 자음 n이 두 개네? 어디를 자를까? <select id="q13"><option value="">선택</option><option value="Sun-ny">Sun | ny</option><option value="Su-nny">Su | nny</option></select></div>
+            <div class="question-box">14. <b>Muffin</b>의 앞부분 Muf는 어떻게 읽을까? <select id="q14"><option value="">선택</option><option value="머프">머프</option><option value="뮤프">뮤프</option></select></div>
+            <div class="question-box">15. <b>Slicing</b> 알고리즘을 배우면 좋은 점은? <select id="q15"><option value="">선택</option><option value="자신감">긴 단어도 안 무섭고 스스로 읽을 수 있다!</option><option value="암기">다 외울 수 있다</option></select></div>
+        </div>
+        <button class="submit-btn" onclick="checkAnswers()">📝 슬라이싱 마스터 완료 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.8; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    function checkAnswers() {
+        const ans = { q1:'Muf-fin', q2:'2', q3:'Win-ter', q4:'배스', q5:'1', q6:'Mag-net', q7:'페이', q8:'Pup-py', q9:'로우', q10:'킨', q11:'모음', q12:'Pil-low', q13:'Sun-ny', q14:'머프', q15:'자신감' };
+        let score = 0; let isAll = true;
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") isAll = false;
+            else if (sel.value === ans['q'+i]) score++;
+        }
+        let res = document.getElementById('result-display');
+        if (!isAll) { res.style.color = "red"; res.innerHTML = "앗! 풀지 않은 문제가 있어요."; return; }
+        if (score === 15) { res.style.color = "green"; res.innerHTML = "🎉 100점! 지효는 이제 긴 단어도 척척 자르는 슬라이싱 마스터야! 🚀"; }
+        else { res.style.color = "red"; res.innerHTML = `앗, ${score}점이야! 다시 한 번 칼을 갈아볼까?`; }
+    }
+</script>
+</body>
+</html>

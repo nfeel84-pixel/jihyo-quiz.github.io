@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>29일차: 2학기 나눗셈 (몫과 나머지)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root{--m:#00b894;--bg:#f4fbf8;--c:#fff;--e:#d63031;--point:#0984e3;--review:#fdcb6e;--new:#e84393;}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);margin:0;padding:15px;color:#333;-webkit-tap-highlight-color:transparent;}
+        .wrap{max-width:800px;margin:0 auto;background:var(--c);padding:25px;border-radius:15px;box-shadow:0 4px 20px rgba(0,184,148,0.15);box-sizing:border-box;}
+        
+        .hdr{text-align:center;border-bottom:3px solid var(--m);padding-bottom:15px;margin-bottom:25px;}
+        .bdg{background:var(--m);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Jua';font-size:16px;}
+        .tit{font-family:'Jua';font-size:32px;margin:15px 0 5px 0;word-break:keep-all;line-height:1.3;color:#2d3436;}
+        
+        .box{background:#e6fffa;border:2px solid var(--m);border-radius:15px;padding:25px;margin-bottom:25px;}
+        .box-tit{font-family:'Jua';color:var(--m);font-size:26px;border-bottom:2px dashed #55efc4;padding-bottom:10px;text-align:center;margin:0 0 15px 0;}
+        .story{font-size:17px;line-height:1.6;text-align:center;word-break:keep-all;margin-bottom:20px;}
+        
+        .step{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.6;background:#fff;padding:20px;border-radius:10px;margin-top:15px;border:1px solid #e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,0.02);}
+        .step-num{background:var(--m);color:white;padding:5px 15px;border-radius:8px;font-size:16px;font-family:'Jua';flex-shrink:0;}
+        
+        .card{border:2px solid #e2e8f0;border-radius:15px;padding:20px;margin-bottom:20px;background:#fafbfc;}
+        .correct{border-color:var(--point);background:#e6fffa;}
+        .wrong{border-color:var(--e);background:#fff0f0;}
+        .qnum{font-family:'Jua';color:#fff;background:var(--m);padding:5px 15px;border-radius:10px;display:inline-block;margin-bottom:15px;font-size:16px;}
+        .qtxt{font-size:17px;font-weight:bold;margin-bottom:15px;word-break:keep-all;line-height:1.5; color:#2d3436;}
+        
+        .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+        .btn{border:2px solid #cbd5e1;background:#fff;padding:15px;border-radius:10px;cursor:pointer;font-weight:bold;flex-grow:1;text-align:center;font-size:17px;font-family:'Noto Sans KR';transition:0.2s;min-width:80px;}
+        .btn.sel{background:var(--m);color:#fff;border-color:var(--m);transform:scale(1.02);}
+        
+        .exp{display:none;margin-top:20px;padding:15px;background:#fff;border-left:5px solid var(--e);font-size:15px;line-height:1.6;box-shadow:inset 0 0 10px rgba(0,0,0,0.02);}
+        .sbmt{background:linear-gradient(135deg,var(--m),#55efc4);color:#fff;border:none;padding:18px 30px;font-family:'Jua';font-size:26px;border-radius:50px;width:100%;margin-top:30px;cursor:pointer;box-shadow:0 6px 0 #008f72;}
+        .sbmt:active{transform:translateY(6px);box-shadow:none;}
+        #res{display:none;text-align:center;margin-top:30px;font-family:'Jua';font-size:30px;color:var(--e);padding:30px;border:5px solid var(--m);border-radius:20px;background:#fff;}
+
+        /* 나눗셈의 집 (세로 나눗셈 격자) */
+        .div-math-wrap { text-align: center; margin: 15px 0; }
+        .div-math-box { background: white; border: 3px dashed #0984e3; border-radius: 15px; padding: 15px 25px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .div-math { margin: 0 auto; font-family: 'Jua', sans-serif; font-size: 26px; text-align: right; border-collapse: collapse; color: #2d3436; }
+        .div-math td { width: 25px; height: 35px; }
+        .div-math .roof { border-top: 3px solid #333; border-left: 3px solid #333; border-top-left-radius: 8px; text-align:center; }
+        .div-math .desc { font-size: 15px; color: #0984e3; text-align: left; padding-left: 15px; font-family: 'Noto Sans KR', sans-serif; font-weight: bold; white-space: nowrap;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <span class="bdg">디지털 교과서 29일차 (업계 표준)</span>
+        <h1 class="tit">나눗셈의 집 짓기!<br>몫과 나머지 🏠</h1>
+        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 2학기 나눗셈 마스터 모드</div>
+    </div>
+
+    <div class="box">
+        <h3 class="box-tit">💡 아빠의 노하우: 지붕엔 몫! 바닥엔 나머지!</h3>
+        <div class="story">
+            "지효야, 구구단으로 딱 떨어지지 않는 숫자들이 있어.<br>
+            사탕 17개를 3명이 나누어 먹으면 어떻게 될까? 3단에는 17이 없잖아?<br>
+            이럴 땐 <strong>'나눗셈의 집'</strong>을 지어서 세로로 계산하는 거야!"
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 1</span>
+            <div style="width:100%;">
+                <strong>세로 나눗셈의 집 짓기! [ 17 ÷ 3 ]</strong><br><br>
+                
+                <div class="div-math-wrap">
+                    <div class="div-math-box">
+                        <table class="div-math">
+                            <tr>
+                                <td></td><td></td><td></td><td style="color:#e84393;">5</td><td class="desc">👈 지붕: 내 '몫' (정답)</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">3</td><td class="roof"></td>
+                                <td style="border-top:3px solid #333;">1</td><td style="border-top:3px solid #333;">7</td><td class="desc">👈 집 안: 나누어지는 수</td>
+                            </tr>
+                            <tr>
+                                <td></td><td></td><td>1</td><td>5</td><td class="desc">👈 (3 × 5 = 15)</td>
+                            </tr>
+                            <tr>
+                                <td></td><td colspan="3"><div style="border-top:2px solid #333; margin:5px 0;"></div></td><td></td>
+                            </tr>
+                            <tr>
+                                <td></td><td></td><td colspan="2" style="color:#d63031; text-align:right;">... 2</td><td class="desc">👈 바닥: 남은 수 '나머지'</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <br>
+                ① 3단에서 17을 넘지 않는 가장 가까운 수를 찾아! (3 × <strong style="color:#e84393;">5</strong> = 15)<br>
+                ② 지붕 위에 몫 <strong>5</strong>를 적고, 그 아래에 15를 적어 빼줘.<br>
+                ③ 바닥에 남은 수 <strong>2</strong>를 바로 <strong style="color:var(--e);">나머지</strong>라고 불러!
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 2</span>
+            <div style="width:100%;">
+                <strong>가장 중요한 절대 규칙! 🚨</strong><br>
+                바닥에 남은 <strong style="color:var(--e);">나머지</strong>는 절대로 나누는 사람(3명)보다 크면 안 돼!<br>
+                나머지가 더 크다면 한 번 더 나누어 줄 수 있다는 뜻이거든!
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-area"></div>
+    <button class="sbmt" onclick="grade()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="res"></div>
+</div>
+
+<script>
+    // 🔥 세로 나눗셈(나눗셈의 집) 생성 함수 🔥
+    function makeDivShort(divsr, q_o, d_t, d_o, s1_t, s1_o, rem) {
+        let r_qo = q_o ? q_o : '<span style="color:#e84393; font-size:28px;">?</span>';
+        let r_rem = rem !== '' ? `... ${rem}` : '';
+
+        return `
+        <div class="div-math-wrap">
+            <div class="div-math-box">
+                <table class="div-math">
+                    <tr>
+                        <td style="width: 30px;"></td><td style="width: 15px;"></td><td style="width: 30px;"></td><td style="width: 30px; color:#0984e3; text-align:center;">${r_qo}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${divsr}</td>
+                        <td style="border-top: 3px solid #333; border-left: 3px solid #333; text-align:center; border-top-left-radius: 8px;"></td>
+                        <td style="border-top: 3px solid #333; text-align:center;">${d_t}</td><td style="border-top: 3px solid #333; text-align:center;">${d_o}</td>
+                    </tr>
+                    <tr>
+                        <td></td><td></td><td style="text-align:center;">${s1_t}</td><td style="text-align:center;">${s1_o}</td>
+                    </tr>
+                    <tr>
+                        <td></td><td colspan="3"><div style="border-top: 2px solid #333; margin: 5px 0;"></div></td>
+                    </tr>
+                    <tr>
+                        <td></td><td></td><td colspan="2" style="color:#d63031; text-align:right; font-weight:bold;">${r_rem}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>`;
+    }
+
+    // 🔥 압축 해제된 전체 데이터 배열 (가독성 100%) 🔥
+    const qData = [
+        { 
+            type: "복습 1", 
+            text: "어제 배운 두 자리 수 곱셈! [ 21 × 14 = ? ]", 
+            math: "", 
+            opts: ["284", "294", "304"], 
+            ans: 2, 
+            exp: "1층: 21×4 = 84. 2층: 21×10 = 210. 지붕(더하기): 84+210 = 294!" 
+        },
+        { 
+            type: "복습 2", 
+            text: "0 붙이기 마법! [ 15 × 20 = ? ]", 
+            math: "", 
+            opts: ["200", "300", "400"], 
+            ans: 2, 
+            exp: "15×2=30 뒤에 0을 하나 더 붙여서 300입니다!" 
+        },
+        { 
+            type: "문제 1", 
+            text: "사탕 11개를 2명이 똑같이 나누어 먹으려고 합니다. 한 사람이 몇 개씩 먹고 몇 개가 <strong>남을까요?</strong>", 
+            math: "", 
+            opts: ["5개 먹고 1개 남음", "4개 먹고 3개 남음", "6개 먹고 0개 남음"], 
+            ans: 1, 
+            exp: "2단에서 11을 넘지 않는 가장 큰 수는 2×5=10. 11-10=1. 5개씩 먹고 1개가 남습니다." 
+        },
+        { 
+            type: "문제 2", 
+            text: "나눗셈의 집을 완성해 보세요! 몫(지붕)에 들어갈 숫자는?", 
+            math: makeDivShort('3', '', '2', '2', '2', '1', '1'), 
+            opts: ["6", "7", "8"], 
+            ans: 2, 
+            exp: "3단에서 22를 넘지 않는 가장 가까운 수는 3×7=21. 지붕에는 7이 들어갑니다!" 
+        },
+        { 
+            type: "문제 3", 
+            text: "위 2번 문제(22 ÷ 3)에서, 바닥에 남은 수 <strong>'1'</strong>을 부르는 이름은 무엇일까요?", 
+            math: makeDivShort('3', '7', '2', '2', '2', '1', '1'), 
+            opts: ["몫", "나머지", "합"], 
+            ans: 2, 
+            exp: "나누어 주고 바닥에 남은 숫자를 '나머지'라고 부릅니다." 
+        },
+        { 
+            type: "문제 4", 
+            text: "계산해 볼까요? [ 25 ÷ 4 = ? ]", 
+            math: "", 
+            opts: ["몫 5, 나머지 5", "몫 6, 나머지 1", "몫 6, 나머지 2"], 
+            ans: 2, 
+            exp: "4단에서 25를 넘지 않는 수는 4×6=24. 25-24=1 이므로 몫은 6, 나머지는 1입니다." 
+        },
+        { 
+            type: "문제 5", 
+            text: "나눗셈의 나머지에 대한 <strong>절대 규칙</strong>으로 알맞은 것은?", 
+            math: "", 
+            opts: ["나머지는 나누는 수보다 무조건 작아야 한다.", "나머지는 나누는 수보다 커야 한다.", "나머지는 항상 0이다."], 
+            ans: 1, 
+            exp: "나머지가 나누는 수(나눠주는 사람)보다 크거나 같으면 한 번 더 나눠줄 수 있기 때문에, 나머지는 무조건 작아야 합니다!" 
+        },
+        { 
+            type: "문제 6", 
+            text: "세로 나눗셈의 집을 완성해 보세요! 나머지(바닥)에 들어갈 숫자는?", 
+            math: makeDivShort('5', '7', '3', '8', '3', '5', '?'), 
+            opts: ["1", "2", "3"], 
+            ans: 3, 
+            exp: "38에서 35를 빼면 3이 남습니다. 나머지는 3!" 
+        },
+        { 
+            type: "문제 7", 
+            text: "다음 나눗셈 중에서 <strong>나머지가 없는 (딱 떨어지는)</strong> 것은 무엇일까요?", 
+            math: "", 
+            opts: ["28 ÷ 5", "36 ÷ 6", "40 ÷ 7"], 
+            ans: 2, 
+            exp: "36 ÷ 6 = 6. 구구단에 딱 맞게 떨어져 나머지가 0이 됩니다." 
+        },
+        { 
+            type: "문제 8", 
+            text: "[ 44 ÷ 8 ]을 계산하면 몫은 얼마고, 나머지는 얼마인가요?", 
+            math: "", 
+            opts: ["몫 5, 나머지 4", "몫 6, 나머지 4", "몫 4, 나머지 5"], 
+            ans: 1, 
+            exp: "8×5=40. 44-40=4. 몫은 5, 나머지는 4입니다." 
+        },
+        { 
+            type: "문제 9", 
+            text: "지효가 색종이 50장을 친구 7명에게 똑같이 나누어 주려고 합니다. 한 명당 몇 장씩 주고 몇 장이 남을까요?", 
+            math: "", 
+            opts: ["7장 주고 1장 남음", "6장 주고 8장 남음", "7장 주고 2장 남음"], 
+            ans: 1, 
+            exp: "7×7=49. 50-49=1. 7장씩 나누어 주고 1장이 남습니다. (나머지가 7보다 작으므로 정답!)" 
+        },
+        { 
+            type: "문제 10", 
+            text: "나머지가 <strong>가장 큰</strong> 나눗셈은 어느 것인가요?", 
+            math: "", 
+            opts: ["15 ÷ 4", "23 ÷ 5", "30 ÷ 7"], 
+            ans: 1, 
+            exp: "① 나머지: 3, ② 나머지: 3, ③ 나머지: 2. 앗, 보기 ①과 ②의 나머지가 똑같이 3입니다! 첫 번째 버튼을 눌러보세요." 
+        },
+        { 
+            type: "문제 11", 
+            text: "어떤 수 놀이! 6으로 나누었더니 몫이 4이고 나머지가 2였습니다. 원래 어떤 수는 얼마였을까요? ( ? ÷ 6 = 4 ... 2 )", 
+            math: "", 
+            opts: ["24", "26", "28"], 
+            ans: 2, 
+            exp: "원래 수를 찾으려면 (나누는 수 × 몫) + 나머지! (6×4)+2 = 26 입니다." 
+        },
+        { 
+            type: "문제 12", 
+            text: "세로 나눗셈의 집을 완성해 보세요! 지붕(몫)과 바닥(나머지)에 알맞은 수는?", 
+            math: makeDivShort('9', '?', '6', '0', '5', '4', '?'), 
+            opts: ["몫 6, 나머지 6", "몫 7, 나머지 4", "몫 6, 나머지 5"], 
+            ans: 1, 
+            exp: "9×6=54. 60-54=6. 몫은 6, 나머지도 6입니다." 
+        },
+        { 
+            type: "문제 13", 
+            text: "구슬 35개를 한 봉지에 6개씩 담으려고 합니다. 봉지는 몇 개 필요하고, 담지 못한 구슬은 몇 개일까요?", 
+            math: "", 
+            opts: ["봉지 5개, 5개 남음", "봉지 6개, 1개 남음", "봉지 5개, 6개 남음"], 
+            ans: 1, 
+            exp: "35 ÷ 6 = 5 ... 5 이므로 5봉지에 담고 5개가 남습니다." 
+        },
+        { 
+            type: "문제 14", 
+            text: "다음 중 계산이 <strong>틀린</strong> 것은 무엇일까요?", 
+            math: "", 
+            opts: ["19 ÷ 4 = 4 ... 3", "28 ÷ 5 = 5 ... 3", "33 ÷ 8 = 3 ... 9"], 
+            ans: 3, 
+            exp: "③번은 나머지가 9인데, 나누는 수인 8보다 나머지가 크면 안 됩니다! (정확히는 4 ... 1 이 되어야 합니다)" 
+        },
+        { 
+            type: "문제 15", 
+            text: "[ 47 ÷ 9 ] 의 몫과 나머지를 올바르게 구한 것은?", 
+            math: "", 
+            opts: ["몫 4, 나머지 11", "몫 5, 나머지 2", "몫 5, 나머지 3"], 
+            ans: 2, 
+            exp: "9×5=45. 47-45=2. 몫은 5, 나머지는 2입니다." 
+        },
+        { 
+            type: "문제 16", 
+            text: "연필 52자루를 한 타스(12자루)가 안 되게 친구 6명에게 나누어 주려고 합니다. [ 52 ÷ 6 = ? ]", 
+            math: "", 
+            opts: ["몫 8, 나머지 4", "몫 7, 나머지 10", "몫 9, 나머지 0"], 
+            ans: 1, 
+            exp: "6×8=48. 52-48=4. 8자루씩 나누어 주고 4자루가 남습니다." 
+        },
+        { 
+            type: "문제 17", 
+            text: "마지막 퍼즐! 어떤 수를 7로 나누었을 때, 나올 수 <strong>없는</strong> 나머지는 무엇일까요?", 
+            math: "", 
+            opts: ["5", "6", "7"], 
+            ans: 3, 
+            exp: "나머지는 무조건 나누는 수(7)보다 작아야 하므로, 7이 나올 수 없습니다!" 
+        }
+    ];
+
+    const qArea = document.getElementById('quiz-area');
+    qData.forEach((qObj, i) => {
+        let bg = 'var(--m)';
+        if(qObj.type.includes('복습')) bg = 'var(--review)';
+        
+        let html = `
+        <div class="card" id="q${i}">
+            <span class="qnum" style="background:${bg}; color:${qObj.type.includes('복습')?'#333':'#fff'};">${qObj.type}</span>
+            <div class="qtxt">${qObj.text}</div>
+            ${qObj.math ? qObj.math : ''}
+            <div class="opts">`;
+            
+        qObj.opts.forEach((opt, j) => {
+            html += `<div class="btn" onclick="sel(${i}, ${j+1})">${opt}</div>`;
+        });
+        
+        html += `</div>
+            <div class="exp">
+                <strong style="color:var(--e);">[아빠의 해설]</strong><br>
+                ${qObj.exp}
+            </div>
+        </div>`;
+        qArea.innerHTML += html;
+    });
+
+    let userAns = {};
+    function sel(qIdx, opt) {
+        const box = document.getElementById('q'+qIdx);
+        const btns = box.querySelectorAll('.btn');
+        btns.forEach(b => b.classList.remove('sel'));
+        btns[opt-1].classList.add('sel');
+        userAns[qIdx] = opt;
+    }
+
+    function grade() {
+        let s = 0;
+        if(Object.keys(userAns).length < 20) { 
+            alert("아직 안 푼 문제가 있어요! 20번까지 천천히 확인해봐요."); return; 
+        }
+        qData.forEach((qObj, i) => {
+            const box = document.getElementById('q'+i);
+            const explain = box.querySelector('.exp');
+            box.classList.remove('correct', 'wrong'); 
+            explain.style.display = 'none';
+
+            if(userAns[i] === qObj.ans) { 
+                s++; box.classList.add('correct'); 
+            } else { 
+                box.classList.add('wrong'); 
+                explain.style.display = 'block'; 
+                box.querySelectorAll('.btn')[qObj.ans-1].style.border = "3px solid var(--e)";
+            }
+        });
+        
+        const res = document.getElementById('res');
+        let fs = Math.round((s / 20) * 100);
+        res.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">${fs}점!</span>` + 
+                        (fs === 100 ? "🎉 2학기 나눗셈 완벽 출발! 몫과 나머지 마스터!" : "👍 처음 배우는 나머지인데 정말 잘했어! 빨간색 해설을 눈여겨보자!");
+        res.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>
