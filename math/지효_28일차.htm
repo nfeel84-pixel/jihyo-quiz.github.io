@@ -48,9 +48,9 @@
 <body>
 <div class="wrap">
     <div class="hdr">
-        <span class="bdg">디지털 교과서 29일차 (업계 표준)</span>
+        <span class="bdg">디지털 교과서 29일차 (수정 완결판)</span>
         <h1 class="tit">나눗셈의 집 짓기!<br>몫과 나머지 🏠</h1>
-        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 2학기 나눗셈 마스터 모드</div>
+        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 진도 맞춤 복습 적용</div>
     </div>
 
     <div class="box">
@@ -112,55 +112,63 @@
 </div>
 
 <script>
-    // 🔥 세로 나눗셈(나눗셈의 집) 생성 함수 🔥
+    // 🔥 세로 나눗셈(나눗셈의 집) 생성 함수 (문자열 결합 방식) 🔥
     function makeDivShort(divsr, q_o, d_t, d_o, s1_t, s1_o, rem) {
         let r_qo = q_o ? q_o : '<span style="color:#e84393; font-size:28px;">?</span>';
-        let r_rem = rem !== '' ? `... ${rem}` : '';
+        let r_rem = rem !== '' ? '... ' + rem : '';
 
-        return `
-        <div class="div-math-wrap">
-            <div class="div-math-box">
-                <table class="div-math">
-                    <tr>
-                        <td style="width: 30px;"></td><td style="width: 15px;"></td><td style="width: 30px;"></td><td style="width: 30px; color:#0984e3; text-align:center;">${r_qo}</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">${divsr}</td>
-                        <td style="border-top: 3px solid #333; border-left: 3px solid #333; text-align:center; border-top-left-radius: 8px;"></td>
-                        <td style="border-top: 3px solid #333; text-align:center;">${d_t}</td><td style="border-top: 3px solid #333; text-align:center;">${d_o}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td></td><td style="text-align:center;">${s1_t}</td><td style="text-align:center;">${s1_o}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td colspan="3"><div style="border-top: 2px solid #333; margin: 5px 0;"></div></td>
-                    </tr>
-                    <tr>
-                        <td></td><td></td><td colspan="2" style="color:#d63031; text-align:right; font-weight:bold;">${r_rem}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>`;
+        return '<div class="div-math-wrap">' +
+            '<div class="div-math-box">' +
+                '<table class="div-math">' +
+                    '<tr>' +
+                        '<td style="width: 30px;"></td><td style="width: 15px;"></td><td style="width: 30px;"></td><td style="width: 30px; color:#0984e3; text-align:center;">' + r_qo + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td style="text-align: center;">' + divsr + '</td>' +
+                        '<td style="border-top: 3px solid #333; border-left: 3px solid #333; text-align:center; border-top-left-radius: 8px;"></td>' +
+                        '<td style="border-top: 3px solid #333; text-align:center;">' + d_t + '</td><td style="border-top: 3px solid #333; text-align:center;">' + d_o + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td></td><td></td><td style="text-align:center;">' + s1_t + '</td><td style="text-align:center;">' + s1_o + '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td></td><td colspan="3"><div style="border-top: 2px solid #333; margin: 5px 0;"></div></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                        '<td></td><td></td><td colspan="2" style="color:#d63031; text-align:right; font-weight:bold;">' + r_rem + '</td>' +
+                    '</tr>' +
+                '</table>' +
+            '</div>' +
+        '</div>';
     }
 
-    // 🔥 압축 해제된 전체 데이터 배열 (가독성 100%) 🔥
+    // 🔥 압축 해제 & 진도 오류 완벽 수정 데이터 배열 🔥
     const qData = [
         { 
             type: "복습 1", 
-            text: "어제 배운 두 자리 수 곱셈! [ 21 × 14 = ? ]", 
+            text: "어제 배운 세 자리 수 곱셈! [ 213 × 3 = ? ]", 
             math: "", 
-            opts: ["284", "294", "304"], 
+            opts: ["636", "639", "649"], 
             ans: 2, 
-            exp: "1층: 21×4 = 84. 2층: 21×10 = 210. 지붕(더하기): 84+210 = 294!" 
+            exp: "백 단위 곱셈은 일의 자리부터! 3×3=9, 1×3=3, 2×3=6. 차례대로 써서 639!" 
         },
         { 
             type: "복습 2", 
-            text: "0 붙이기 마법! [ 15 × 20 = ? ]", 
+            text: "지붕 위로 이사 가기! [ 115 × 4 = ? ]", 
             math: "", 
-            opts: ["200", "300", "400"], 
+            opts: ["450", "460", "560"], 
             ans: 2, 
-            exp: "15×2=30 뒤에 0을 하나 더 붙여서 300입니다!" 
+            exp: "5×4=20(지붕에 2 올림). 1×4=4에 지붕의 2를 더해 6. 1×4=4. 정답은 460!" 
         },
+        { 
+            type: "복습 3", 
+            text: "나눗셈 숨바꼭질 워밍업! [ 35 ÷ 5 = ? ]", 
+            math: "", 
+            opts: ["5", "6", "7"], 
+            ans: 3, 
+            exp: "뒤에 있는 5단을 외워보세요! 5 × 7 = 35 이므로 정답은 7입니다." 
+        },
+        
         { 
             type: "문제 1", 
             text: "사탕 11개를 2명이 똑같이 나누어 먹으려고 합니다. 한 사람이 몇 개씩 먹고 몇 개가 <strong>남을까요?</strong>", 
@@ -304,23 +312,22 @@
         let bg = 'var(--m)';
         if(qObj.type.includes('복습')) bg = 'var(--review)';
         
-        let html = `
-        <div class="card" id="q${i}">
-            <span class="qnum" style="background:${bg}; color:${qObj.type.includes('복습')?'#333':'#fff'};">${qObj.type}</span>
-            <div class="qtxt">${qObj.text}</div>
-            ${qObj.math ? qObj.math : ''}
-            <div class="opts">`;
+        let html = '<div class="card" id="q' + i + '">' +
+            '<span class="qnum" style="background:' + bg + '; color:' + (qObj.type.includes('복습') ? '#333' : '#fff') + ';">' + qObj.type + '</span>' +
+            '<div class="qtxt">' + qObj.text + '</div>' +
+            (qObj.math ? qObj.math : '') +
+            '<div class="opts">';
             
         qObj.opts.forEach((opt, j) => {
-            html += `<div class="btn" onclick="sel(${i}, ${j+1})">${opt}</div>`;
+            html += '<div class="btn" onclick="sel(' + i + ', ' + (j+1) + ')">' + opt + '</div>';
         });
         
-        html += `</div>
-            <div class="exp">
-                <strong style="color:var(--e);">[아빠의 해설]</strong><br>
-                ${qObj.exp}
-            </div>
-        </div>`;
+        html += '</div>' +
+            '<div class="exp">' +
+                '<strong style="color:var(--e);">[아빠의 해설]</strong><br>' +
+                qObj.exp +
+            '</div>' +
+        '</div>';
         qArea.innerHTML += html;
     });
 
@@ -355,7 +362,7 @@
         
         const res = document.getElementById('res');
         let fs = Math.round((s / 20) * 100);
-        res.innerHTML = `우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">${fs}점!</span>` + 
+        res.innerHTML = '우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">' + fs + '점!</span>' + 
                         (fs === 100 ? "🎉 2학기 나눗셈 완벽 출발! 몫과 나머지 마스터!" : "👍 처음 배우는 나머지인데 정말 잘했어! 빨간색 해설을 눈여겨보자!");
         res.style.display = 'block';
         window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
