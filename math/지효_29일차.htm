@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>28일차: 두 자리 수 × 두 자리 수</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+        :root{--m:#6c5ce7;--bg:#f3f0ff;--c:#fff;--e:#d63031;--point:#00b894;--review:#fdcb6e;--new:#e84393;}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);margin:0;padding:15px;color:#333;-webkit-tap-highlight-color:transparent;}
+        .wrap{max-width:800px;margin:0 auto;background:var(--c);padding:25px;border-radius:15px;box-shadow:0 4px 20px rgba(108,92,231,0.15);box-sizing:border-box;}
+        
+        .hdr{text-align:center;border-bottom:3px solid var(--m);padding-bottom:15px;margin-bottom:25px;}
+        .bdg{background:var(--m);color:#fff;padding:6px 18px;border-radius:20px;font-family:'Jua';font-size:16px;}
+        .tit{font-family:'Jua';font-size:32px;margin:15px 0 5px 0;word-break:keep-all;line-height:1.3;color:#2d3436;}
+        
+        /* 🔥 개념 설명 구역 🔥 */
+        .box{background:#eef2ff;border:2px solid var(--m);border-radius:15px;padding:25px;margin-bottom:25px;}
+        .box-tit{font-family:'Jua';color:var(--m);font-size:26px;border-bottom:2px dashed #a29bfe;padding-bottom:10px;text-align:center;margin:0 0 15px 0;}
+        .story{font-size:17px;line-height:1.6;text-align:center;word-break:keep-all;margin-bottom:20px;}
+        
+        .step{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.6;background:#fff;padding:20px;border-radius:10px;margin-top:15px;border:1px solid #e2e8f0;box-shadow:0 2px 4px rgba(0,0,0,0.02);}
+        .step-num{background:var(--new);color:white;padding:5px 15px;border-radius:8px;font-size:16px;font-family:'Jua';flex-shrink:0;}
+        
+        .card{border:2px solid #e2e8f0;border-radius:15px;padding:20px;margin-bottom:20px;background:#fafbfc;}
+        .correct{border-color:var(--point);background:#e6fffa;}
+        .wrong{border-color:var(--e);background:#fff0f0;}
+        .qnum{font-family:'Jua';color:#fff;background:var(--m);padding:5px 15px;border-radius:10px;display:inline-block;margin-bottom:15px;font-size:16px;}
+        .qtxt{font-size:17px;font-weight:bold;margin-bottom:15px;word-break:keep-all;line-height:1.5; color:#2d3436;}
+        
+        .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+        .btn{border:2px solid #cbd5e1;background:#fff;padding:15px;border-radius:10px;cursor:pointer;font-weight:bold;flex-grow:1;text-align:center;font-size:17px;font-family:'Noto Sans KR';transition:0.2s;min-width:80px;}
+        .btn.sel{background:var(--m);color:#fff;border-color:var(--m);transform:scale(1.02);}
+        
+        .exp{display:none;margin-top:20px;padding:15px;background:#fff;border-left:5px solid var(--e);font-size:15px;line-height:1.6;box-shadow:inset 0 0 10px rgba(0,0,0,0.02);}
+        .sbmt{background:linear-gradient(135deg,var(--m),#a29bfe);color:#fff;border:none;padding:18px 30px;font-family:'Jua';font-size:26px;border-radius:50px;width:100%;margin-top:30px;cursor:pointer;box-shadow:0 6px 0 #4834d4;}
+        .sbmt:active{transform:translateY(6px);box-shadow:none;}
+        #res{display:none;text-align:center;margin-top:30px;font-family:'Jua';font-size:30px;color:var(--e);padding:30px;border:5px solid var(--m);border-radius:20px;background:#fff;}
+
+        /* 곱셈 아파트 (2단 세로셈 특수 격자) */
+        .math-apt-wrap { text-align: center; margin: 15px 0; }
+        .math-apt-box { background: white; border: 3px dashed #e84393; border-radius: 15px; padding: 15px 25px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .math-apt { margin: 0 auto; font-family: 'Jua', sans-serif; font-size: 26px; text-align: center; border-collapse: collapse; color: #2d3436; }
+        .math-apt td { width: 30px; height: 35px; }
+        .math-apt .carry { color: #d63031; font-size: 16px; vertical-align: bottom; }
+        .math-apt .line { border-bottom: 4px solid #2d3436; margin: 5px 0; }
+        .math-apt .desc { font-size: 14px; color: #0984e3; text-align: left; padding-left: 15px; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <span class="bdg">디지털 교과서 28일차 (정규 진도 복구)</span>
+        <h1 class="tit">곱셈 아파트 짓기!<br>두 자리 수 × 두 자리 수 🏢</h1>
+        <div style="font-size:15px;color:#636e72;">학생명: <strong>서 지 효</strong> | 아빠표 눈높이 코칭</div>
+    </div>
+
+    <div class="box">
+        <h3 class="box-tit">💡 아빠의 노하우: 곱셈은 1층과 2층을 따로 짓는 거야!</h3>
+        <div class="story">
+            "지효야, 3학년 2학기 수학에서 가장 어려운 보스 몬스터가 나타났어!<br>
+            바로 <strong>[ 14 × 12 ]</strong> 처럼 두 자리 수를 두 번 곱하는 거야.<br>
+            그런데 아빠가 알려주는 <strong>'아파트 짓기'</strong> 마법만 알면 엄청 쉬워져!"
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 1</span>
+            <div style="width:100%;">
+                <strong>[ 20 × 30 ] 처럼 0이 많을 땐?</strong><br>
+                0이 여러 개 있으면 일단 0을 빼고 숫자끼리만 먼저 곱해봐!<br>
+                <span style="color:var(--e);">2 × 3 = 6</span> 이지?<br>
+                그다음, 아까 빼뒀던 <strong>0 두 개</strong>(20에 하나, 30에 하나)를 다시 뒤에 쏙쏙 붙여줘.<br>
+                👉 정답은 <strong style="font-size:20px; color:var(--point);">600</strong>! 정말 쉽지?
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-num">마법 2</span>
+            <div style="width:100%;">
+                <strong>진짜 보스 몬스터! [ 14 × 12 = ? ] 곱셈 아파트 짓기</strong><br>
+                가로로는 헷갈리니까 무조건 <strong>세로셈으로 아파트를 지어야 해.</strong><br><br>
+                
+                <div class="math-apt-wrap">
+                    <div class="math-apt-box">
+                        <table class="math-apt">
+                            <tr>
+                                <td></td><td></td><td>1</td><td>4</td><td class="desc"></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 20px;">×</td><td></td><td>1</td><td>2</td><td class="desc"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><div class="line"></div></td><td></td>
+                            </tr>
+                            <tr>
+                                <td></td><td></td><td style="color:var(--e);">2</td><td style="color:var(--e);">8</td><td class="desc">👈 1층: (14 × 2)</td>
+                            </tr>
+                            <tr>
+                                <td></td><td style="color:var(--point);">1</td><td style="color:var(--point);">4</td><td style="color:var(--point);">0</td><td class="desc">👈 2층: 빈칸에 0을 깔고 시작! (14 × 1)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><div class="line"></div></td><td></td>
+                            </tr>
+                            <tr>
+                                <td></td><td>1</td><td>6</td><td>8</td><td class="desc">👈 지붕: 1층 + 2층 더하기</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <br>
+                <strong>아빠의 3단계 주문:</strong><br>
+                ① <strong>1층 짓기:</strong> 먼저 14와 일의 자리 '2'를 곱해서 1층(28)을 쓴다.<br>
+                ② <strong>2층 짓기:</strong> 그다음 14와 십의 자리 '1'을 곱해서 2층에 쓴다. <strong>이때 끝에 무조건 '0'을 채워주는 게 핵심!</strong> (140이 됨)<br>
+                ③ <strong>더하기:</strong> 다 지은 1층(28)과 2층(140)을 더해주면 진짜 정답(168) 완성!
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-area"></div>
+    <button class="sbmt" onclick="grade()">💯 20문제 완벽하게 다 풀었어요!</button>
+    <div id="res"></div>
+</div>
+
+<script>
+    // 🔥 2단 곱셈 아파트(세로셈) 생성 함수 (문자열 결합) 🔥
+    function makeApt(n1_t, n1_o, n2_t, n2_o, fl1_h, fl1_t, fl1_o, fl2_th, fl2_h, fl2_t, fl2_o, res_th, res_h, res_t, res_o) {
+        let r_th = res_th ? res_th : ''; let r_h = res_h ? res_h : ''; let r_t = res_t ? res_t : ''; let r_o = res_o ? res_o : '';
+        // 정답 블라인드 처리
+        if(res_h === '' && res_t === '' && res_o === '') { 
+            r_t = '<span style="color:#e84393;">?</span>'; r_o = '<span style="color:#e84393;">?</span>'; 
+        }
+
+        return '<div class="math-apt-wrap">' +
+            '<div class="math-apt-box">' +
+                '<table class="math-apt">' +
+                    '<tr><td></td><td></td><td>' + n1_t + '</td><td>' + n1_o + '</td></tr>' +
+                    '<tr><td style="font-size:20px;">×</td><td></td><td>' + n2_t + '</td><td>' + n2_o + '</td></tr>' +
+                    '<tr><td colspan="4"><div class="line"></div></td></tr>' +
+                    '<tr><td></td><td>' + fl1_h + '</td><td>' + fl1_t + '</td><td>' + fl1_o + '</td></tr>' +
+                    '<tr><td>' + fl2_th + '</td><td>' + fl2_h + '</td><td>' + fl2_t + '</td><td>' + fl2_o + '</td></tr>' +
+                    '<tr><td colspan="4"><div class="line"></div></td></tr>' +
+                    '<tr><td>' + r_th + '</td><td>' + r_h + '</td><td>' + r_t + '</td><td>' + r_o + '</td></tr>' +
+                '</table>' +
+            '</div>' +
+        '</div>';
+    }
+
+    // 🔥 압축 해제: 아버님이 모든 데이터를 한눈에 확인할 수 있도록 전개 🔥
+    const qData = [
+        { 
+            type: "복습 1", 
+            text: "어제 배운 3자리 수 곱셈 복습! [ 213 × 3 = ? ]", 
+            math: "", 
+            opts: ["636", "639", "649"], 
+            ans: 2, 
+            exp: "일의 자리 3×3=9, 십의 자리 1×3=3, 백의 자리 2×3=6. 순서대로 639!" 
+        },
+        { 
+            type: "복습 2", 
+            text: "받아올림이 있는 복습! [ 124 × 4 = ? ]", 
+            math: "", 
+            opts: ["486", "496", "506"], 
+            ans: 2, 
+            exp: "4×4=16 (십의 자리에 1올림). 2×4=8에 1을 더해 9. 백의 자리 1×4=4. 정답은 496!" 
+        },
+        { 
+            type: "복습 3", 
+            text: "나눗셈 워밍업! 18개의 사탕을 3명이 나누어 먹으면? [ 18 ÷ 3 = ? ]", 
+            math: "", 
+            opts: ["5", "6", "7"], 
+            ans: 2, 
+            exp: "나누는 수 3단을 외웁니다. 3 × 6 = 18 이므로 6개입니다!" 
+        },
+        { 
+            type: "문제 1", 
+            text: "0이 두 개! 마법을 부려봐! [ 30 × 20 = ? ]", 
+            math: "", 
+            opts: ["500", "600", "6000"], 
+            ans: 2, 
+            exp: "숫자끼리 3×2=6 을 곱하고 뒤에 0을 두 개 붙이면 600입니다." 
+        },
+        { 
+            type: "문제 2", 
+            text: "동전 계산하기! 50원짜리 동전이 40개 있습니다. 얼마일까요? [ 50 × 40 = ? ]", 
+            math: "", 
+            opts: ["200원", "2000원", "20000원"], 
+            ans: 2, 
+            exp: "5×4=20을 쓰고, 뒤에 원래 있던 0 두 개를 더 붙입니다. 정답은 2000!" 
+        },
+        { 
+            type: "문제 3", 
+            text: "조금 변형된 0 마법! [ 12 × 20 = ? ]", 
+            math: "", 
+            opts: ["240", "120", "204"], 
+            ans: 1, 
+            exp: "12 × 2 = 24 를 먼저 계산하고 뒤에 0을 한 개만 붙여주면 240입니다." 
+        },
+        { 
+            type: "문제 4", 
+            text: "0 마법 응용! [ 25 × 10 = ? ]", 
+            math: "", 
+            opts: ["250", "205", "500"], 
+            ans: 1, 
+            exp: "어떤 수에 10을 곱할 때는 뒤에 0만 한 개 쏙! 붙여주면 끝! 250입니다." 
+        },
+        { 
+            type: "문제 5", 
+            text: "곱셈 아파트 1층 짓기! [ 13 × 12 ] 의 세로셈에서 <strong>1층</strong>에 들어갈 알맞은 숫자는?", 
+            math: makeApt('1', '3', '1', '2', '', '<span style="color:#0984e3">?</span>', '<span style="color:#0984e3">?</span>', '', '', '', '', '', '', '', ''), 
+            opts: ["13", "26", "130"], 
+            ans: 2, 
+            exp: "1층은 13 × 2 를 계산한 값입니다. 13 × 2 = 26 이므로 26이 들어갑니다." 
+        },
+        { 
+            type: "문제 6", 
+            text: "곱셈 아파트 2층 짓기! [ 13 × 12 ] 의 세로셈에서 <strong>2층</strong>에 들어갈 숫자는?", 
+            math: makeApt('1', '3', '1', '2', '', '2', '6', '', '<span style="color:#0984e3">?</span>', '<span style="color:#0984e3">?</span>', '<span style="color:#0984e3">?</span>', '', '', '', ''), 
+            opts: ["13", "130", "26"], 
+            ans: 2, 
+            exp: "2층은 13 × 10 을 계산한 값입니다. 빈자리에 0을 꼭 깔아주어야 합니다! 130이 들어갑니다." 
+        },
+        { 
+            type: "문제 7", 
+            text: "아파트 완성! [ 13 × 12 ] 의 <strong>최종 정답</strong>은 얼마일까요?", 
+            math: makeApt('1', '3', '1', '2', '', '2', '6', '', '1', '3', '0', '', '', '', ''), 
+            opts: ["146", "156", "166"], 
+            ans: 2, 
+            exp: "지어놓은 1층(26)과 2층(130)을 더해주면 됩니다. 26 + 130 = 156!" + makeApt('1', '3', '1', '2', '', '2', '6', '', '1', '3', '0', '', '1', '5', '6') 
+        },
+        { 
+            type: "문제 8", 
+            text: "차근차근 지어보세요! [ 14 × 11 = ? ]", 
+            math: makeApt('1', '4', '1', '1', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["144", "154", "164"], 
+            ans: 2, 
+            exp: "1층은 14×1=14. 2층은 14×10=140. 두 개를 더하면 14+140 = 154 입니다!" + makeApt('1', '4', '1', '1', '', '1', '4', '', '1', '4', '0', '', '1', '5', '4') 
+        },
+        { 
+            type: "문제 9", 
+            text: "세로셈으로 풀어보세요. [ 21 × 13 = ? ]", 
+            math: makeApt('2', '1', '1', '3', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["263", "273", "283"], 
+            ans: 2, 
+            exp: "1층은 21×3=63. 2층은 21×10=210. 두 개를 더하면 63+210 = 273 입니다!" + makeApt('2', '1', '1', '3', '', '6', '3', '', '2', '1', '0', '', '2', '7', '3') 
+        },
+        { 
+            type: "문제 10", 
+            text: "조금 더 커집니다! [ 22 × 14 = ? ]", 
+            math: makeApt('2', '2', '1', '4', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["308", "318", "328"], 
+            ans: 1, 
+            exp: "1층 22×4=88. 2층 22×10=220. 88+220 = 308 입니다!" + makeApt('2', '2', '1', '4', '', '8', '8', '', '2', '2', '0', '', '3', '0', '8') 
+        },
+        { 
+            type: "문제 11", 
+            text: "받아올림이 등장합니다! [ 15 × 12 = ? ]", 
+            math: makeApt('1', '5', '1', '2', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["170", "180", "190"], 
+            ans: 2, 
+            exp: "1층 15×2=30. 2층 15×10=150. 30+150 = 180 입니다!" + makeApt('1', '5', '1', '2', '', '3', '0', '', '1', '5', '0', '', '1', '8', '0') 
+        },
+        { 
+            type: "문제 12", 
+            text: "계산해 볼까요? [ 24 × 15 = ? ]", 
+            math: makeApt('2', '4', '1', '5', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["350", "360", "370"], 
+            ans: 2, 
+            exp: "1층 24×5=120. 2층 24×10=240. 120+240 = 360 입니다!" + makeApt('2', '4', '1', '5', '1', '2', '0', '', '2', '4', '0', '', '3', '6', '0') 
+        },
+        { 
+            type: "문제 13", 
+            text: "다음 중 계산 결과가 <strong>가장 큰 것</strong>을 고르세요.", 
+            math: "", 
+            opts: ["20 × 40", "30 × 30", "15 × 50"], 
+            ans: 2, 
+            exp: "① 20×40=800, ② 30×30=900, ③ 15×50=750. 900이 가장 큽니다!" 
+        },
+        { 
+            type: "문제 14", 
+            text: "색연필이 한 상자에 24자루씩 들어있습니다. 12상자를 샀다면 색연필은 모두 몇 자루일까요?", 
+            math: "", 
+            opts: ["278자루", "288자루", "298자루"], 
+            ans: 2, 
+            exp: "24 × 12 = ? 1층(48) + 2층(240) = 288자루!" + makeApt('2', '4', '1', '2', '', '4', '8', '', '2', '4', '0', '', '2', '8', '8') 
+        },
+        { 
+            type: "문제 15", 
+            text: "하루는 24시간입니다. 15일은 모두 몇 시간일까요?", 
+            math: "", 
+            opts: ["350시간", "360시간", "370시간"], 
+            ans: 2, 
+            exp: "24 × 15 = ? 1층(120) + 2층(240) = 360시간!" + makeApt('2', '4', '1', '5', '1', '2', '0', '', '2', '4', '0', '', '3', '6', '0') 
+        },
+        { 
+            type: "문제 16", 
+            text: "어느 농장에서 하루에 감자를 45kg씩 수확합니다. 20일 동안 수확한 감자는 모두 몇 kg일까요?", 
+            math: "", 
+            opts: ["800kg", "900kg", "1000kg"], 
+            ans: 2, 
+            exp: "45 × 20 = ? 0 마법입니다! 45×2=90 뒤에 0을 붙이면 900kg!" 
+        },
+        { 
+            type: "문제 17", 
+            text: "마지막 문제! [ 32 × 23 = ? ] 차근차근 더해보세요!", 
+            math: makeApt('3', '2', '2', '3', '', '', '', '', '', '', '', '', '', '', ''), 
+            opts: ["726", "736", "746"], 
+            ans: 2, 
+            exp: "1층 32×3=96. 2층 32×20=640. 96+640 = 736 입니다! 참 잘했어요!" + makeApt('3', '2', '2', '3', '', '9', '6', '', '6', '4', '0', '', '7', '3', '6') 
+        }
+    ];
+
+    const qArea = document.getElementById('quiz-area');
+    qData.forEach((qObj, i) => {
+        let bg = 'var(--m)';
+        if(qObj.type.includes('복습')) bg = 'var(--review)';
+        
+        let html = '<div class="card" id="q' + i + '">' +
+            '<span class="qnum" style="background:' + bg + '; color:' + (qObj.type.includes('복습') ? '#333' : '#fff') + ';">' + qObj.type + '</span>' +
+            '<div class="qtxt">' + qObj.text + '</div>' +
+            (qObj.math ? qObj.math : '') +
+            '<div class="opts">';
+            
+        qObj.opts.forEach((opt, j) => {
+            html += '<div class="btn" onclick="sel(' + i + ', ' + (j+1) + ')">' + opt + '</div>';
+        });
+        
+        html += '</div>' +
+            '<div class="exp">' +
+                '<strong style="color:var(--e);">[아빠의 해설]</strong><br>' +
+                qObj.exp +
+            '</div>' +
+        '</div>';
+        qArea.innerHTML += html;
+    });
+
+    let userAns = {};
+    function sel(qIdx, opt) {
+        const box = document.getElementById('q'+qIdx);
+        const btns = box.querySelectorAll('.btn');
+        btns.forEach(b => b.classList.remove('sel'));
+        btns[opt-1].classList.add('sel');
+        userAns[qIdx] = opt;
+    }
+
+    function grade() {
+        let s = 0;
+        if(Object.keys(userAns).length < 20) { 
+            alert("아직 안 푼 문제가 있어요! 20번까지 천천히 풀어봐요."); return; 
+        }
+        qData.forEach((qObj, i) => {
+            const box = document.getElementById('q'+i);
+            const explain = box.querySelector('.exp');
+            box.classList.remove('correct', 'wrong'); 
+            explain.style.display = 'none';
+
+            if(userAns[i] === qObj.ans) { 
+                s++; box.classList.add('correct'); 
+            } else { 
+                box.classList.add('wrong'); 
+                explain.style.display = 'block'; 
+                box.querySelectorAll('.btn')[qObj.ans-1].style.border = "3px solid var(--e)";
+            }
+        });
+        
+        const res = document.getElementById('res');
+        let fs = Math.round((s / 20) * 100);
+        res.innerHTML = '우와! 지효의 점수는<br><span style="font-size:60px; color:var(--m); display:block; margin:10px 0;">' + fs + '점!</span>' + 
+                        (fs === 100 ? "🎉 곱셈 아파트 완벽하게 지었어! 지효 진짜 멋지다!" : "👍 2층 지을 때 0 채우는 거 잊지 않았지? 빨간색 해설을 다시 보자!");
+        res.style.display = 'block';
+        window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+</script>
+</body>
+</html>

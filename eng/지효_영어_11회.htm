@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지효의 영어 알고리즘 - 파닉스 통합 마스터</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1a202c; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(43, 108, 176, 0.1); }
+        h1 { text-align: center; color: #2b6cb0; font-weight: 900; border-bottom: 4px solid #63b3ed; padding-bottom: 15px; margin-bottom: 30px; }
+        
+        .alert-box { background: #ebf8ff; color: #2c5282; padding: 30px; border-radius: 15px; border: 4px solid #63b3ed; margin-bottom: 40px; text-align: center; }
+        .alert-title { font-size: 1.8em; font-weight: 900; color: #2b6cb0; margin-bottom: 15px; }
+        
+        .section-box { margin-bottom: 40px; background: #fff; padding: 30px; border-radius: 15px; border: 2px solid #e2e8f0; }
+        .section-title { font-size: 1.5em; font-weight: 900; color: white; padding: 10px 25px; border-radius: 10px; display: inline-block; margin-bottom: 20px; }
+        
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .word-card { background: white; border: 2px solid #edf2f7; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: 0.2s; }
+        .word-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .word-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #cbd5e0; padding-bottom: 10px; }
+        .en-word { font-size: 1.8em; font-weight: 900; letter-spacing: 2px; }
+        .kr-sound { font-size: 1.1em; font-weight: bold; padding: 5px 12px; border-radius: 8px; }
+        .formula-box { background: #f7fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; font-size: 1.05em; }
+        .speak-btn { width: 100%; padding: 12px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        
+        .quiz-section { background: #fffaf0; padding: 35px; border-radius: 15px; border: 2px solid #fbd38d; margin-top: 50px; }
+        .quiz-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
+        .question-box { background: white; padding: 15px 20px; border-radius: 10px; border: 1px solid #feebc8; font-size: 1.1em; display: flex; justify-content: space-between; align-items: center; }
+        select { padding: 8px 15px; font-size: 1em; border-radius: 6px; border: 2px solid #cbd5e0; cursor: pointer; font-weight: bold; }
+        .submit-btn { width: 100%; padding: 18px; font-size: 1.3em; font-weight: 900; background: #dd6b20; color: white; border: none; border-radius: 10px; cursor: pointer; }
+        #result-display { text-align: center; margin-top: 25px; font-size: 1.5em; font-weight: 900; }
+        
+        .highlight { font-weight: 900; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🏆 파닉스 알고리즘 총복습: 통합 시스템 테스트</h1>
+
+    <div class="alert-box">
+        <div class="alert-title">⚙️ SYSTEM INTEGRATION CHECK</div>
+        <p style="font-size: 1.2em; font-weight: bold;">
+            지효야, 그동안 내 머릿속에 설치한 수많은 알고리즘 패치들 기억나지?<br>
+            오늘은 이 모든 규칙이 충돌 없이 잘 작동하는지 <b>'통합 해독 훈련'</b>을 해볼 거야!<br>
+            이 테스트만 통과하면, 지효는 세상에 있는 어떤 영어 단어든 다 해독할 수 있어!
+        </p>
+    </div>
+
+    <div class="section-box" style="border-color: #d53f8c;">
+        <div class="section-title" style="background: #d53f8c;">LEVEL 1. 마법의 요정 e (모음 변환 스킬)</div>
+        <p style="font-weight: bold; color: #b83280;">기억하기: 끝에 e가 붙으면 묵음! 대신 앞 모음이 '원래 알파벳 이름'을 길게 외쳐!</p>
+        <div class="word-grid">
+            <div class="word-card" style="border-color: #fbcfe8;">
+                <div class="word-header"><span class="en-word" style="color: #d53f8c;">P i n <span style="color:#e53e3e;">e</span></span><span class="kr-sound" style="background:#fff5f7; color:#d53f8c;">파인 (소나무)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #d53f8c; color: #97266d;">P(ㅍ) + i(아이) + n(받침ㄴ) + e(묵음) <br>➔ 핀(Pin)이 '파인'으로 변신!</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Pine')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #fbcfe8;">
+                <div class="word-header"><span class="en-word" style="color: #d53f8c;">N o t <span style="color:#e53e3e;">e</span></span><span class="kr-sound" style="background:#fff5f7; color:#d53f8c;">노트 (공책)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #d53f8c; color: #97266d;">N(ㄴ) + o(오우) + t(받침ㅅ) + e(묵음) <br>➔ 낫(Not)이 '노트'로 변신!</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Note')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #fbcfe8;">
+                <div class="word-header"><span class="en-word" style="color: #d53f8c;">C u t <span style="color:#e53e3e;">e</span></span><span class="kr-sound" style="background:#fff5f7; color:#d53f8c;">큐트 (귀여운)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #d53f8c; color: #97266d;">C(ㅋ) + u(유) + t(받침ㅅ) + e(묵음) <br>➔ 컷(Cut)이 '큐트'로 변신!</div>
+                <button class="speak-btn" style="background: #d53f8c;" onclick="speakWord('Cute')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box" style="border-color: #38a169;">
+        <div class="section-title" style="background: #38a169;">LEVEL 2. 대장 모음팀 & 소리 보스 R</div>
+        <p style="font-weight: bold; color: #2f855a;">기억하기: 모음 2개면 앞 모음이 대장! / 모음 뒤에 R이 오면 혀가 굴러가는 소리로 지배!</p>
+        <div class="word-grid">
+            <div class="word-card" style="border-color: #c6f6d5;">
+                <div class="word-header"><span class="en-word" style="color: #38a169;">T r <span style="color:#e53e3e;">a i</span> n</span><span class="kr-sound" style="background:#f0fdf4; color:#38a169;">트레인 (기차)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #38a169; color: #22543d;">Tr(트ㄹ) + <span class="highlight">ai(에이)</span> + n(받침ㄴ) <br>➔ A 대장이 '에이'라고 외쳐!</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Train')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #c6f6d5;">
+                <div class="word-header"><span class="en-word" style="color: #38a169;">B <span style="color:#e53e3e;">o a</span> t</span><span class="kr-sound" style="background:#f0fdf4; color:#38a169;">보우트 (배)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #38a169; color: #22543d;">B(ㅂ) + <span class="highlight">oa(오우)</span> + t(받침ㅅ) <br>➔ O 대장이 '오우'라고 외쳐!</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Boat')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #c6f6d5;">
+                <div class="word-header"><span class="en-word" style="color: #38a169;">Sh <span style="color:#e53e3e;">a r</span> k</span><span class="kr-sound" style="background:#f0fdf4; color:#38a169;">샤-ㄹ크 (상어)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #38a169; color: #22543d;">Sh(쉬) + <span class="highlight">ar(아-ㄹ)</span> + k(크) <br>➔ 보스 R 등장! 입을 크게 '아-ㄹ'</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Shark')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #c6f6d5;">
+                <div class="word-header"><span class="en-word" style="color: #38a169;">G <span style="color:#e53e3e;">i r</span> l</span><span class="kr-sound" style="background:#f0fdf4; color:#38a169;">거-ㄹ (소녀)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #38a169; color: #22543d;">G(ㄱ) + <span class="highlight">ir(어-ㄹ)</span> + l(받침ㄹ) <br>➔ er, ir, ur은 전부 다 '어-ㄹ'</div>
+                <button class="speak-btn" style="background: #38a169;" onclick="speakWord('Girl')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box" style="border-color: #3182ce;">
+        <div class="section-title" style="background: #3182ce;">LEVEL 3. 합체 로봇 & 데이터 슬라이싱</div>
+        <p style="font-weight: bold; color: #2b6cb0;">기억하기: SH/CH/TH는 새로운 소리 덩어리! / 긴 단어는 모음을 기준으로 반으로 싹둑!</p>
+        <div class="word-grid">
+            <div class="word-card" style="border-color: #bee3f8;">
+                <div class="word-header"><span class="en-word" style="color: #3182ce;"><span style="color:#e53e3e;">Ch</span> e e se</span><span class="kr-sound" style="background:#ebf8ff; color:#3182ce;">치즈</span></div>
+                <div class="formula-box" style="border-left: 5px solid #3182ce; color: #2c5282;"><span class="highlight">Ch(취)</span> + ee(이) + s(ㅈ) + e(묵음)<br>➔ 합체 로봇(Ch), 모음팀(ee), 마법(e) 총집합!</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Cheese')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #bee3f8;">
+                <div class="word-header"><span class="en-word" style="color: #3182ce;"><span style="color:#e53e3e;">Th</span> i n k</span><span class="kr-sound" style="background:#ebf8ff; color:#3182ce;">씽크 (생각하다)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #3182ce; color: #2c5282;"><span class="highlight">Th(쓰)</span> + i(이) + nk(ㅇ크)<br>➔ 혀를 살짝 무는 특수 스킬!</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Think')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #bee3f8;">
+                <div class="word-header"><span class="en-word" style="color: #3182ce;">Win <span style="color:#e53e3e;">|</span> ter</span><span class="kr-sound" style="background:#ebf8ff; color:#3182ce;">윈터 (겨울)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #3182ce; color: #2c5282;">Win(윈) <span class="highlight">|</span> ter(터)<br>➔ 자음 n과 t 사이(Rabbit 규칙) 싹둑!</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Winter')">🔊 들어보기</button>
+            </div>
+            <div class="word-card" style="border-color: #bee3f8;">
+                <div class="word-header"><span class="en-word" style="color: #3182ce;">Pa <span style="color:#e53e3e;">|</span> per</span><span class="kr-sound" style="background:#ebf8ff; color:#3182ce;">페이퍼 (종이)</span></div>
+                <div class="formula-box" style="border-left: 5px solid #3182ce; color: #2c5282;">Pa(페이) <span class="highlight">|</span> per(퍼)<br>➔ 자음이 하나(p)일 땐 앞 모음 뒤(Tiger 규칙) 싹둑!</div>
+                <button class="speak-btn" style="background: #3182ce;" onclick="speakWord('Paper')">🔊 들어보기</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2 style="color: #c05621; text-align: center;">🏆 파닉스 통합 알고리즘 15제 최종 평가</h2>
+        <p style="text-align: center; font-weight: bold; color: #7b341e; margin-bottom: 20px;">이 15문제를 모두 통과하면 완벽한 파닉스 마스터로 인정합니다!</p>
+        
+        <div class="quiz-grid" id="quiz-container">
+            <div class="question-box">1. <b>M-a-k-e</b> 에서 맨 끝의 e는 어떤 역할을 할까?
+                <select id="q1"><option value="">선택</option><option value="마법">묵음이면서 a를 '에이'로 바꿈</option><option value="에">'에' 소리를 냄</option></select>
+            </div>
+            <div class="question-box">2. <b>S-m-i-l-e</b> 이 '스미레'가 아니라 '스마일'인 이유는?
+                <select id="q2"><option value="">선택</option><option value="이유">e가 묵음이고 i가 '아이'로 변해서</option><option value="받침">L이 받침이라서</option></select>
+            </div>
+            <div class="question-box">3. <b>H-o-p-e</b> (희망)는 어떻게 읽을까? (힌트: Hop은 합/홉)
+                <select id="q3"><option value="">선택</option><option value="호우프">호우프 (호프)</option><option value="호페">호페</option></select>
+            </div>
+
+            <div class="question-box" style="background:#ebf8ff;">4. 모음팀 <b>ai</b> 와 <b>ay</b> 에서 대장은 누구고 무슨 소리를 낼까?
+                <select id="q4"><option value="">선택</option><option value="A">A가 대장! '에이' 소리</option><option value="I">I가 대장! '아이' 소리</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">5. <b>S-e-a</b> (바다)는 어떻게 읽을까?
+                <select id="q5"><option value="">선택</option><option value="씨">씨 (E가 대장! 이~)</option><option value="세아">세아</option></select>
+            </div>
+            <div class="question-box" style="background:#ebf8ff;">6. <b>C-o-a-t</b> (외투)는 어떻게 읽을까?
+                <select id="q6"><option value="">선택</option><option value="코우트">코우트 (코트)</option><option value="코아트">코아트</option></select>
+            </div>
+
+            <div class="question-box" style="background:#f0fdf4;">7. 모음 뒤에 보스 <b>R</b>이 오면 모음의 원래 소리는 어떻게 될까?
+                <select id="q7"><option value="">선택</option><option value="지배">R에게 지배당해 혀가 굴러간다</option><option value="그대로">원래 소리 그대로 난다</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">8. <b>C-a-r</b> (자동차)은 어떻게 읽을까?
+                <select id="q8"><option value="">선택</option><option value="카-ㄹ">카-ㄹ (카)</option><option value="캐-ㄹ">캐-ㄹ (캐)</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">9. <b>er, ir, ur</b> 이 세 가지는 모두 무슨 소리가 날까?
+                <select id="q9"><option value="">선택</option><option value="어-ㄹ">어-ㄹ</option><option value="각자">각자 다 다른 소리</option></select>
+            </div>
+            <div class="question-box" style="background:#f0fdf4;">10. <b>C-o-r-n</b> (옥수수)은 어떻게 읽을까?
+                <select id="q10"><option value="">선택</option><option value="코-ㄹㄴ">코-ㄹㄴ (콘)</option><option value="커-ㄹㄴ">커-ㄹㄴ (컨)</option></select>
+            </div>
+
+            <div class="question-box" style="background:#faf5ff;">11. C와 H가 만난 합체 로봇 <b>CH</b>는 무슨 소리가 날까?
+                <select id="q11"><option value="">선택</option><option value="취">취 (칙폭폭!)</option><option value="쉬">쉬</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">12. 혀를 살짝 물었다가 빼는 특수 스킬 알파벳은?
+                <select id="q12"><option value="">선택</option><option value="TH">TH (쓰/뜨)</option><option value="SH">SH (쉬)</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">13. 긴 단어 <b>Rab-bit</b> 은 어디를 잘라야 할까?
+                <select id="q13"><option value="">선택</option><option value="Rab-bit">Rab | bit (자음 2개 사이)</option><option value="Ra-bbit">Ra | bbit</option></select>
+            </div>
+            <div class="question-box" style="background:#faf5ff;">14. 카멜레온 <b>G</b>는 뒤에 e, i, y가 오면 무슨 소리로 변신할까?
+                <select id="q14"><option value="">선택</option><option value="ㅈ">ㅈ (예: Magic)</option><option value="ㄱ">ㄱ</option></select>
+            </div>
+            <div class="question-box" style="background:#fff5f5;">15. [최종 점검] 지효는 이제 처음 보는 긴 영어 단어를 만나도 당황하지 않고 해독할 수 있나요?
+                <select id="q15"><option value="">선택</option><option value="Yes">Yes! 공식을 대입해서 스스로 쪼개 읽을 수 있어요! 😎</option><option value="No">No, 아직 무서워요</option></select>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="checkFinalAnswers()">📝 통합 시스템 마스터 제출 (채점하기)</button>
+        <div id="result-display"></div>
+    </div>
+</div>
+
+<script>
+    function speakWord(word) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(word);
+            u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1.1; 
+            window.speechSynthesis.speak(u);
+        }
+    }
+    
+    function checkFinalAnswers() {
+        const ans = { q1:'마법', q2:'이유', q3:'호우프', q4:'A', q5:'씨', q6:'코우트', q7:'지배', q8:'카-ㄹ', q9:'어-ㄹ', q10:'코-ㄹㄴ', q11:'취', q12:'TH', q13:'Rab-bit', q14:'ㅈ', q15:'Yes' };
+        let score = 0; let isAll = true;
+        
+        for (let i=1; i<=15; i++) {
+            let sel = document.getElementById('q' + i);
+            if (sel.value === "") { isAll = false; sel.style.borderColor = "#e53e3e"; }
+            else { 
+                sel.style.borderColor = "#cbd5e0"; 
+                if (sel.value === ans['q'+i]) score++; 
+            }
+        }
+        
+        let res = document.getElementById('result-display');
+        if (!isAll) { 
+            res.style.color = "#e53e3e"; 
+            res.innerHTML = "앗! 풀지 않은 알고리즘 퀴즈가 있어요. 끝까지 완료해주세요!"; 
+            return; 
+        }
+        
+        if (score === 15) { 
+            res.style.color = "#dd6b20"; 
+            res.innerHTML = "🎉 100점! 지효의 뇌에 완벽한 파닉스 해독 엔진이 장착되었습니다! 그랜드 마스터 등극! 🚀"; 
+        } else { 
+            res.style.color = "#e53e3e"; 
+            res.innerHTML = `앗, 15문제 중 ${score}문제를 맞혔어! 어떤 알고리즘에서 에러가 났는지 다시 볼까?`; 
+        }
+    }
+</script>
+</body>
+</html>
